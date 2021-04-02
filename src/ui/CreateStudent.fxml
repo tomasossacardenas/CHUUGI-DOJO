@@ -1,77 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
 
-<Pane fx:id="PaneCreateStudent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="PaneCreateStudent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
-         <left>
-            <AnchorPane prefHeight="400.0" prefWidth="269.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="272.0" fitWidth="232.0" layoutX="19.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/chuugi%20logo.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </left>
-         <right>
-            <AnchorPane prefHeight="400.0" prefWidth="333.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-               <children>
-                  <TextField fx:id="txtCreateStudentName" layoutX="166.0" layoutY="97.0" promptText="Nombre" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
-                  <Button layoutX="129.0" layoutY="343.0" mnemonicParsing="false" onAction="#generatePDF" text="generatePDF" />
-                  <Label layoutX="88.0" layoutY="45.0" text="Crear Estudiante" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="txtCreateStudentSurnames" layoutX="166.0" layoutY="136.0" promptText="Apellidos" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
-                  <TextField fx:id="txtCreateStudentId" layoutX="166.0" layoutY="173.0" promptText="Identificación" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
-                  <TextField fx:id="txtCreateStudentPhoneContact" layoutX="166.0" layoutY="211.0" promptText="Telefono de Contacto" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
-                  <TextField fx:id="txtCreateStudentPayersName" layoutX="166.0" layoutY="250.0" promptText="Nombre de quien paga" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
-                  <TextField fx:id="txtCreateStudentEmail" layoutX="166.0" layoutY="287.0" promptText="Email de contacto" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
-                  <Label layoutX="62.0" layoutY="93.0" prefHeight="35.0" prefWidth="81.0" text="Nombre:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="53.0" layoutY="132.0" prefHeight="35.0" prefWidth="90.0" text="Apellidos:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="19.0" layoutY="169.0" prefHeight="35.0" prefWidth="124.0" text="Identificación:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="58.0" layoutY="207.0" prefHeight="35.0" prefWidth="81.0" text="Teléfono:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="67.0" layoutY="246.0" prefHeight="35.0" prefWidth="71.0" text="Deudor:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="81.0" layoutY="283.0" prefHeight="35.0" prefWidth="54.0" text="Email:" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </right>
-      </BorderPane>
+      <ImageView fitHeight="45.0" fitWidth="131.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/CHUUGI%20JKA.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="26.0" layoutY="61.0" text="NOMBRE DEL ESTUDIANTE:" />
+      <Label layoutX="44.0" layoutY="87.0" text="FECHA DE NACIMIENTO:" />
+      <Label layoutX="43.0" layoutY="115.0" text="LUGAR DE NACIMIENTO:" />
+      <Label layoutX="36.0" layoutY="146.0" prefHeight="17.0" prefWidth="146.0" text="DOCUMENTO IDENTIDAD:" />
+      <Label layoutX="135.0" layoutY="170.0" prefHeight="17.0" prefWidth="42.0" text="SALUD:" />
+      <Label layoutX="99.0" layoutY="191.0" prefHeight="17.0" prefWidth="72.0" text="OCUPACION:" />
+      <Label layoutX="25.0" layoutY="224.0" prefHeight="17.0" prefWidth="96.0" text="NOMBRE PADRE:" />
+      <Label layoutX="15.0" layoutY="250.0" prefHeight="17.0" prefWidth="96.0" text="NOMBRE MADRE:" />
+      <Label layoutX="273.0" layoutY="224.0" prefHeight="17.0" prefWidth="55.0" text="CELULAR:" />
+      <Label layoutX="273.0" layoutY="250.0" prefHeight="17.0" prefWidth="55.0" text="CELULAR:" />
+      <Label layoutX="425.0" layoutY="224.0" prefHeight="17.0" prefWidth="42.0" text="EMAIL:" />
+      <Label layoutX="425.0" layoutY="250.0" prefHeight="17.0" prefWidth="42.0" text="EMAIL:" />
+      <Label layoutX="37.0" layoutY="278.0" prefHeight="17.0" prefWidth="72.0" text="DIRECCION:" />
+      <Label layoutX="317.0" layoutY="278.0" prefHeight="17.0" prefWidth="55.0" text="BARRIO:" />
+      <Label layoutX="17.0" layoutY="314.0" prefHeight="17.0" prefWidth="112.0" text="FECHA DE INGRESO:" />
+      <Label layoutX="307.0" layoutY="314.0" prefHeight="17.0" prefWidth="131.0" text="VALOR MENSUALIDAD:" />
+      <ImageView fitHeight="448.0" fitWidth="464.0" layoutX="84.0" layoutY="97.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/ESCUDO%20CHUUGI%20SIN%20NOMBRE%20(1).png" />
+         </image>
+      </ImageView>
+      <Label layoutX="18.0" layoutY="343.0" prefHeight="17.0" prefWidth="131.0" text="PLAN PAGO ENTRENO:" />
+      <Label layoutX="18.0" layoutY="370.0" prefHeight="17.0" prefWidth="131.0" text="DIAS DE ENTRENO:" />
+      <Label layoutX="65.0" layoutY="397.0" prefHeight="17.0" prefWidth="55.0" text="HORARIO:" />
+      <Label layoutX="17.0" layoutY="429.0" prefHeight="17.0" prefWidth="193.0" text="OBSERVACIONES DEL ESTUDIANTE:" />
+      <Label layoutX="10.0" layoutY="437.0" prefHeight="91.0" prefWidth="395.0" text="AUTORIZA LA REALIZACION DE FOTOGRAFIAS Y VIDEOS DE LAS ACTIVIDADES DEL DOJO ASI COMO SU PUBLICACION EN REDES SOCIALES" wrapText="true" />
+      <ImageView fitHeight="108.0" fitWidth="123.0" layoutX="463.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="txtStudentName" layoutX="177.0" layoutY="57.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentBornPlace" layoutX="177.0" layoutY="111.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentId" layoutX="177.0" layoutY="142.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentEPS" layoutX="177.0" layoutY="166.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentOcupation" layoutX="177.0" layoutY="187.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentFatherName" layoutX="117.0" layoutY="220.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentMotherName" layoutX="117.0" layoutY="246.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentFatherPhone" layoutX="328.0" layoutY="220.0" prefHeight="25.0" prefWidth="96.0" />
+      <TextField fx:id="txtStudentMotherPhone" layoutX="328.0" layoutY="246.0" prefHeight="25.0" prefWidth="96.0" />
+      <TextField fx:id="txtStudentFatherEmail" layoutX="463.0" layoutY="220.0" prefHeight="25.0" prefWidth="131.0" />
+      <TextField fx:id="txtStudentMotherEmail" layoutX="463.0" layoutY="246.0" prefHeight="25.0" prefWidth="131.0" />
+      <TextField fx:id="txtStudentAdress" layoutX="117.0" layoutY="274.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentNeighborhood" layoutX="373.0" layoutY="274.0" prefHeight="25.0" prefWidth="181.0" />
+      <CheckBox fx:id="tarjetaIdentidad" layoutX="345.0" layoutY="146.0" mnemonicParsing="false" text="TI" />
+      <CheckBox fx:id="cedula" layoutX="393.0" layoutY="146.0" mnemonicParsing="false" text="CC" />
+      <DatePicker fx:id="txtStudentBornDate" layoutX="178.0" layoutY="83.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="txtStudentRegisterDate" layoutX="129.0" layoutY="310.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtStudentMensualidad" layoutX="438.0" layoutY="310.0" prefHeight="25.0" prefWidth="96.0" />
+      <CheckBox fx:id="mensualidad" layoutX="162.0" layoutY="343.0" mnemonicParsing="false" text="MENSUALIDAD" />
+      <CheckBox fx:id="horaEntrenada" layoutX="304.0" layoutY="343.0" mnemonicParsing="false" text="HORA ENTRENADA" />
+      <CheckBox fx:id="lunes" layoutX="160.0" layoutY="370.0" mnemonicParsing="false" text="L" />
+      <CheckBox fx:id="martes" layoutX="198.0" layoutY="370.0" mnemonicParsing="false" text="M" />
+      <CheckBox fx:id="miercoles" layoutX="240.0" layoutY="370.0" mnemonicParsing="false" text="MI" />
+      <CheckBox fx:id="jueves" layoutX="287.0" layoutY="370.0" mnemonicParsing="false" text="J" />
+      <CheckBox fx:id="viernes" layoutX="329.0" layoutY="370.0" mnemonicParsing="false" text="V" />
+      <CheckBox fx:id="fiveToSix" layoutX="160.0" layoutY="397.0" mnemonicParsing="false" text="5:00-6:00" />
+      <CheckBox fx:id="sixToSeven" layoutX="241.0" layoutY="397.0" mnemonicParsing="false" text="6:00-7:00" />
+      <CheckBox fx:id="sevenToEight" layoutX="322.0" layoutY="397.0" mnemonicParsing="false" text="7:00-8:00" />
+      <CheckBox fx:id="twoToThree" layoutX="406.0" layoutY="397.0" mnemonicParsing="false" text="2:00-3:00" />
+      <CheckBox fx:id="si" layoutX="408.0" layoutY="474.0" mnemonicParsing="false" text="SI" />
+      <CheckBox fx:id="no" layoutX="447.0" layoutY="474.0" mnemonicParsing="false" text="NO" />
+      <TextArea fx:id="txtStudentObservations" layoutX="211.0" layoutY="418.0" prefHeight="38.0" prefWidth="362.0" />
+      <Label layoutX="18.0" layoutY="505.0" prefHeight="72.0" prefWidth="103.0" text="LOS ARCHIVOS AÑADIDOS SON:" wrapText="true" />
+      <Button layoutX="436.0" layoutY="529.0" mnemonicParsing="false" onAction="#openFileChooserFiles" text="Buscar Archivo" />
+      <Button layoutX="437.0" layoutY="558.0" mnemonicParsing="false" onAction="#addFileToStudent" text="Añadir archivo" />
+      <TextArea fx:id="txtStudentAddedFiles" layoutX="133.0" layoutY="498.0" prefHeight="88.0" prefWidth="268.0" />
+      <Label fx:id="LabelRutaArchivos" layoutX="451.0" layoutY="508.0" text="Ruta Archivo" />
+      <Button layoutX="148.0" layoutY="595.0" mnemonicParsing="false" onAction="#createStudent" text="Crear Estudiante" />
+      <Button layoutX="303.0" layoutY="596.0" mnemonicParsing="false" onAction="#generateCreatePDF" text="Generar PDF" />
+      <Button layoutX="351.0" layoutY="57.0" mnemonicParsing="false" onAction="#openFileChooserPicture" text="Buscar Foto" />
+      <Label fx:id="LabelRutaFoto" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="38.0" prefHeight="17.0" prefWidth="130.0" text="Ruta de la foto" />
    </children>
 </Pane>

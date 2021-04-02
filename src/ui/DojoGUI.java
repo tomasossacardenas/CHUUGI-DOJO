@@ -1,5 +1,6 @@
 package ui;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -9,11 +10,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import model.Dojo;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -62,29 +68,7 @@ public class DojoGUI {
     @FXML
     private Pane PaneOptionsWindow;
 
-// CreateStudent fxml
-    
-    @FXML
-    private Pane PaneCreateStudent;
-
-    @FXML
-    private TextField txtCreateStudentName;
-
-    @FXML
-    private TextField txtCreateStudentSurnames;
-
-    @FXML
-    private TextField txtCreateStudentId;
-
-    @FXML
-    private TextField txtCreateStudentPhoneContact;
-
-    @FXML
-    private TextField txtCreateStudentPayersName;
-
-    @FXML
-    private TextField txtCreateStudentEmail;
-
+//optionsWindow methods
     @FXML
     void openLoginScreen(ActionEvent event) throws IOException {
 		FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
@@ -109,6 +93,7 @@ public class DojoGUI {
 		PaneOptionsWindow.getChildren().setAll(root);
     }
 
+//login methods
     @FXML
     public void buttonSignIn(ActionEvent event) throws IOException {
     	String dojoUserUsername= dojo.getUsuario().getUsername();
@@ -140,8 +125,8 @@ public class DojoGUI {
     }
     
     @FXML
-    void generatePDF(ActionEvent event) throws FileNotFoundException {//method of the button createStudent its TEMPORAL
-    	FileOutputStream archivo= new FileOutputStream("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes\\"+txtCreateStudentId.getText()+".pdf");
+    public void generatePDF(ActionEvent event) throws FileNotFoundException {//method of the button createStudent its TEMPORAL
+    	FileOutputStream archivo= new FileOutputStream("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes\\"+txtStudentId.getText()+".pdf");
     	
     	Document document= new Document();  
     	
@@ -184,11 +169,7 @@ public class DojoGUI {
         table.addCell(getCell(foto, PdfPCell.ALIGN_RIGHT));
         document.add(table);
         
-        document.add(new Paragraph(""));
-        document.add(new Paragraph(""));
-        document.add(new Paragraph(""));
-        document.add(new Paragraph(""));
-        document.add(new Paragraph(""));
+        document.add(new Paragraph("\n\n\n\n"));
         
         Paragraph parrafoPago = new Paragraph();
         parrafoPago.add("FECHA: \n"+
@@ -203,15 +184,13 @@ public class DojoGUI {
         parrafoPagoR.setFont(FontFactory.getFont("Tahoma", 18));
         
         PdfPTable tablePago = new PdfPTable(2);
-        tablePago.setWidthPercentage(100);
-        tablePago.addCell(getCell(parrafoPago.getContent(), PdfPCell.ALIGN_RIGHT));
+        tablePago.setWidthPercentage(70);
+        tablePago.addCell(getCell(parrafoPago.getContent(), PdfPCell.ALIGN_CENTER));
         tablePago.addCell(getCell(parrafoPagoR.getContent(), PdfPCell.ALIGN_LEFT));
         document.add(tablePago);
         
-        
-        
-        
     }
+    
     public static PdfPCell getCell(String text, int alignment) {//configuracion de la celda del texto (izquierda)
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPadding(0);
@@ -219,6 +198,7 @@ public class DojoGUI {
         cell.setBorder(PdfPCell.NO_BORDER);
         return cell;
     }
+    
     public static PdfPCell getCell(Image img, int alignment) {//configuracion de la celda de la imagen (derecha)
         PdfPCell cell = new PdfPCell();
         cell.addElement(img);
@@ -226,6 +206,151 @@ public class DojoGUI {
         cell.setHorizontalAlignment(alignment);
         cell.setBorder(PdfPCell.NO_BORDER);
         return cell;
+    }
+    
+//createStudent fxml
+
+    @FXML
+    private Pane PaneCreateStudent;
+
+    @FXML
+    private TextField txtStudentName;
+
+    @FXML
+    private TextField txtStudentBornPlace;
+
+    @FXML
+    private TextField txtStudentId;
+
+    @FXML
+    private TextField txtStudentEPS;
+
+    @FXML
+    private TextField txtStudentOcupation;
+
+    @FXML
+    private TextField txtStudentFatherName;
+
+    @FXML
+    private TextField txtStudentMotherName;
+
+    @FXML
+    private TextField txtStudentFatherPhone;
+
+    @FXML
+    private TextField txtStudentMotherPhone;
+
+    @FXML
+    private TextField txtStudentFatherEmail;
+
+    @FXML
+    private TextField txtStudentMotherEmail;
+
+    @FXML
+    private TextField txtStudentAdress;
+
+    @FXML
+    private TextField txtStudentNeighborhood;
+
+    @FXML
+    private CheckBox tarjetaIdentidad;
+
+    @FXML
+    private CheckBox cedula;
+
+    @FXML
+    private DatePicker txtStudentBornDate;
+
+    @FXML
+    private DatePicker txtStudentRegisterDate;
+
+    @FXML
+    private TextField txtStudentMensualidad;
+
+    @FXML
+    private CheckBox mensualidad;
+
+    @FXML
+    private CheckBox horaEntrenada;
+
+    @FXML
+    private CheckBox lunes;
+
+    @FXML
+    private CheckBox martes;
+
+    @FXML
+    private CheckBox miercoles;
+
+    @FXML
+    private CheckBox jueves;
+
+    @FXML
+    private CheckBox viernes;
+
+    @FXML
+    private CheckBox fiveToSix;
+
+    @FXML
+    private CheckBox sixToSeven;
+
+    @FXML
+    private CheckBox sevenToEight;
+
+    @FXML
+    private CheckBox twoToThree;
+
+    @FXML
+    private CheckBox si;
+
+    @FXML
+    private CheckBox no;
+
+    @FXML
+    private TextArea txtStudentObservations;
+
+    @FXML
+    private TextArea txtStudentAddedFiles;
+
+    @FXML
+    private Label LabelRutaArchivos;
+
+    @FXML
+    private Label LabelRutaFoto;
+
+    @FXML
+    void addFileToStudent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void createStudent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void generateCreatePDF(ActionEvent event) {
+
+    }
+
+    @FXML
+    void openFileChooserPicture(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        File selectedFile= fc.showOpenDialog(null);
+        
+        if(selectedFile!=null) {
+        	LabelRutaFoto.setText(selectedFile.getAbsolutePath());
+        }
+    }
+    
+    @FXML
+    void openFileChooserFiles(ActionEvent event) {
+        FileChooser fc = new FileChooser();
+        File selectedFile= fc.showOpenDialog(null);
+        
+        if(selectedFile!=null) {
+        	LabelRutaArchivos.setText(selectedFile.getAbsolutePath());
+        }
     }
 
 }

@@ -1,9 +1,13 @@
 package ui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Dojo;
 
@@ -16,7 +20,16 @@ public class Main extends Application {
 	public Main() {
 		dojo = new Dojo();
 		chuugiDojo=new DojoGUI(dojo);
-	
+		
+		try {
+			dojo.loadStudentsData();		
+		}catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+			Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Dojo Data");
+    		alert.setContentText("Error al cargar datos de los alumnos del dojo");
+			alert.showAndWait();
+		}
 	}
 	
 	public static void main(String[] args) {
