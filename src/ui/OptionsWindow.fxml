@@ -20,9 +20,10 @@
                         <MenuItem mnemonicParsing="false" text="Ver usuarios" />
                      </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Añadir">
+                  <Menu mnemonicParsing="false" text="Alumnos">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Añadir alumno" />
+                        <MenuItem mnemonicParsing="false" onAction="#openCreateStudent" text="Añadir alumno" />
+                        <MenuItem mnemonicParsing="false" onAction="#openDeleteStudent" text="Eliminar Alumno" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Importar Datos">
