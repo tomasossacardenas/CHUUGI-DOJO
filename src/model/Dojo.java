@@ -4,8 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,20 +47,46 @@ public class Dojo {
 		return dialog;
 	}
 	
-	public void createStudent(String name, String bornDate, String bornPlace, String id, Image profilePicture, String idType,
+	public void fileCopy(String sourceFile, String destinationFile) {
+		Path origenPath = FileSystems.getDefault().getPath(sourceFile);
+        Path destinoPath = FileSystems.getDefault().getPath(destinationFile);
+        
+        try {
+        	Path copiar= Files.copy(origenPath, destinoPath.resolve(origenPath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
+        	System.out.println("SE COPIO A LA DIRECCION "+destinoPath);
+        }catch(IOException e) {
+        	
+        }
+
+    }
+	
+	public void createStudent(String name,String rh, String sex,  String bornDate, String bornPlace, String id, String profilePicture, String idType,
 			String eps, String ocupation, String fatherName, String fatherPhone, String fatherEmail, String motherName,
 			String motherPhone, String motherEmail, String adress, String neighborhood, String registerDate,
 			double valueMensualidad, String planPagoEntreno, List<String> trainDays, List<String> scheduleDays,
-			String observations, boolean authorization, List<String> filesPath) throws IOException {
+			String observations, boolean authorization,String filesDescription, List<String> filesPath) throws IOException {
 		
 		Student student= findStudent(id);
 		
+		
 		if(student==null) {
-			students.add(new Student(name, bornDate, bornPlace, id, profilePicture, idType, eps, ocupation, fatherName, fatherPhone, fatherEmail
+			students.add(new Student(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps, ocupation, fatherName, fatherPhone, fatherEmail
 					, motherName, motherPhone, motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
-					trainDays, scheduleDays, observations, authorization, filesPath));
+					trainDays, scheduleDays, observations, authorization,filesDescription,filesPath));
+			
+			File directorio = new File("data/"+name+id); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
+			directorio.mkdir();
+			
+			for(int i=0;i<filesPath.size();i++) {
+				fileCopy(filesPath.get(i), (directorio.getAbsolutePath()));
+			}
 			
 			saveStudentsData();
+			
+     		Dialog<String> dialog = createDialog();
+     		dialog.setTitle("Estudiante creado");
+     		dialog.setContentText("El estudiante ha sido creado satisfactoriamente");
+     		dialog.show(); 
 		}
 		else {
 			Dialog<String> dialog = createDialog();
@@ -79,7 +111,7 @@ public class Dojo {
 		}
 	}
 
-	private Student findStudent(String id) {
+	public Student findStudent(String id) {
 		boolean exit=false;
 		Student student=null;
 		for(int i=0;i<students.size() && exit==false;i++) {

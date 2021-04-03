@@ -3,17 +3,17 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 
-import javafx.scene.image.Image;
-
 public class Student implements Serializable {
 	//Constants	
 	private static final long serialVersionUID = 1;
 	//Attributes
 	private String name;
+	private String RH;
+	private String sex;
 	private String bornDate;
 	private String bornPlace;
 	private String id;
-	private Image profilePicture;
+	private String profilePicture;
 	private String idType;
 	private String eps;
 	private String ocupation;
@@ -32,20 +32,23 @@ public class Student implements Serializable {
 	private List<String> scheduleDays;
 	private String observations;
 	private boolean authorization;
+	private String filesDescription;
 	private List<String> filesPath;
 	
 	//Constructor
-	public Student(String name, String bornDate, String bornPlace, String id, Image profilePicture, String idType,
+	public Student(String name,String rh, String sex, String bornDate, String bornPlace, String id, String profilePicture, String idType,
 			String eps, String ocupation, String fatherName, String fatherPhone, String fatherEmail, String motherName,
 			String motherPhone, String motherEmail, String adress, String neighborhood, String registerDate,
 			double valueMensualidad, String planPagoEntreno, List<String> trainDays, List<String> scheduleDays,
-			String observations, boolean authorization, List<String> filesPath) {
+			String observations, boolean authorization,String filesDescription, List<String> filesPath) {
 		
 		this.name = name;
+		this.RH=rh;
+		this.sex=sex;
 		this.bornDate = bornDate;
 		this.bornPlace = bornPlace;
 		this.id = id;
-		this.profilePicture = profilePicture;
+		this.setProfilePicture(profilePicture);
 		this.idType = idType;
 		this.eps = eps;
 		this.ocupation = ocupation;
@@ -64,6 +67,7 @@ public class Student implements Serializable {
 		this.scheduleDays = scheduleDays;
 		this.observations = observations;
 		this.authorization = authorization;
+		this.filesDescription=filesDescription;
 		this.filesPath = filesPath;
 	}
 	
@@ -98,14 +102,6 @@ public class Student implements Serializable {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public Image getProfilePicture() {
-		return profilePicture;
-	}
-
-	public void setProfilePicture(Image profilePicture) {
-		this.profilePicture = profilePicture;
 	}
 
 	public String getIdType() {
@@ -262,6 +258,50 @@ public class Student implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", bornDate=" + bornDate + ", bornPlace=" + bornPlace + ", id=" + id
+				+ ", profilePicture=" + profilePicture + ", idType=" + idType + ", eps=" + eps + ", ocupation="
+				+ ocupation + ", fatherName=" + fatherName + ", fatherPhone=" + fatherPhone + ", fatherEmail="
+				+ fatherEmail + ", motherName=" + motherName + ", motherPhone=" + motherPhone + ", motherEmail="
+				+ motherEmail + ", adress=" + adress + ", neighborhood=" + neighborhood + ", registerDate="
+				+ registerDate + ", valueMensualidad=" + valueMensualidad + ", planPagoEntreno=" + planPagoEntreno
+				+ ", trainDays=" + trainDays + ", scheduleDays=" + scheduleDays + ", observations=" + observations
+				+ ", authorization=" + authorization + ", filesPath=" + filesPath + "]";
+	}
+
+	public String getFilesDescription() {
+		return filesDescription;
+	}
+
+	public void setFilesDescription(String filesDescription) {
+		this.filesDescription = filesDescription;
+	}
+
+	public String getRH() {
+		return RH;
+	}
+
+	public void setRH(String rH) {
+		RH = rH;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	
 	
