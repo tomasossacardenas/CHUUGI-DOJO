@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="PaneUpdateStudent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="648.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="45.0" fitWidth="131.0" layoutX="25.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/CHUUGI%20JKA.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="24.0" layoutY="87.0" text="NOMBRE DEL ESTUDIANTE:" />
+      <Label layoutX="43.0" layoutY="115.0" text="LUGAR DE NACIMIENTO:" />
+      <Label layoutX="36.0" layoutY="146.0" prefHeight="17.0" prefWidth="146.0" text="DOCUMENTO IDENTIDAD:" />
+      <Label layoutX="29.0" layoutY="170.0" prefHeight="17.0" prefWidth="45.0" text="SALUD:" />
+      <Label layoutX="97.0" layoutY="198.0" prefHeight="17.0" prefWidth="72.0" text="OCUPACION:" />
+      <Label layoutX="25.0" layoutY="224.0" prefHeight="17.0" prefWidth="96.0" text="NOMBRE PADRE:" />
+      <Label layoutX="15.0" layoutY="250.0" prefHeight="17.0" prefWidth="96.0" text="NOMBRE MADRE:" />
+      <Label layoutX="273.0" layoutY="224.0" prefHeight="17.0" prefWidth="55.0" text="CELULAR:" />
+      <Label layoutX="273.0" layoutY="250.0" prefHeight="17.0" prefWidth="55.0" text="CELULAR:" />
+      <Label layoutX="425.0" layoutY="224.0" prefHeight="17.0" prefWidth="42.0" text="EMAIL:" />
+      <Label layoutX="425.0" layoutY="250.0" prefHeight="17.0" prefWidth="42.0" text="EMAIL:" />
+      <Label layoutX="37.0" layoutY="278.0" prefHeight="17.0" prefWidth="72.0" text="DIRECCION:" />
+      <Label layoutX="317.0" layoutY="278.0" prefHeight="17.0" prefWidth="55.0" text="BARRIO:" />
+      <Label layoutX="18.0" layoutY="316.0" prefHeight="17.0" prefWidth="131.0" text="VALOR MENSUALIDAD:" />
+      <ImageView fitHeight="119.0" fitWidth="137.0" layoutX="84.0" layoutY="426.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/escudo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="18.0" layoutY="343.0" prefHeight="17.0" prefWidth="131.0" text="PLAN PAGO ENTRENO:" />
+      <Label layoutX="18.0" layoutY="370.0" prefHeight="17.0" prefWidth="131.0" text="DIAS DE ENTRENO:" />
+      <Label layoutX="65.0" layoutY="397.0" prefHeight="17.0" prefWidth="55.0" text="HORARIO:" />
+      <Label layoutX="17.0" layoutY="429.0" prefHeight="17.0" prefWidth="193.0" text="OBSERVACIONES DEL ESTUDIANTE:" />
+      <ImageView fx:id="updateProfilePicture" fitHeight="108.0" fitWidth="123.0" layoutX="463.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="txtUpdateStudentName" editable="false" layoutX="177.0" layoutY="83.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentBornPlace" editable="false" layoutX="177.0" layoutY="111.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentId" editable="false" layoutX="177.0" layoutY="142.0" prefHeight="25.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentEPS" layoutX="78.0" layoutY="166.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentOcupation" layoutX="179.0" layoutY="194.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentFatherName" editable="false" layoutX="117.0" layoutY="220.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentMotherName" editable="false" layoutX="117.0" layoutY="246.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentFatherPhone" layoutX="328.0" layoutY="220.0" prefHeight="25.0" prefWidth="96.0" />
+      <TextField fx:id="txtUpdateStudentMotherPhone" layoutX="328.0" layoutY="246.0" prefHeight="25.0" prefWidth="96.0" />
+      <TextField fx:id="txtUpdateStudentFatherEmail" layoutX="463.0" layoutY="220.0" prefHeight="25.0" prefWidth="131.0" />
+      <TextField fx:id="txtUpdateStudentMotherEmail" layoutX="463.0" layoutY="246.0" prefHeight="25.0" prefWidth="131.0" />
+      <TextField fx:id="txtUpdateStudentAdress" layoutX="117.0" layoutY="274.0" prefHeight="1.0" prefWidth="149.0" />
+      <TextField fx:id="txtUpdateStudentNeighborhood" layoutX="373.0" layoutY="274.0" prefHeight="25.0" prefWidth="181.0" />
+      <TextField fx:id="txtUpdateStudentMensualidad" layoutX="150.0" layoutY="312.0" prefHeight="25.0" prefWidth="96.0" />
+      <CheckBox fx:id="updateMensualidad" layoutX="162.0" layoutY="343.0" mnemonicParsing="false" text="MENSUALIDAD" />
+      <CheckBox fx:id="updateHoraEntrenada" layoutX="304.0" layoutY="343.0" mnemonicParsing="false" text="HORA ENTRENADA" />
+      <CheckBox fx:id="updateLunes" layoutX="160.0" layoutY="370.0" mnemonicParsing="false" text="L" />
+      <CheckBox fx:id="updateMartes" layoutX="198.0" layoutY="370.0" mnemonicParsing="false" text="M" />
+      <CheckBox fx:id="updateMiercoles" layoutX="240.0" layoutY="370.0" mnemonicParsing="false" text="MI" />
+      <CheckBox fx:id="updateJueves" layoutX="287.0" layoutY="370.0" mnemonicParsing="false" text="J" />
+      <CheckBox fx:id="updateViernes" layoutX="329.0" layoutY="370.0" mnemonicParsing="false" text="V" />
+      <CheckBox fx:id="updateFiveToSix" layoutX="160.0" layoutY="397.0" mnemonicParsing="false" text="5:00-6:00" />
+      <CheckBox fx:id="updateSixToSeven" layoutX="241.0" layoutY="397.0" mnemonicParsing="false" text="6:00-7:00" />
+      <CheckBox fx:id="updateSevenToEight" layoutX="322.0" layoutY="397.0" mnemonicParsing="false" text="7:00-8:00" />
+      <CheckBox fx:id="updateTwoToThree" layoutX="406.0" layoutY="397.0" mnemonicParsing="false" text="2:00-3:00" />
+      <TextArea fx:id="txtUpdateObservations" layoutX="211.0" layoutY="418.0" prefHeight="38.0" prefWidth="362.0" />
+      <Label layoutX="18.0" layoutY="505.0" prefHeight="72.0" prefWidth="103.0" text="LOS ARCHIVOS AÑADIDOS SON:" wrapText="true" />
+      <Button layoutX="436.0" layoutY="529.0" mnemonicParsing="false" onAction="#openFileChooserFiles" text="Buscar Archivo" />
+      <Button layoutX="437.0" layoutY="558.0" mnemonicParsing="false" onAction="#updateAddFileToStudent" text="Añadir archivo" />
+      <TextArea fx:id="txtUpdateStudentAddedFiles" layoutX="133.0" layoutY="498.0" prefHeight="88.0" prefWidth="268.0" />
+      <Label fx:id="LabelUpdateRutaArchivos" layoutX="451.0" layoutY="508.0" text="Ruta Archivo" />
+      <Button layoutX="148.0" layoutY="595.0" mnemonicParsing="false" onAction="#updateStudent" text="Actualizar Informacion" />
+      <Button layoutX="303.0" layoutY="596.0" mnemonicParsing="false" onAction="#updateGeneratePDF" text="Generar PDF" />
+      <Button layoutX="351.0" layoutY="57.0" mnemonicParsing="false" onAction="#openFileChooserPicture" text="Buscar Foto" />
+      <Label fx:id="LabelUpdateRutaFoto" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="38.0" prefHeight="17.0" prefWidth="130.0" text="Ruta de la foto" />
+      <CheckBox fx:id="updateSabado" layoutX="370.0" layoutY="370.0" mnemonicParsing="false" text="S" />
+      <Button layoutX="342.0" layoutY="83.0" mnemonicParsing="false" onAction="#updateProfilePcture" text="Actualizar Foto" />
+      <Label layoutX="252.0" layoutY="169.0" prefHeight="17.0" prefWidth="45.0" text="RH:" />
+      <TextField fx:id="txtUpdateStudentRH" editable="false" layoutX="273.0" layoutY="166.0" prefHeight="25.0" prefWidth="75.0" />
+      <Label layoutX="379.0" layoutY="171.0" prefHeight="17.0" prefWidth="37.0" text="SEXO:" />
+      <TextField fx:id="txtUpdateStudentSex" editable="false" layoutX="421.0" layoutY="165.0" prefHeight="25.0" prefWidth="119.0" />
+      <Label layoutX="19.0" layoutY="440.0" prefHeight="91.0" prefWidth="395.0" text="AUTORIZA LA REALIZACION DE FOTOGRAFIAS Y VIDEOS DE LAS ACTIVIDADES DEL DOJO ASI COMO SU PUBLICACION EN REDES SOCIALES" wrapText="true" />
+      <CheckBox fx:id="updateSi" layoutX="382.0" layoutY="469.0" mnemonicParsing="false" text="SI" />
+      <CheckBox fx:id="updateNo" layoutX="431.0" layoutY="469.0" mnemonicParsing="false" text="NO" />
+      <CheckBox fx:id="updateTarjetaIdentidad" layoutX="342.0" layoutY="146.0" mnemonicParsing="false" text="TI" />
+      <CheckBox fx:id="updateCedula" layoutX="382.0" layoutY="146.0" mnemonicParsing="false" text="CC" />
+   </children>
+</Pane>

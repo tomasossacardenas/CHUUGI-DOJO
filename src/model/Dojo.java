@@ -19,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
+import javafx.util.Callback;
 
 public class Dojo {
 	//Relations
@@ -143,5 +144,15 @@ public class Dojo {
 		 oos.writeObject(students);
 		 oos.close();
 	 }
+
+	public List<Student> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<Student> students) {
+		this.students = students;
+	}
+
+
 	
 }

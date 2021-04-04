@@ -16,8 +16,7 @@
                <menus>
                   <Menu mnemonicParsing="false" text="Visualizar">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Ver Alumnos" />
-                        <MenuItem mnemonicParsing="false" text="Ver usuarios" />
+                        <MenuItem mnemonicParsing="false" onAction="#openStudentsList" text="Ver Alumnos" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Alumnos">

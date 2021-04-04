@@ -33,9 +33,9 @@
       <Label layoutX="317.0" layoutY="278.0" prefHeight="17.0" prefWidth="55.0" text="BARRIO:" />
       <Label layoutX="17.0" layoutY="314.0" prefHeight="17.0" prefWidth="112.0" text="FECHA DE INGRESO:" />
       <Label layoutX="307.0" layoutY="314.0" prefHeight="17.0" prefWidth="131.0" text="VALOR MENSUALIDAD:" />
-      <ImageView fitHeight="119.0" fitWidth="137.0" layoutX="84.0" layoutY="426.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="450.0" fitWidth="460.0" layoutX="84.0" layoutY="95.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../icons/ESCUDO%20CHUUGI%20SIN%20NOMBRE%20(1).png" />
+            <Image url="@../icons/escudo.png" />
          </image>
       </ImageView>
       <Label layoutX="18.0" layoutY="343.0" prefHeight="17.0" prefWidth="131.0" text="PLAN PAGO ENTRENO:" />

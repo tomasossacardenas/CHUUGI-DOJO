@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,15 +21,18 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import model.Dojo;
 import model.Student;
-
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -36,7 +42,6 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-//import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 
@@ -74,155 +79,6 @@ public class DojoGUI {
 
     @FXML
     private Pane PaneOptionsWindow;
-
-//optionsWindow methods
-    @FXML
-    void openLoginScreen(ActionEvent event) throws IOException {
-		FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
-		login.setController(this);
-		Parent rootLogin = login.load();
-		OptionsWindow.getChildren().setAll(rootLogin);
-		txtLoginUsername.getScene().getWindow().setWidth(610);
-		txtLoginUsername.getScene().getWindow().setHeight(425);
-    }
-    
-    @FXML
-    void openCreateStudent(ActionEvent event) throws IOException {
-    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("CreateStudent.fxml"));
-		fxml.setController(this);
-		Parent root= fxml.load();
-		PaneOptionsWindow.getChildren().setAll(root);
-		LabelRutaFoto.getScene().getWindow().setWidth(620);
-		LabelRutaFoto.getScene().getWindow().setHeight(695);
-		filesOfStudent.clear();
-    }
-   
-    @FXML
-    void openDeleteStudent(ActionEvent event) throws IOException {
-    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("DeleteStudent.fxml"));
-		fxml.setController(this);
-		Parent root= fxml.load();
-		PaneOptionsWindow.getChildren().setAll(root);
-    }
-
-//login methods
-    @FXML
-    public void buttonSignIn(ActionEvent event) throws IOException {
-    	String dojoUserUsername= dojo.getUsuario().getUsername();
-    	String dojoUserPassword= dojo.getUsuario().getPassword();
-
-    	if(!txtLoginUsername.getText().equals("") && !txtLoginPassword.getText().equals("")) {
-
-    		if(txtLoginUsername.getText().equals(dojoUserUsername) && txtLoginPassword.getText().equals(dojoUserPassword)) {
-				FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("OptionsWindow.fxml"));
-				optionsFxml.setController(this);
-				Parent opWindow = optionsFxml.load();
-				mainPaneLogin.getChildren().setAll(opWindow);
-				OptionsWindow.getScene().getWindow().setWidth(615);
-				OptionsWindow.getScene().getWindow().setHeight(450);
-    		}
-    		
-    		else {
-    			Dialog<String> dialog = createDialog();
-    			dialog.setTitle("Error, datos incorrectos");
-    			dialog.setContentText("El nombre de usuario o contraseña son incorrectos");
-    			dialog.show();
-    		}
-    	}
-    	else {
-    		Dialog<String> dialog = createDialog();
-    		dialog.setTitle("Error al guardar datos");
-    		dialog.setContentText("Todos los campos son requeridos");
-    		dialog.show();
-    	}
-
-    }
-    
-    @FXML
-    public void generatePDF(ActionEvent event) throws FileNotFoundException {//method of the button createStudent its TEMPORAL
-    	FileOutputStream archivo= new FileOutputStream("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes\\"+txtStudentId.getText()+".pdf");
-    	
-    	Document document= new Document();  
-    	
-    	try {//
-			PdfWriter.getInstance(document, archivo);
-			document.open();
-			addMetaData(document);
-		} catch (DocumentException e) {
-			e.printStackTrace();
-		}
-    	document.close();
-    	
-    	
-    }
-    
-    private static void addMetaData(Document document) throws DocumentException {
-    	com.itextpdf.text.Image fotoLogo=null;
-   
-        try
-        {
-        	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\src\\icons\\CHUUGI JKA.jpg");
-        	fotoLogo.scaleToFit(200, 200);
-        	fotoLogo.setAlignment(Chunk.ALIGN_LEFT);
-        	
-        }
-        catch ( Exception e )
-        {
-        	e.printStackTrace();
-        }
-        
-        Paragraph p = new Paragraph("EDIFICIO LOS GUADUALES\n"
-        							+ "NIT:67007645-6\n"
-        							+ "LUZ EDITH ORTIZ C. \n"
-        							+ "info@chuugidojo.com \n"
-        							+ "Celular:(310 650 7454)-(313 559 2722) \n\n");
-        p.setFont(FontFactory.getFont("Tahoma", 18));
-        
-        PdfPTable table = new PdfPTable(2);
-        table.setWidthPercentage(100);
-        table.addCell(getCell(p.getContent(), PdfPCell.ALIGN_LEFT));
-        table.addCell(getCell(fotoLogo, PdfPCell.ALIGN_RIGHT));
-        document.add(table);
-        
-        document.add(new Paragraph("\n\n\n\n"));
-        
-        Paragraph parrafoPago = new Paragraph();
-        parrafoPago.add("FECHA: \n"+
-        				"RECIBÍ DE: \n"+
-        				"LA SUMA DE: \n");
-        parrafoPago.setFont(FontFactory.getFont("Tahoma", 18, Font.BOLD));
-        
-        Paragraph parrafoPagoR = new Paragraph();
-        parrafoPagoR.add("fecha Actual\n"+
-        				"Persona quien paga\n"+
-        				"Total que pagó \n");
-        parrafoPagoR.setFont(FontFactory.getFont("Tahoma", 18));
-        
-        PdfPTable tablePago = new PdfPTable(2);
-        tablePago.setWidthPercentage(70);
-        tablePago.addCell(getCell(parrafoPago.getContent(), PdfPCell.ALIGN_CENTER));
-        tablePago.addCell(getCell(parrafoPagoR.getContent(), PdfPCell.ALIGN_LEFT));
-        document.add(tablePago);
-        
-    }
-    
-    public static PdfPCell getCell(String text, int alignment) {//configuracion de la celda del texto (izquierda)
-        PdfPCell cell = new PdfPCell(new Phrase(text));
-        cell.setPadding(0);
-        cell.setHorizontalAlignment(alignment);
-        cell.setBorder(PdfPCell.NO_BORDER);
-        return cell;
-    }
-    
-    public static PdfPCell getCell(com.itextpdf.text.Image img, int alignment) {//configuracion de la celda de la imagen (derecha)
-        PdfPCell cell = new PdfPCell();
-        cell.addElement(img);
-        cell.setPadding(0);
-        cell.setHorizontalAlignment(alignment);
-        cell.setBorder(PdfPCell.NO_BORDER);
-        return cell;
-    }
     
 //createStudent fxml
 
@@ -347,7 +203,166 @@ public class DojoGUI {
     private ImageView profilePicture;
     
     private List<String>filesOfStudent= new ArrayList<>();
+
+//optionsWindow methods
+    @FXML
+    void openLoginScreen(ActionEvent event) throws IOException {
+		FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
+		login.setController(this);
+		Parent rootLogin = login.load();
+		OptionsWindow.getChildren().setAll(rootLogin);
+		txtLoginUsername.getScene().getWindow().setWidth(610);
+		txtLoginUsername.getScene().getWindow().setHeight(425);
+    }
     
+    @FXML
+    void openCreateStudent(ActionEvent event) throws IOException {
+    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("CreateStudent.fxml"));
+		fxml.setController(this);
+		Parent root= fxml.load();
+		PaneOptionsWindow.getChildren().setAll(root);
+		LabelRutaFoto.getScene().getWindow().setWidth(620);
+		LabelRutaFoto.getScene().getWindow().setHeight(695);
+		filesOfStudent.clear();
+    }
+   
+    @FXML
+    void openDeleteStudent(ActionEvent event) throws IOException {
+    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("DeleteStudent.fxml"));
+		fxml.setController(this);
+		Parent root= fxml.load();
+		PaneOptionsWindow.getChildren().setAll(root);
+    }
+    @FXML
+    void openStudentsList(ActionEvent event) throws IOException {
+    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("StudentsList.fxml"));
+		fxml.setController(this);
+		Parent root= fxml.load();
+		PaneOptionsWindow.getChildren().setAll(root);
+		
+		initializeStudentTableView();
+    }
+
+//login methods
+    @FXML
+    public void buttonSignIn(ActionEvent event) throws IOException {
+    	String dojoUserUsername= dojo.getUsuario().getUsername();
+    	String dojoUserPassword= dojo.getUsuario().getPassword();
+
+    	if(!txtLoginUsername.getText().equals("") && !txtLoginPassword.getText().equals("")) {
+
+    		if(txtLoginUsername.getText().equals(dojoUserUsername) && txtLoginPassword.getText().equals(dojoUserPassword)) {
+				FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("OptionsWindow.fxml"));
+				optionsFxml.setController(this);
+				Parent opWindow = optionsFxml.load();
+				mainPaneLogin.getChildren().setAll(opWindow);
+				OptionsWindow.getScene().getWindow().setWidth(615);
+				OptionsWindow.getScene().getWindow().setHeight(450);
+    		}
+    		
+    		else {
+    			Dialog<String> dialog = createDialog();
+    			dialog.setTitle("Error, datos incorrectos");
+    			dialog.setContentText("El nombre de usuario o contraseña son incorrectos");
+    			dialog.show();
+    		}
+    	}
+    	else {
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Error al guardar datos");
+    		dialog.setContentText("Todos los campos son requeridos");
+    		dialog.show();
+    	}
+
+    }
+    
+    @FXML
+    public void generatePDF(ActionEvent event) throws FileNotFoundException {//method of the button createStudent its TEMPORAL
+    	FileOutputStream archivo= new FileOutputStream("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes\\"+txtStudentId.getText()+".pdf");
+    	
+    	Document document= new Document();  
+    	
+    	try {//
+			PdfWriter.getInstance(document, archivo);
+			document.open();
+			addMetaData(document);
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+    	document.close();
+    	
+    	
+    }
+    
+    private static void addMetaData(Document document) throws DocumentException {
+    	com.itextpdf.text.Image fotoLogo=null;
+   
+        try
+        {
+        	
+        	fotoLogo = com.itextpdf.text.Image.getInstance("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\src\\icons\\CHUUGI JKA.jpg");
+        	fotoLogo.scaleToFit(200, 200);
+        	fotoLogo.setAlignment(Chunk.ALIGN_LEFT);
+        	
+        }
+        catch ( Exception e )
+        {
+        	e.printStackTrace();
+        }
+        
+        Paragraph p = new Paragraph("EDIFICIO LOS GUADUALES\n"
+        							+ "NIT:67007645-6\n"
+        							+ "LUZ EDITH ORTIZ C. \n"
+        							+ "info@chuugidojo.com \n"
+        							+ "Celular:(310 650 7454)-(313 559 2722) \n\n");
+        p.setFont(FontFactory.getFont("Tahoma", 18));
+        
+        PdfPTable table = new PdfPTable(2);
+        table.setWidthPercentage(100);
+        table.addCell(getCell(p.getContent(), PdfPCell.ALIGN_LEFT));
+        table.addCell(getCell(fotoLogo, PdfPCell.ALIGN_RIGHT));
+        document.add(table);
+        
+        document.add(new Paragraph("\n\n\n\n"));
+        
+        Paragraph parrafoPago = new Paragraph();
+        parrafoPago.add("FECHA: \n"+
+        				"RECIBÍ DE: \n"+
+        				"LA SUMA DE: \n");
+        parrafoPago.setFont(FontFactory.getFont("Tahoma", 18, Font.BOLD));
+        
+        Paragraph parrafoPagoR = new Paragraph();
+        parrafoPagoR.add("fecha Actual\n"+
+        				"Persona quien paga\n"+
+        				"Total que pagó \n");
+        parrafoPagoR.setFont(FontFactory.getFont("Tahoma", 18));
+        
+        PdfPTable tablePago = new PdfPTable(2);
+        tablePago.setWidthPercentage(70);
+        tablePago.addCell(getCell(parrafoPago.getContent(), PdfPCell.ALIGN_CENTER));
+        tablePago.addCell(getCell(parrafoPagoR.getContent(), PdfPCell.ALIGN_LEFT));
+        document.add(tablePago);
+        
+    }
+    
+    public static PdfPCell getCell(String text, int alignment) {//configuracion de la celda del texto (izquierda)
+        PdfPCell cell = new PdfPCell(new Phrase(text));
+        cell.setPadding(0);
+        cell.setHorizontalAlignment(alignment);
+        cell.setBorder(PdfPCell.NO_BORDER);
+        return cell;
+    }
+    
+    public static PdfPCell getCell(com.itextpdf.text.Image img, int alignment) {//configuracion de la celda de la imagen (derecha)
+        PdfPCell cell = new PdfPCell();
+        cell.addElement(img);
+        cell.setPadding(0);
+        cell.setHorizontalAlignment(alignment);
+        cell.setBorder(PdfPCell.NO_BORDER);
+        return cell;
+    }
+    
+//createStudent methods  
     @FXML
     void addProfilePicture(ActionEvent event) {
     	if(!LabelRutaFoto.getText().equals("")) {
@@ -465,7 +480,7 @@ public class DojoGUI {
     }
 
     @FXML
-    void generateCreatePDF(ActionEvent event){
+    public void generateCreatePDF(ActionEvent event){
     	
     	try {
     	FileOutputStream archivo= new FileOutputStream("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data\\"+txtStudentName.getText()+txtStudentId.getText()+"\\"+"constanciaMatricula"+".pdf");
@@ -678,4 +693,356 @@ public class DojoGUI {
     	return aut;
     }
 
+//studentsList fxml
+    @FXML
+    private Pane PaneStudentsList;
+
+    @FXML
+    private TableView<Student> tableViewStudentsList;
+
+    @FXML
+    private TableColumn<Student, String> columnName;
+
+    @FXML
+    private TableColumn<Student, String> columnId;
+
+    @FXML
+    private TableColumn<Student, String> columnMensualidad;
+
+    @FXML
+    private TableColumn<Student, String> columnAuthorization;
+
+    @FXML
+    private TableColumn<Student, String> columnFatherName;
+
+    @FXML
+    private TableColumn<Student, String> columnMotherName;
+    
+  //Method to initialize the values in Clients Tableview in user screen
+  	public void initializeStudentTableView() {
+  		
+  		ObservableList<Student> studentsList = FXCollections.observableArrayList(dojo.getStudents());
+
+  		columnName.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
+  		columnId.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
+  		columnMensualidad.setCellValueFactory(new PropertyValueFactory<Student, String>("valueMensualidad"));
+  		columnAuthorization.setCellValueFactory(new PropertyValueFactory<Student, String>("authorization"));
+  		columnFatherName.setCellValueFactory(new PropertyValueFactory<Student, String>("fatherName"));
+  		columnMotherName.setCellValueFactory(new PropertyValueFactory<Student, String>("motherName"));
+
+  		tableViewStudentsList.setItems(studentsList);
+
+  		tableViewStudentsList.setRowFactory(tv -> {
+  			TableRow<Student> row = new TableRow<>();
+  			row.setOnMouseClicked(event -> {
+  				if (event.getClickCount() == 2 && (!row.isEmpty())) {
+  					Student student = row.getItem();
+  					try {
+  						FXMLLoader updateStudentFxml = new FXMLLoader(getClass().getResource("UpdateStudent.fxml"));
+  						updateStudentFxml.setController(this);
+  						Parent root = updateStudentFxml.load();
+  						PaneStudentsList.getChildren().setAll(root);
+  						
+  			    		File file = new File(student.getProfilePicture());
+  			    		Image img = new Image(file.toURI().toString());
+  						updateProfilePicture.setImage(img);
+  						txtUpdateStudentName.setText(student.getName());
+  						txtUpdateStudentBornPlace.setText(student.getBornPlace());
+  						txtUpdateStudentId.setText(student.getId());
+  						
+  						if(getUpdateIdType().equals("TI")) {
+  							updateTarjetaIdentidad.setSelected(true);
+  						}
+  						else {
+  							updateCedula.setSelected(true);
+  						}
+  						
+  						txtUpdateStudentEPS.setText(student.getEps());
+  						txtUpdateStudentRH.setText(student.getRH());
+  						txtUpdateStudentSex.setText(student.getSex());
+  						txtUpdateStudentOcupation.setText(student.getOcupation());
+  						txtUpdateStudentFatherName.setText(student.getFatherName());
+  						txtUpdateStudentFatherPhone.setText(student.getFatherPhone());
+  						txtUpdateStudentFatherEmail.setText(student.getFatherEmail());
+  						txtUpdateStudentMotherName.setText(student.getMotherName());
+  						txtUpdateStudentMotherPhone.setText(student.getMotherPhone());
+  						txtUpdateStudentMotherEmail.setText(student.getMotherEmail());
+  						txtUpdateStudentAdress.setText(student.getAdress());
+  						txtUpdateStudentNeighborhood.setText(student.getNeighborhood());
+  						txtUpdateStudentMensualidad.setText(String.valueOf(student.getValueMensualidad()));
+  						
+  						if(getUpdatePlanPago().equals("Mensualidad")) {
+  							updateMensualidad.setSelected(true);
+  						}
+  						else {
+  							updateHoraEntrenada.setSelected(true);
+  						}
+  						List<String> trainDays= student.getTrainDays();
+  						for(int i=0;i<trainDays.size();i++) {
+  							if(trainDays.get(i).equals("lunes")) {
+  								updateLunes.setSelected(true);
+  							}
+  							else if(trainDays.get(i).equals("martes")) {
+  								updateMartes.setSelected(true);
+  							}
+  							else if(trainDays.get(i).equals("miercoles")) {
+  								updateMiercoles.setSelected(true);
+  							}
+  							else if(trainDays.get(i).equals("jueves")) {
+  								updateJueves.setSelected(true);
+  							}
+  							else if(trainDays.get(i).equals("viernes")) {
+  								updateViernes.setSelected(true);
+  							}
+  							else if(trainDays.get(i).equals("sabado")) {
+  								updateSabado.setSelected(true);
+  							}
+  						}
+  						List<String> scheduleDays= student.getScheduleDays();
+  						for(int i=0;i<scheduleDays.size();i++) {
+  							if(scheduleDays.get(i).equals("2-3")) {
+  								updateTwoToThree.setSelected(true);
+  							}
+  							else if(scheduleDays.get(i).equals("5-6")) {
+  								updateFiveToSix.setSelected(true);
+  							}
+  							else if(scheduleDays.get(i).equals("6-7")) {
+  								updateSixToSeven.setSelected(true);
+  							}
+  							else if(scheduleDays.get(i).equals("7-8")) {
+  								updateSevenToEight.setSelected(true);
+  							}
+  						}
+  						txtUpdateObservations.setText(student.getObservations());
+  						
+  						if(student.isAuthorization()==true) {
+  							updateSi.setSelected(true);
+  						}
+  						else {
+  							updateNo.setSelected(true);
+  						}
+  						txtUpdateStudentAddedFiles.setText(student.getFilesDescription());
+
+  					} catch (IOException e) {
+  						e.printStackTrace();
+  					}
+
+  				}
+  			});
+  			return row;
+  		});
+  	}
+  	
+//UpdateStudent fxml
+    @FXML
+    private Pane PaneUpdateStudent;
+
+    @FXML
+    private ImageView updateProfilePicture;
+
+    @FXML
+    private TextField txtUpdateStudentName;
+
+    @FXML
+    private TextField txtUpdateStudentBornPlace;
+
+    @FXML
+    private TextField txtUpdateStudentId;
+
+    @FXML
+    private TextField txtUpdateStudentEPS;
+
+    @FXML
+    private TextField txtUpdateStudentOcupation;
+
+    @FXML
+    private TextField txtUpdateStudentFatherName;
+
+    @FXML
+    private TextField txtUpdateStudentMotherName;
+
+    @FXML
+    private TextField txtUpdateStudentFatherPhone;
+
+    @FXML
+    private TextField txtUpdateStudentMotherPhone;
+
+    @FXML
+    private TextField txtUpdateStudentFatherEmail;
+
+    @FXML
+    private TextField txtUpdateStudentMotherEmail;
+
+    @FXML
+    private TextField txtUpdateStudentAdress;
+
+    @FXML
+    private TextField txtUpdateStudentNeighborhood;
+
+    @FXML
+    private TextField txtUpdateStudentMensualidad;
+
+    @FXML
+    private CheckBox updateMensualidad;
+
+    @FXML
+    private CheckBox updateHoraEntrenada;
+
+    @FXML
+    private CheckBox updateLunes;
+
+    @FXML
+    private CheckBox updateMartes;
+
+    @FXML
+    private CheckBox updateMiercoles;
+
+    @FXML
+    private CheckBox updateJueves;
+
+    @FXML
+    private CheckBox updateViernes;
+
+    @FXML
+    private CheckBox updateFiveToSix;
+
+    @FXML
+    private CheckBox updateSixToSeven;
+
+    @FXML
+    private CheckBox updateSevenToEight;
+
+    @FXML
+    private CheckBox updateTwoToThree;
+    
+    @FXML
+    private CheckBox updateSi;
+
+    @FXML
+    private CheckBox updateNo;
+
+    @FXML
+    private TextArea txtUpdateObservations;
+
+    @FXML
+    private TextArea txtUpdateStudentAddedFiles;
+
+    @FXML
+    private Label LabelUpdateRutaArchivos;
+
+    @FXML
+    private Label LabelUpdateRutaFoto;
+
+    @FXML
+    private CheckBox updateSabado;
+
+    @FXML
+    private TextField txtUpdateStudentRH;
+
+    @FXML
+    private TextField txtUpdateStudentSex;
+    
+    @FXML
+    private CheckBox updateTarjetaIdentidad;
+
+    @FXML
+    private CheckBox updateCedula;
+    
+
+    @FXML
+    void updateAddFileToStudent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void updateGeneratePDF(ActionEvent event) {
+
+    }
+
+    @FXML
+    void updateProfilePcture(ActionEvent event) {
+
+    }
+
+    @FXML
+    void updateStudent(ActionEvent event) {
+
+    }
+    
+    public String getUpdateIdType() {
+    	String idType="";
+    	if(updateCedula.isSelected()==true) {
+    		idType="CC";
+    	}
+    	else if(updateTarjetaIdentidad.isSelected()==true) {
+    		idType="TI";
+    	}
+		return idType;
+    	
+    }
+    public String getUpdatePlanPago() {
+    	String plan="";
+    	if(updateMensualidad.isSelected()==true) {
+    		plan="Mensualidad";
+    	}
+    	else if(updateHoraEntrenada.isSelected()==true){
+    		plan="Hora Entrenada";
+    	}
+    	
+    	return plan;
+    }
+    public List<String> getUpdateTrainDays(){
+    	List<String> trainDays=new ArrayList<>();
+    	if(updateLunes.isSelected()==true) {
+    		trainDays.add("lunes");
+    	}
+    	if(updateMartes.isSelected()==true) {
+    		trainDays.add("martes");
+    	}
+    	if(updateMiercoles.isSelected()==true) {
+    		trainDays.add("miercoles");
+    	}
+    	if(updateJueves.isSelected()==true) {
+    		trainDays.add("jueves");
+    	}
+    	if(updateViernes.isSelected()==true) {
+    		trainDays.add("viernes");
+    	}
+    	if(updateSabado.isSelected()==true) {
+    		trainDays.add("sabado");
+    	}
+    	
+    	return trainDays;
+    }
+    public List<String> getUpdateScheduleDays(){
+    	List<String> trainDays=new ArrayList<>();
+    	
+    	if(updateTwoToThree.isSelected()==true) {
+    		trainDays.add("2-3");
+    	}
+    	if(updateFiveToSix.isSelected()==true) {
+    		trainDays.add("5-6");
+    	}
+    	if(updateSevenToEight.isSelected()==true) {
+    		trainDays.add("7-8");
+    	}
+    	if(updateSixToSeven.isSelected()==true) {
+    		trainDays.add("6-7");
+    	}
+    	
+    	return trainDays;
+    }
+    public boolean getUpdateAuthorization() {
+    	boolean aut=false;
+    	if(updateSi.isSelected()==true) {
+    		aut=true;
+    	}
+    	else if(updateNo.isSelected()==true) {
+    		aut=false;
+    	}
+    	return aut;
+    }
+
 }
+
+
