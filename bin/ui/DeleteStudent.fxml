@@ -33,7 +33,7 @@
                      </image>
                   </ImageView>
                   <TextField fx:id="txtDeleteStudentId" layoutX="93.0" layoutY="187.0" promptText="Identificación" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
-                  <Button layoutX="121.0" layoutY="286.0" mnemonicParsing="false" text="Eliminar" />
+                  <Button layoutX="121.0" layoutY="286.0" mnemonicParsing="false" onAction="#deleteStudent" text="Eliminar" />
                   <Label layoutX="42.0" layoutY="67.0" text="Eliminar Estudiante" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="24.0" />

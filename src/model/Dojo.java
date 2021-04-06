@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,16 +22,91 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.image.Image;
 import javafx.util.Callback;
 
-public class Dojo {
+public class Dojo implements Serializable {
+	private static final long serialVersionUID = 1;
+	//atributes
+	private String adress;
+	private String nit;
+	private String ceo;
+	private String email;
+	private String phone;
+	private String emailEnvio;
+	private String claveEmail;
 	//Relations
 	private User usuario;
 	private List<Student> students;
 	
 	public final static String SAVE_PATH_FILE_STUDENTS="data/students.ap2";
+	public final static String SAVE_PATH_FILE_USER="data/user.ap2";
 	
-	public Dojo() {
+
+	public Dojo(String adress, String nit, String ceo, String email, String phone, String emailEnvio, String clave) {
+		this.adress = adress;
+		this.nit = nit;
+		this.ceo = ceo;
+		this.email = email;
+		this.phone = phone;
+		this.emailEnvio=emailEnvio;
+		this.claveEmail=clave;
 		usuario= new User("ADMINISTRADOR", "123");
 		students= new ArrayList<>();
+	}
+	
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	public String getNit() {
+		return nit;
+	}
+
+	public void setNit(String nit) {
+		this.nit = nit;
+	}
+
+	public String getCeo() {
+		return ceo;
+	}
+
+	public void setCeo(String ceo) {
+		this.ceo = ceo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmailEnvio() {
+		return emailEnvio;
+	}
+
+	public void setEmailEnvio(String emailEnvio) {
+		this.emailEnvio = emailEnvio;
+	}
+
+	public String getClaveEmail() {
+		return claveEmail;
+	}
+
+	public void setClaveEmail(String claveEmail) {
+		this.claveEmail = claveEmail;
 	}
 
 	public User getUsuario() {
@@ -103,11 +179,15 @@ public class Dojo {
 		if(student!=null) {
 			students.remove(student);
 			saveStudentsData();
+			Dialog<String> dialog = createDialog();
+			dialog.setTitle("El estudiante ha sido eliminado");
+			dialog.setContentText("El estudiante con la identificacion "+id+" ha sido eliminado del dojo.");
+			dialog.show();
 		}
 		else {
 			Dialog<String> dialog = createDialog();
 			dialog.setTitle("Error, estudiante inexistente");
-			dialog.setContentText("El usuario con la identificacion "+id+" no existe.");
+			dialog.setContentText("El estudiante con la identificacion "+id+" no existe.");
 			dialog.show();
 		}
 	}
@@ -124,7 +204,7 @@ public class Dojo {
 		return student;
 	}
 	
-	 //Import users types Data (serializacion)
+	 //Import students Data (serializacion)
 	 @SuppressWarnings("unchecked")
 	 public boolean loadStudentsData() throws IOException, ClassNotFoundException{
 		 File f = new File(SAVE_PATH_FILE_STUDENTS);
@@ -138,10 +218,30 @@ public class Dojo {
 		 return loaded;	
 	 }
 
-	 //Export users types Data (serializacion)
+	 //Export students Data (serializacion)
 	 public void saveStudentsData() throws IOException{
 		 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_STUDENTS));
 		 oos.writeObject(students);
+		 oos.close();
+	 }
+	 
+	 @SuppressWarnings("unchecked")
+	 public boolean loadUserData() throws IOException, ClassNotFoundException{
+		 File f = new File(SAVE_PATH_FILE_USER);
+		 boolean loaded = false;
+		 if(f.exists()){
+			 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+			 usuario = (User)ois.readObject();
+			 ois.close();
+			 loaded = true;
+		 }		 
+		 return loaded;	
+	 }
+
+	 //Export students Data (serializacion)
+	 public void saveUserData() throws IOException{
+		 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_USER));
+		 oos.writeObject(usuario);
 		 oos.close();
 	 }
 

@@ -30,6 +30,11 @@
                         <MenuItem mnemonicParsing="false" text="Importar Datos Alumnos" />
                      </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="Dojo">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openUpdateDojo" text="Actualizar Datos Dojo" />
+                     </items>
+                  </Menu>
                   <Menu mnemonicParsing="false" text="Salir">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#openLoginScreen" text="Cerrar Sesión" />

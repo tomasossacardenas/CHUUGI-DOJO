@@ -7,5 +7,6 @@
 		</accessrules>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/tomas/eclipse-workspace/jfx-ChuugiDojo/driver-PDF/itext5-itextpdf-5.5.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/tomas/Downloads/javamail1_4_7/javamail-1.4.7/mail.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

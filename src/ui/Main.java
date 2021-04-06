@@ -18,7 +18,7 @@ public class Main extends Application {
 	DojoGUI chuugiDojo;
 	
 	public Main() {
-		dojo = new Dojo();
+		dojo = new Dojo("Calle 68 No. 4AN - 87 esquina Barrio Calima", "67007645-6.", "LUZ EDITH ORTIZ C", "info@chuugidojo.com", "(310 650 7454)-(313 559 2722).", "tomasossaefcsl@gmail.com", "Tomas123*");
 		chuugiDojo=new DojoGUI(dojo);
 		
 		try {
@@ -28,6 +28,24 @@ public class Main extends Application {
 			Alert alert = new Alert(AlertType.INFORMATION);
     		alert.setTitle("Dojo Data");
     		alert.setContentText("Error al cargar datos de los alumnos del dojo");
+			alert.showAndWait();
+		}
+		try {
+			chuugiDojo.loadDojoData();		
+		}catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+			Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Dojo Data");
+    		alert.setContentText("Error al cargar los datos del dojo");
+			alert.showAndWait();
+		}
+		try {
+			dojo.loadUserData();		
+		}catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+			Alert alert = new Alert(AlertType.INFORMATION);
+    		alert.setTitle("Dojo Data");
+    		alert.setContentText("Error al cargar el usuario del dojo");
 			alert.showAndWait();
 		}
 	}
