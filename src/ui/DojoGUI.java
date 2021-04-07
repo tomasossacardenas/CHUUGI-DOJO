@@ -73,14 +73,6 @@ public class DojoGUI {
 		this.dojo=dojo;
 	}
 
-// Method to create a dialog window
-	public Dialog<String> createDialog() {
-		Dialog<String> dialog = new Dialog<String>();
-		ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
-		dialog.getDialogPane().getButtonTypes().add(type);
-		return dialog;
-	}
-
 //Login fxml
     @FXML
     private Pane mainPaneLogin;
@@ -340,6 +332,126 @@ public class DojoGUI {
     
     List<String> updateFilesOfStudent= new ArrayList<>();
     
+//updateDojo fxml
+    @FXML
+    private Pane PaneUpdateDojo;
+
+    @FXML
+    private TextField txtUpdateDojoAdress;
+
+    @FXML
+    private TextField txtUpdateDojoNIT;
+
+    @FXML
+    private TextField txtUpdateDojoCEO;
+
+    @FXML
+    private TextField txtUpdateDojoEmail;
+
+    @FXML
+    private TextField txtUpdateDojoPhone;
+
+    @FXML
+    private TextField txtUpdateDojoEmailEnvio;
+
+    @FXML
+    private TextField txtUpdateDojoEmailClave;
+    
+    @FXML
+    private TextField txtUpdateDojoPathStudents;
+
+    @FXML
+    private TextField txtUpdateDojoPathRecibos;
+
+
+//generateReciboEmailfxml
+
+    @FXML
+    private Pane PaneGenerateRecibo;
+
+    @FXML
+    private TextField txtEmailDestino;
+
+    @FXML
+    private TextField txtEmailPadre;
+
+    @FXML
+    private TextField txtEmailMadre;
+
+    @FXML
+    private TextArea txtEmailMessage;
+
+    @FXML
+    private TextField txtAcudienteName;
+    
+    @FXML
+    private Label reciboNombreEstudiante;
+    
+    private Student studentFactura;
+    
+    Calendar calendar = new GregorianCalendar();
+    
+    private String fecha=String.valueOf(calendar.get(Calendar.DATE))+"-"+String.valueOf(calendar.get(Calendar.MONTH))+"-"+String.valueOf(calendar.get(Calendar.YEAR));
+    
+//deleteStudentfxml
+    @FXML
+    private Pane PaneDeleteStudent;
+
+    @FXML
+    private TextField txtDeleteStudentId;
+
+//studentsList fxml
+    @FXML
+    private Pane PaneStudentsList;
+
+    @FXML
+    private TableView<Student> tableViewStudentsList;
+
+    @FXML
+    private TableColumn<Student, String> columnName;
+
+    @FXML
+    private TableColumn<Student, String> columnId;
+
+    @FXML
+    private TableColumn<Student, String> columnMensualidad;
+
+    @FXML
+    private TableColumn<Student, String> columnAuthorization;
+
+    @FXML
+    private TableColumn<Student, String> columnBornDate;
+
+    @FXML
+    private TableColumn<Student, String> columnRegisterDate;
+    
+    
+    
+ // Method to create a dialog window
+ 	public Dialog<String> createDialog() {
+ 		Dialog<String> dialog = new Dialog<String>();
+ 		ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
+ 		dialog.getDialogPane().getButtonTypes().add(type);
+ 		return dialog;
+ 	}
+ 	
+ 	public boolean loadDojoData() throws IOException, ClassNotFoundException{
+ 		File f = new File(SAVE_PATH_FILE_DOJO);
+ 		boolean loaded = false;
+ 		if(f.exists()){
+ 			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
+ 			dojo = (Dojo)ois.readObject();
+ 			ois.close();
+ 			loaded = true;
+ 		}		 
+ 		return loaded;	
+ 	}
+ 	public void saveDojoData() throws IOException{
+ 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_DOJO));
+ 		oos.writeObject(dojo);
+ 		oos.close();
+ 	}
+
 
 
 //optionsWindow methods
@@ -366,6 +478,11 @@ public class DojoGUI {
 		txtUpdateDojoPhone.setText(dojo.getPhone());
 		txtUpdateDojoEmail.setText(dojo.getEmail());
 		txtUpdateDojoEmailEnvio.setText(dojo.getEmailEnvio());
+		txtUpdateDojoPathStudents.setText(dojo.getPathStudentFiles());
+		txtUpdateDojoPathRecibos.setText(dojo.getPathReportes());
+		
+		txtUpdateDojoAdress.getScene().getWindow().setWidth(610);
+		txtUpdateDojoAdress.getScene().getWindow().setHeight(450);
     }
     
     @FXML
@@ -374,8 +491,8 @@ public class DojoGUI {
 		fxml.setController(this);
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
-		LabelRutaFoto.getScene().getWindow().setWidth(620);
-		LabelRutaFoto.getScene().getWindow().setHeight(695);
+		LabelRutaFoto.getScene().getWindow().setWidth(610);
+		LabelRutaFoto.getScene().getWindow().setHeight(700);
 		filesOfStudent.clear();
     }
    
@@ -385,6 +502,10 @@ public class DojoGUI {
 		fxml.setController(this);
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
+		
+		txtDeleteStudentId.getScene().getWindow().setWidth(610);
+		txtDeleteStudentId.getScene().getWindow().setHeight(450);
+		
     }
     @FXML
     void openStudentsList(ActionEvent event) throws IOException {
@@ -393,28 +514,31 @@ public class DojoGUI {
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
 		
+		tableViewStudentsList.getScene().getWindow().setWidth(600);
+		tableViewStudentsList.getScene().getWindow().setHeight(425);
+		
 		initializeStudentTableView();
     }
-//serializar dojo
-	 @SuppressWarnings("unchecked")
-	 public boolean loadDojoData() throws IOException, ClassNotFoundException{
-		 File f = new File(SAVE_PATH_FILE_DOJO);
-		 boolean loaded = false;
-		 if(f.exists()){
-			 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-			 dojo = (Dojo)ois.readObject();
-			 ois.close();
-			 loaded = true;
-		 }		 
-		 return loaded;	
-	 }
+    
+    @FXML //This method will be used when button generateRecibo in updateStudent is clicked, The screen GenerateRecibo does the process to send email
+    public void openGenerateRecibo(ActionEvent event) throws IOException {
+    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("GenerateRecibo.fxml"));
+		fxml.setController(this);
+		Parent root= fxml.load();
+		PaneUpdateStudent.getChildren().setAll(root);
+		txtEmailMadre.getScene().getWindow().setHeight(450);
+		txtEmailMadre.getScene().getWindow().setWidth(610);
+		
+		
+    	Student student=dojo.findStudent(txtUpdateStudentId.getText());
+    	txtEmailMadre.setText(student.getMotherEmail());
+    	txtEmailPadre.setText(student.getFatherEmail());
+    	reciboNombreEstudiante.setText(student.getName());
+    	studentFactura=student;
+    	txtEmailMessage.setText("Adjunto recibo de la fecha de "+fecha);
+    	
+    }
 
-	 //Export students Data (serializacion)
-	 public void saveDojoData() throws IOException{
-		 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_DOJO));
-		 oos.writeObject(dojo);
-		 oos.close();
-	 }
 
 //login methods
     @FXML
@@ -449,29 +573,14 @@ public class DojoGUI {
 
     }
     
-    @FXML
-    public void openGenerateRecibo(ActionEvent event) throws IOException {//method of the button createStudent its TEMPORAL
-    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("GenerateRecibo.fxml"));
-		fxml.setController(this);
-		Parent root= fxml.load();
-		PaneUpdateStudent.getChildren().setAll(root);
-		
-    	Student student=dojo.findStudent(txtUpdateStudentId.getText());
-    	txtEmailMadre.setText(student.getMotherEmail());
-    	txtEmailPadre.setText(student.getFatherEmail());
-    	reciboNombreEstudiante.setText(student.getName());
-    	studentFactura=student;
-    	txtEmailMessage.setText("Adjunto recibo de la fecha de "+fecha);
-    	
-    }
-    
-    private void addMetaData(Document document, Student student, String aNombreDe) throws DocumentException {
+//Method to fill the pdf file of RECIBO
+    public void addMetaData(Document document, Student student, String aNombreDe) throws DocumentException {
     	com.itextpdf.text.Image fotoLogo=null;
    
         try
         {
         	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\src\\icons\\CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Chunk.ALIGN_LEFT);
         	
@@ -524,7 +633,8 @@ public class DojoGUI {
         parrafoAviso.setFont(FontFactory.getFont(FontFactory.TIMES_ITALIC, 12));
         document.add(parrafoAviso);
     }
-    
+
+//methods to configurate the cell of a table in pdf
     public static PdfPCell getCell(String text, int alignment) {//Configuracion de la celda del texto (izquierda)
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPadding(0);
@@ -579,7 +689,6 @@ public class DojoGUI {
     	}
     }
 
-    @SuppressWarnings("unused")
 	@FXML
     void createStudent(ActionEvent event) throws BadElementException, MalformedURLException, IOException {
     	String name= txtStudentName.getText();
@@ -631,12 +740,29 @@ public class DojoGUI {
     	if(valueMensualidad!=0) {
     		if(!id.equals("")) {
     			if(!LabelRutaFoto.getText().equals("") && !LabelRutaFoto.getText().equals("Ruta de la foto")) {
-    				dojo.createStudent(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps, 
-    						ocupation, fatherName, fatherPhone, fatherEmail, motherName, motherPhone, 
-    						motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
-    						trainDays, scheduleDays, observations, authorization,filesDescription, filesPath);
-    				System.out.println(dojo.findStudent(id).toString());
-    				filesOfStudent.clear();
+    				if(!bornDate.isEmpty() && !registerDate.isEmpty()) {
+    					if(!eps.equals("") && !rh.equals("") && !sex.equals("")) {
+    						dojo.createStudent(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps, 
+    								ocupation, fatherName, fatherPhone, fatherEmail, motherName, motherPhone, 
+    								motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
+    								trainDays, scheduleDays, observations, authorization,filesDescription, filesPath);
+    					     
+    						filesOfStudent.clear();
+    					}
+    					else {
+            				Dialog<String> dialog = createDialog();
+                			dialog.setTitle("Error, la informacion de salud es necesaria");
+                			dialog.setContentText("Recuerde que la infromacion de eps, rh y sexo"
+                					+ "} son necesarias para crear el estudiante");
+                			dialog.show();
+    					}
+    				}
+    				else {
+        				Dialog<String> dialog = createDialog();
+            			dialog.setTitle("Error, el campo de fecha de nacimiento y de registro es necesario");
+            			dialog.setContentText("Recuerde que las fechas de nacimiento y registro son necesarias para crear el estudiante");
+            			dialog.show();
+    				}
     			}
     			else {
     				Dialog<String> dialog = createDialog();
@@ -660,11 +786,11 @@ public class DojoGUI {
     	}
     }
 
-    @FXML
+    @FXML //Method that creates the own directory of the student and the CONSTANCIAMATRICULA of the new Student
     public void generateCreatePDF(ActionEvent event){
     	
     	try {
-    	FileOutputStream archivo= new FileOutputStream("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data\\"+txtStudentName.getText()+txtStudentId.getText()+"\\"+"constanciaMatricula"+".pdf");
+    	FileOutputStream archivo= new FileOutputStream(dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+"\\"+"constanciaMatricula"+".pdf");
     	
     	Document document= new Document();  
     	
@@ -683,7 +809,7 @@ public class DojoGUI {
     	}catch(FileNotFoundException e) {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, directorio no encontrado" );
-    		dialog.setContentText("No se ha encontrado el directorio "+txtStudentName.getText()+txtStudentId.getText()+" para poder añadir la constancia de matricula");
+    		dialog.setContentText("No se ha encontrado el directorio "+dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+" para poder añadir la constancia de matricula");
     		dialog.show(); 
     	}
     }
@@ -694,7 +820,7 @@ public class DojoGUI {
     	   
         try
         {
-        	fotoLogo = com.itextpdf.text.Image.getInstance("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\src\\icons\\CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Chunk.ALIGN_LEFT);
 
@@ -878,30 +1004,6 @@ public class DojoGUI {
     	return aut;
     }
 
-//studentsList fxml
-    @FXML
-    private Pane PaneStudentsList;
-
-    @FXML
-    private TableView<Student> tableViewStudentsList;
-
-    @FXML
-    private TableColumn<Student, String> columnName;
-
-    @FXML
-    private TableColumn<Student, String> columnId;
-
-    @FXML
-    private TableColumn<Student, String> columnMensualidad;
-
-    @FXML
-    private TableColumn<Student, String> columnAuthorization;
-
-    @FXML
-    private TableColumn<Student, String> columnBornDate;
-
-    @FXML
-    private TableColumn<Student, String> columnRegisterDate;
     
   //Method to initialize the values in Clients Tableview in user screen
   	public void initializeStudentTableView() {
@@ -927,6 +1029,8 @@ public class DojoGUI {
   						updateStudentFxml.setController(this);
   						Parent root = updateStudentFxml.load();
   						PaneStudentsList.getChildren().setAll(root);
+  						txtUpdateStudentAdress.getScene().getWindow().setWidth(610);
+  						txtUpdateStudentAdress.getScene().getWindow().setHeight(700);
   						
   			    		File file = new File(student.getProfilePicture());
   			    		Image img = new Image(file.toURI().toString());
@@ -1218,12 +1322,7 @@ public class DojoGUI {
     	return aut;
     }
 
-//deleteStudentfxml
-    @FXML
-    private Pane PaneDeleteStudent;
 
-    @FXML
-    private TextField txtDeleteStudentId;
 
     @FXML
     public void deleteStudent(ActionEvent event) throws IOException {
@@ -1238,38 +1337,10 @@ public class DojoGUI {
     	}
     }
     
-//generateReciboEmailfxml
-    @FXML
-    private Pane PaneGenerateRecibo;
-
-    @FXML
-    private TextField txtEmailDestino;
-
-    @FXML
-    private TextField txtEmailPadre;
-
-    @FXML
-    private TextField txtEmailMadre;
-
-    @FXML
-    private TextArea txtEmailMessage;
-
-    @FXML
-    private TextField txtAcudienteName;
-    
-    @FXML
-    private Label reciboNombreEstudiante;
-    
-    private Student studentFactura;
-    
-    Calendar calendar = new GregorianCalendar();
-    
-    private String fecha=String.valueOf(calendar.get(Calendar.DATE))+"-"+String.valueOf(calendar.get(Calendar.MONTH))+"-"+String.valueOf(calendar.get(Calendar.YEAR));
-    
 
     @FXML
     public void generateReciboEmail(ActionEvent event) throws FileNotFoundException {
-    	FileOutputStream archivo= new FileOutputStream("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes\\"+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+"Recibo.pdf");
+    	FileOutputStream archivo= new FileOutputStream(dojo.getPathReportes()+"\\"+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+"Recibo.pdf");
     	
     	Document document= new Document();  
     	
@@ -1304,7 +1375,7 @@ public class DojoGUI {
             BodyPart parteTexto= new MimeBodyPart();
             parteTexto.setContent(txtEmailMessage.getText(), "text/html");
             BodyPart parteArchivo= new MimeBodyPart();
-            parteArchivo.setDataHandler(new DataHandler(new FileDataSource("C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes\\"
+            parteArchivo.setDataHandler(new DataHandler(new FileDataSource(dojo.getPathReportes()+"\\"
             											+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+"Recibo.pdf")));
             parteArchivo.setFileName("Recibo "+fecha+".pdf");
             
@@ -1326,11 +1397,13 @@ public class DojoGUI {
             
             
         } catch (AddressException ex) {
+        	ex.printStackTrace();
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Ha ocurrido un error con los correos electrónicos");
     		dialog.setContentText("El correo no ha podido ser enviado");
     		dialog.show();
         } catch (MessagingException ex) {
+        	ex.printStackTrace();
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Ha ocurrido un error con el mensaje del correo");
     		dialog.setContentText("El correo no ha podido ser enviado, revise el mensaje del correo");
@@ -1339,30 +1412,6 @@ public class DojoGUI {
         
     }
     
-//updateDojo fxml
-    @FXML
-    private Pane PaneUpdateDojo;
-
-    @FXML
-    private TextField txtUpdateDojoAdress;
-
-    @FXML
-    private TextField txtUpdateDojoNIT;
-
-    @FXML
-    private TextField txtUpdateDojoCEO;
-
-    @FXML
-    private TextField txtUpdateDojoEmail;
-
-    @FXML
-    private TextField txtUpdateDojoPhone;
-
-    @FXML
-    private TextField txtUpdateDojoEmailEnvio;
-
-    @FXML
-    private TextField txtUpdateDojoEmailClave;
 
     @FXML
     void updateDojo(ActionEvent event) {
@@ -1372,7 +1421,12 @@ public class DojoGUI {
     	dojo.setNit(txtUpdateDojoNIT.getText());
     	dojo.setPhone(txtUpdateDojoPhone.getText());
     	dojo.setEmailEnvio(txtUpdateDojoEmailEnvio.getText());
-    	dojo.setClaveEmail(txtUpdateDojoEmailClave.getText());
+    	dojo.setPathStudentFiles(txtUpdateDojoPathStudents.getText());
+    	dojo.setPathReportes(txtUpdateDojoPathRecibos.getText());
+    	
+    	if(!txtUpdateDojoEmailClave.getText().equals("")) {
+    		dojo.setClaveEmail(txtUpdateDojoEmailClave.getText());
+    	}
     	try {
 			saveDojoData();
     		Dialog<String> dialog = createDialog();

@@ -18,7 +18,7 @@ public class Main extends Application {
 	DojoGUI chuugiDojo;
 	
 	public Main() {
-		dojo = new Dojo("Calle 68 No. 4AN - 87 esquina Barrio Calima", "67007645-6.", "LUZ EDITH ORTIZ C", "info@chuugidojo.com", "(310 650 7454)-(313 559 2722).", "tomasossaefcsl@gmail.com", "Tomas123*");
+		dojo = new Dojo("Calle 68 No. 4AN - 87 esquina Barrio Calima", "67007645-6.", "LUZ EDITH ORTIZ C", "info@chuugidojo.com", "(310 650 7454)-(313 559 2722).", "tomasossaefcsl@gmail.com", "Tomas123*", "C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data", "C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes");
 		chuugiDojo=new DojoGUI(dojo);
 		
 		try {
@@ -62,6 +62,7 @@ public class Main extends Application {
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Chuugi Dojo");
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 

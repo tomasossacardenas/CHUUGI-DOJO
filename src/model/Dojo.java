@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -15,15 +13,14 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.image.Image;
-import javafx.util.Callback;
 
 public class Dojo implements Serializable {
 	private static final long serialVersionUID = 1;
+	public final static String SAVE_PATH_FILE_STUDENTS="data/students.ap2";
+	public final static String SAVE_PATH_FILE_USER="data/user.ap2";
 	//atributes
 	private String adress;
 	private String nit;
@@ -32,15 +29,15 @@ public class Dojo implements Serializable {
 	private String phone;
 	private String emailEnvio;
 	private String claveEmail;
+	private String pathStudentFiles;
+	private String pathReportes;
 	//Relations
 	private User usuario;
 	private List<Student> students;
 	
-	public final static String SAVE_PATH_FILE_STUDENTS="data/students.ap2";
-	public final static String SAVE_PATH_FILE_USER="data/user.ap2";
 	
 
-	public Dojo(String adress, String nit, String ceo, String email, String phone, String emailEnvio, String clave) {
+	public Dojo(String adress, String nit, String ceo, String email, String phone, String emailEnvio, String clave, String pathStudentFiles, String pathReportes) {
 		this.adress = adress;
 		this.nit = nit;
 		this.ceo = ceo;
@@ -48,6 +45,8 @@ public class Dojo implements Serializable {
 		this.phone = phone;
 		this.emailEnvio=emailEnvio;
 		this.claveEmail=clave;
+		this.pathStudentFiles=pathStudentFiles;
+		this.pathReportes=pathReportes;
 		usuario= new User("ADMINISTRADOR", "123");
 		students= new ArrayList<>();
 	}
@@ -129,8 +128,7 @@ public class Dojo implements Serializable {
         Path destinoPath = FileSystems.getDefault().getPath(destinationFile);
         
         try {
-        	Path copiar= Files.copy(origenPath, destinoPath.resolve(origenPath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
-        	System.out.println("SE COPIO A LA DIRECCION "+destinoPath);
+        	Files.copy(origenPath, destinoPath.resolve(origenPath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
         }catch(IOException e) {
         	
         }
@@ -151,8 +149,22 @@ public class Dojo implements Serializable {
 					, motherName, motherPhone, motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
 					trainDays, scheduleDays, observations, authorization,filesDescription,filesPath));
 			
-			File directorio = new File("data/"+name+id); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
+			File directorio = new File(getPathStudentFiles()+"\\"+name+id); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
 			directorio.mkdir();
+			
+			if (!directorio.exists()) {
+	            if (directorio.mkdirs()) {
+	            	Dialog<String> dialog = createDialog();
+        			dialog.setTitle("Carpeta del estudiante creada");
+        			dialog.setContentText("La carpeta del estudiante ha sido creada "+directorio);
+        			dialog.show();
+	            } else {
+	            	Dialog<String> dialog = createDialog();
+        			dialog.setTitle("Error, carpeta del estudiante no fue creada");
+        			dialog.setContentText("No ha sido posible crear la carpeta del estudiante porque puede que la ruta esté incorrecta o ya exista una carpeta con ese nombre, ruta Carpeta que falló: "+directorio);
+        			dialog.show();
+	            }
+	        }
 			
 			for(int i=0;i<filesPath.size();i++) {
 				fileCopy(filesPath.get(i), (directorio.getAbsolutePath()));
@@ -225,7 +237,6 @@ public class Dojo implements Serializable {
 		 oos.close();
 	 }
 	 
-	 @SuppressWarnings("unchecked")
 	 public boolean loadUserData() throws IOException, ClassNotFoundException{
 		 File f = new File(SAVE_PATH_FILE_USER);
 		 boolean loaded = false;
@@ -251,6 +262,26 @@ public class Dojo implements Serializable {
 
 	public void setStudents(List<Student> students) {
 		this.students = students;
+	}
+
+
+	public String getPathStudentFiles() {
+		return pathStudentFiles;
+	}
+
+
+	public void setPathStudentFiles(String pathStudentFiles) {
+		this.pathStudentFiles = pathStudentFiles;
+	}
+
+
+	public String getPathReportes() {
+		return pathReportes;
+	}
+
+
+	public void setPathReportes(String pathReportes) {
+		this.pathReportes = pathReportes;
 	}
 
 
