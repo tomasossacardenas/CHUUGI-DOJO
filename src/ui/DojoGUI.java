@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,22 +51,24 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import model.Dojo;
 import model.Student;
+
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
 
 public class DojoGUI {
-	//constants
-	public final static String SAVE_PATH_FILE_DOJO="data/dojo.ap2";
-	
+ //constants
+	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\OneDrive\\Escritorio\\ChuugiDojo\\Datos ChuugiDojo";
+
  //Relations
 	Dojo dojo;
 	
@@ -263,6 +266,9 @@ public class DojoGUI {
 
     @FXML
     private TextField txtUpdateStudentMensualidad;
+    
+    @FXML
+    private TextField txtDiferenciablePdf;
 
     @FXML
     private CheckBox updateMensualidad;
@@ -362,6 +368,11 @@ public class DojoGUI {
 
     @FXML
     private TextField txtUpdateDojoPathRecibos;
+    @FXML
+    private TextField txtRutaArchivoExcel;
+    @FXML
+    private TextField txtRutaGuardarDatos;
+    
 
 
 //generateReciboEmailfxml
@@ -385,13 +396,22 @@ public class DojoGUI {
     private TextField txtAcudienteName;
     
     @FXML
+    private TextField txtDiferenciableArchivo;
+    
+    @FXML
+    private TextField txtConceptoRecibo;
+    
+    @FXML
     private Label reciboNombreEstudiante;
+    
+    @FXML
+    private Label LabelMessage;
     
     private Student studentFactura;
     
     Calendar calendar = new GregorianCalendar();
     
-    private String fecha=String.valueOf(calendar.get(Calendar.DATE))+"-"+String.valueOf(calendar.get(Calendar.MONTH))+"-"+String.valueOf(calendar.get(Calendar.YEAR));
+    private String fecha=String.valueOf(calendar.get(Calendar.DATE))+"-"+String.valueOf(calendar.get(Calendar.MONTH)+1)+"-"+String.valueOf(calendar.get(Calendar.YEAR));
     
 //deleteStudentfxml
     @FXML
@@ -436,7 +456,7 @@ public class DojoGUI {
  	}
  	
  	public boolean loadDojoData() throws IOException, ClassNotFoundException{
- 		File f = new File(SAVE_PATH_FILE_DOJO);
+ 		File f = new File(SAVE_DOJO_PATH_FILE+"\\dojo.ap2");
  		boolean loaded = false;
  		if(f.exists()){
  			ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
@@ -447,7 +467,7 @@ public class DojoGUI {
  		return loaded;	
  	}
  	public void saveDojoData() throws IOException{
- 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_DOJO));
+ 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_DOJO_PATH_FILE+"\\dojo.ap2"));
  		oos.writeObject(dojo);
  		oos.close();
  	}
@@ -480,9 +500,10 @@ public class DojoGUI {
 		txtUpdateDojoEmailEnvio.setText(dojo.getEmailEnvio());
 		txtUpdateDojoPathStudents.setText(dojo.getPathStudentFiles());
 		txtUpdateDojoPathRecibos.setText(dojo.getPathReportes());
+		txtRutaArchivoExcel.setText(dojo.getSAVE_PATH_FILE_EXCEL());
 		
 		txtUpdateDojoAdress.getScene().getWindow().setWidth(610);
-		txtUpdateDojoAdress.getScene().getWindow().setHeight(450);
+		txtUpdateDojoAdress.getScene().getWindow().setHeight(530);
     }
     
     @FXML
@@ -526,13 +547,15 @@ public class DojoGUI {
 		fxml.setController(this);
 		Parent root= fxml.load();
 		PaneUpdateStudent.getChildren().setAll(root);
-		txtEmailMadre.getScene().getWindow().setHeight(450);
+		txtEmailMadre.getScene().getWindow().setHeight(500);
 		txtEmailMadre.getScene().getWindow().setWidth(610);
 		
 		
     	Student student=dojo.findStudent(txtUpdateStudentId.getText());
     	txtEmailMadre.setText(student.getMotherEmail());
     	txtEmailPadre.setText(student.getFatherEmail());
+    	txtAcudienteName.setText(student.getMotherName());
+    	txtEmailDestino.setText(student.getMotherEmail());
     	reciboNombreEstudiante.setText(student.getName());
     	studentFactura=student;
     	txtEmailMessage.setText("Adjunto recibo de la fecha de "+fecha);
@@ -574,15 +597,15 @@ public class DojoGUI {
     }
     
 //Method to fill the pdf file of RECIBO
-    public void addMetaData(Document document, Student student, String aNombreDe) throws DocumentException {
+    public void addMetaData(Document document, Student student, String aNombreDe, String concepto) throws DocumentException {
     	com.itextpdf.text.Image fotoLogo=null;
    
         try
         {
         	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
-        	fotoLogo.setAlignment(Chunk.ALIGN_LEFT);
+        	fotoLogo.setAlignment(Element.ALIGN_LEFT);
         	
         }
         catch ( Exception e )
@@ -600,8 +623,8 @@ public class DojoGUI {
         
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
-        table.addCell(getCell(p.getContent(), PdfPCell.ALIGN_LEFT));
-        table.addCell(getCell(fotoLogo, PdfPCell.ALIGN_RIGHT));
+        table.addCell(getCell(p.getContent(), Element.ALIGN_LEFT));
+        table.addCell(getCell(fotoLogo, Element.ALIGN_RIGHT));
         document.add(table);
         
         document.add(new Paragraph("\n\n"));
@@ -609,20 +632,20 @@ public class DojoGUI {
         Calendar calendar = new GregorianCalendar();
         
         Paragraph parrafoPagoR = new Paragraph();
-        parrafoPagoR.add("PAGO MENSUALIDAD \n"+
-        				String.valueOf(calendar.get(Calendar.DATE))+"/"+String.valueOf(calendar.get(Calendar.MONTH))+"/"+String.valueOf(calendar.get(Calendar.YEAR))+
+        parrafoPagoR.add(concepto+"\n"+
+        				String.valueOf(calendar.get(Calendar.DATE))+"/"+String.valueOf(calendar.get(Calendar.MONTH)+1)+"/"+String.valueOf(calendar.get(Calendar.YEAR))+
         				"\n"+student.getName() +" "+student.getId()+
         				"\n"+"RECIBIDO DE "+aNombreDe);
         parrafoPagoR.setFont(FontFactory.getFont("Tahoma", 18));
         
         PdfPTable tablePago = new PdfPTable(2);
         tablePago.setWidthPercentage(70);
-        tablePago.addCell(getCell("CONCEPTO", PdfPCell.ALIGN_CENTER)).setBackgroundColor(BaseColor.RED);
-        tablePago.addCell(getCell("VALOR", PdfPCell.ALIGN_CENTER)).setBackgroundColor(BaseColor.RED);
-        tablePago.addCell(getCell(parrafoPagoR.getContent(), PdfPCell.ALIGN_CENTER)).setMinimumHeight(50);
-        tablePago.addCell(getCell("$"+String.valueOf(student.getValueMensualidad()), PdfPCell.ALIGN_CENTER));
-        tablePago.addCell(getCell("TOTAL", PdfPCell.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tablePago.addCell(getCell("$"+String.valueOf(student.getValueMensualidad()), PdfPCell.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tablePago.addCell(getCell("CONCEPTO", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.RED);
+        tablePago.addCell(getCell("VALOR", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.RED);
+        tablePago.addCell(getCell(parrafoPagoR.getContent(), Element.ALIGN_CENTER)).setMinimumHeight(50);
+        tablePago.addCell(getCell("$"+String.valueOf(student.getValueMensualidad()), Element.ALIGN_CENTER));
+        tablePago.addCell(getCell("TOTAL", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tablePago.addCell(getCell("$"+String.valueOf(student.getValueMensualidad()), Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
                 
         document.add(tablePago);
         
@@ -639,7 +662,7 @@ public class DojoGUI {
         PdfPCell cell = new PdfPCell(new Phrase(text));
         cell.setPadding(0);
         cell.setHorizontalAlignment(alignment);
-        cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setBorder(Rectangle.NO_BORDER);
         cell.setMinimumHeight(18);
         return cell;
     }
@@ -649,7 +672,7 @@ public class DojoGUI {
         cell.addElement(img);
         cell.setPadding(0);
         cell.setHorizontalAlignment(alignment);
-        cell.setBorder(PdfPCell.NO_BORDER);
+        cell.setBorder(Rectangle.NO_BORDER);
         return cell;
     }
     
@@ -746,6 +769,7 @@ public class DojoGUI {
     								ocupation, fatherName, fatherPhone, fatherEmail, motherName, motherPhone, 
     								motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
     								trainDays, scheduleDays, observations, authorization,filesDescription, filesPath);
+    						saveDojoData();
     					     
     						filesOfStudent.clear();
     					}
@@ -785,6 +809,44 @@ public class DojoGUI {
     		dialog.show(); 
     	}
     }
+	
+    @FXML //Method that creates the new pdf in the student
+    public void createNewPdf(ActionEvent event){
+    	
+    	try {
+    		if(!txtDiferenciablePdf.getText().equals("")) {
+    			FileOutputStream archivo= new FileOutputStream(dojo.getPathStudentFiles()+"\\"+txtUpdateStudentName.getText()+txtUpdateStudentId.getText()+"\\"
+    					+"constancia "+txtDiferenciablePdf.getText()+".pdf");
+
+    			Document document= new Document();  
+
+
+    			try {//
+    				PdfWriter.getInstance(document, archivo);
+    				document.open();
+    				addMatriculaFormat(document, LabelUpdateRutaFoto.getText(), txtUpdateStudentId.getText());
+    				Dialog<String> dialog = createDialog();
+    				dialog.setTitle("Pdf generado" );
+    				dialog.setContentText("El pdf con la informacion del estudiante ha sido generado y guardado en la carpeta del estudiante");
+    				dialog.show(); 
+    			} catch (DocumentException e) {
+    				e.printStackTrace();
+    			}
+    			document.close();
+    		}
+    		else {
+    			Dialog<String> dialog = createDialog();
+    			dialog.setTitle("Error, diferenciable requerido" );
+    			dialog.setContentText("Debe llenar el campo de texto del diferenciable del archivo");
+    			dialog.show(); 
+    		}
+    	}catch(FileNotFoundException e) {
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Error, directorio no encontrado" );
+    		dialog.setContentText("No se ha encontrado el directorio "+dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+" para poder añadir el pdf");
+    		dialog.show(); 
+    	}
+    }
 
     @FXML //Method that creates the own directory of the student and the CONSTANCIAMATRICULA of the new Student
     public void generateCreatePDF(ActionEvent event){
@@ -797,7 +859,7 @@ public class DojoGUI {
     	try {//
 			PdfWriter.getInstance(document, archivo);
 			document.open();
-			addMatriculaFormat(document);
+			addMatriculaFormat(document, LabelRutaFoto.getText(), txtStudentId.getText());
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Matricula generada" );
     		dialog.setContentText("La matricula del estudiante ha sido generada y guardada en la carpeta del estudiante");
@@ -814,19 +876,19 @@ public class DojoGUI {
     	}
     }
 
-    public void addMatriculaFormat(Document document) throws DocumentException {
+    public void addMatriculaFormat(Document document, String imageRuta, String studentId) throws DocumentException {
     	com.itextpdf.text.Image fotoLogo=null;
     	com.itextpdf.text.Image fotoPerfil=null;
     	   
         try
         {
-        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
-        	fotoLogo.scaleToFit(200, 200);
-        	fotoLogo.setAlignment(Chunk.ALIGN_LEFT);
-
-        	fotoPerfil = com.itextpdf.text.Image.getInstance(LabelRutaFoto.getText());
+        	fotoPerfil = com.itextpdf.text.Image.getInstance(imageRuta);
         	fotoPerfil.scaleToFit(100, 100);
-        	fotoPerfil.setAlignment(Chunk.ALIGN_RIGHT);
+        	fotoPerfil.setAlignment(Element.ALIGN_RIGHT);
+        	
+        	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
+        	fotoLogo.scaleToFit(200, 200);
+        	fotoLogo.setAlignment(Element.ALIGN_LEFT);
         	
         }catch ( Exception e ){
         	e.printStackTrace();
@@ -839,63 +901,63 @@ public class DojoGUI {
         if(fotoPerfil!=null && fotoLogo!=null) {
         	PdfPTable tableHeader = new PdfPTable(2);
         	tableHeader.setWidthPercentage(100);
-        	tableHeader.addCell(getCell(fotoLogo, PdfPCell.ALIGN_LEFT));
-        	tableHeader.addCell(getCell(fotoPerfil, PdfPCell.ALIGN_RIGHT));
+        	tableHeader.addCell(getCell(fotoLogo, Element.ALIGN_LEFT));
+        	tableHeader.addCell(getCell(fotoPerfil, Element.ALIGN_RIGHT));
         	document.add(tableHeader);
         }
         
         document.add(new Paragraph("\n\n"));
         
-        Student student=dojo.findStudent(txtStudentId.getText());
+        Student student=dojo.findStudent(studentId);
         
         PdfPTable tableConstancia = new PdfPTable(2);
         tableConstancia.setWidthPercentage(70);
-        tableConstancia.addCell(getCellBorder("NOMBRE DEL ESTUDIANTE", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getName(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("FECHA DE NACIMIENTO", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getBornDate(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("LUGAR DE NACIMIENTO", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getBornPlace(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("DOCUMENTO DE IDENTIDAD", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("SALUD", PdfPCell.ALIGN_CENTER)).setMinimumHeight(40);
-        tableConstancia.addCell(getCellBorder("Entidad: "+student.getEps()+"\n"+"RH: "+student.getRH()+"\n"+"Sexo: "+student.getSex()+"\n", PdfPCell.ALIGN_LEFT)).setMinimumHeight(40);;
-        tableConstancia.addCell(getCellBorder("OCUPACION", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getOcupation(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("NOMBRE DEL PADRE", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getFatherName(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("TELEFONO DEL PADRE", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getFatherPhone(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("EMAIL DEL PADRE", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getFatherEmail(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("NOMBRE DE LA MADRE", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getMotherName(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("TELEFONO DE LA MADRE", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getMotherPhone(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("EMAIL DE LA MADRE", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getMotherEmail(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("DIRECCION", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getAdress(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("BARRIO:", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getNeighborhood(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("FECHA DE INGRESO", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getRegisterDate(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("VALOR MENSUALIDAD", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getValueMensualidad()), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("PLAN PAGO ENTRENO", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getPlanPagoEntreno(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("DIAS DE ENTRENO", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getTrainDays()), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("HORARIOS DE ENTRENO", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getScheduleDays()), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("OBSERVACIONES", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getObservations(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("AUTORIZACION PARA EL USO DE SU IMAGEN EN PUBLICACIONES EN REDES SOCIALES:", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.isAuthorization()), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("ARCHIVOS ADJUNTADOS", PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getFilesDescription(), PdfPCell.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder("ACUDIENTE RESPONSABLE", PdfPCell.ALIGN_MIDDLE)).setMinimumHeight(50);
-        tableConstancia.addCell(getCellBorder("NOMBRE:___________________\n"+"CEDULA:___________________\n "+"FIRMA:___________________", PdfPCell.ALIGN_CENTER)).setMinimumHeight(50);
+        tableConstancia.addCell(getCellBorder("NOMBRE DEL ESTUDIANTE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getName(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("FECHA DE NACIMIENTO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getBornDate(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("LUGAR DE NACIMIENTO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getBornPlace(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("DOCUMENTO DE IDENTIDAD", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("SALUD", Element.ALIGN_CENTER)).setMinimumHeight(40);
+        tableConstancia.addCell(getCellBorder("Entidad: "+student.getEps()+"\n"+"RH: "+student.getRH()+"\n"+"Sexo: "+student.getSex()+"\n", Element.ALIGN_LEFT)).setMinimumHeight(40);;
+        tableConstancia.addCell(getCellBorder("OCUPACION", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getOcupation(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("NOMBRE DEL PADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getFatherName(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("TELEFONO DEL PADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getFatherPhone(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("EMAIL DEL PADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getFatherEmail(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("NOMBRE DE LA MADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getMotherName(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("TELEFONO DE LA MADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getMotherPhone(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("EMAIL DE LA MADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getMotherEmail(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("DIRECCION", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getAdress(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("BARRIO:", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getNeighborhood(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("FECHA DE INGRESO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getRegisterDate(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("VALOR MENSUALIDAD", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getValueMensualidad()), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("PLAN PAGO ENTRENO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getPlanPagoEntreno(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("DIAS DE ENTRENO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getTrainDays()), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("HORARIOS DE ENTRENO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getScheduleDays()), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("OBSERVACIONES", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getObservations(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("AUTORIZACION PARA EL USO DE SU IMAGEN EN PUBLICACIONES EN REDES SOCIALES:", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.isAuthorization()), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("ARCHIVOS ADJUNTADOS", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getFilesDescription(), Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder("ACUDIENTE RESPONSABLE", Element.ALIGN_MIDDLE)).setMinimumHeight(50);
+        tableConstancia.addCell(getCellBorder("NOMBRE:___________________\n"+"CEDULA:___________________\n "+"FIRMA:___________________", Element.ALIGN_CENTER)).setMinimumHeight(50);
         document.add(tableConstancia);
         	
 	}
@@ -1036,6 +1098,7 @@ public class DojoGUI {
   			    		Image img = new Image(file.toURI().toString());
   						updateProfilePicture.setImage(img);
   						txtUpdateStudentName.setText(student.getName());
+  						LabelUpdateRutaFoto.setText(student.getProfilePicture());
   						txtUpdateStudentBornPlace.setText(student.getBornPlace());
   						txtUpdateStudentId.setText(student.getId());
   						
@@ -1201,14 +1264,14 @@ public class DojoGUI {
     		student.setScheduleDays(getUpdateScheduleDays());
     		student.setTrainDays(getUpdateTrainDays());
 
-			File directorio = new File("data/"+student.getName()+student.getId()); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
+			File directorio = new File(dojo.getPathStudentFiles()+"\\"+student.getName()+student.getId()); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
     		
 			for(int i=0;i<updateFilesOfStudent.size();i++) {
 				dojo.fileCopy(updateFilesOfStudent.get(i), (directorio.getAbsolutePath()));
 			}
 			
 			try {
-				dojo.saveStudentsData();
+				saveDojoData();
 			} catch (IOException e) {
 	    		Dialog<String> dialog = createDialog();
 	    		dialog.setTitle("La información no se pudo serializar");
@@ -1328,6 +1391,7 @@ public class DojoGUI {
     public void deleteStudent(ActionEvent event) throws IOException {
     	if(!txtDeleteStudentId.getText().equals("")) {
     		dojo.deleteStudent(txtDeleteStudentId.getText());
+    		saveDojoData();
     	}
     	else {
     		Dialog<String> dialog = createDialog();
@@ -1336,31 +1400,51 @@ public class DojoGUI {
     		dialog.show();
     	}
     }
-    
-
     @FXML
-    public void generateReciboEmail(ActionEvent event) throws FileNotFoundException {
-    	FileOutputStream archivo= new FileOutputStream(dojo.getPathReportes()+"\\"+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+"Recibo.pdf");
+    public void createRecibo(ActionEvent event) throws FileNotFoundException {
+    	FileOutputStream archivo= new FileOutputStream(dojo.getPathReportes()+"\\"+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
+    	FileOutputStream archivoCarpetaEstudiante= new FileOutputStream(dojo.getPathStudentFiles()+"\\"+studentFactura.getName()+studentFactura.getId()+"\\"+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
     	
     	Document document= new Document();  
+    	Document document2= new Document();  
     	
     	try {//
 			PdfWriter.getInstance(document, archivo);
 			document.open();
-			addMetaData(document, studentFactura, txtAcudienteName.getText());
+			addMetaData(document, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
+			
+			PdfWriter.getInstance(document2, archivoCarpetaEstudiante);
+			document2.open();
+			addMetaData(document2, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
+			
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Recibo creado satisfactoriamente");
+    		dialog.setContentText("El recibo ha sido creado en la carpeta de Recibos y en la carpeta del estudiante");
+    		dialog.show();
 		} catch (DocumentException e) {
-			e.printStackTrace();
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Error, ha ocurrido un error al crear el pdf del recibo");
+    		dialog.setContentText("El pdf de recibo no ha podido ser creado por algun elemento");
+    		dialog.show();
+		}catch(Exception e) {
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Error, ha ocurrido un error al crear el pdf del recibo");
+    		dialog.setContentText("El pdf de recibo no ha podido ser creado");
+    		dialog.show();
 		}
     	document.close();
-    	
+    	document2.close();
+    }
+
+    @FXML
+    public void generateReciboEmail(ActionEvent event) throws FileNotFoundException {
+
     	Properties propiedad = new Properties();
         propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");// a que servidor nos vamos a conectar, en este caso gmail
         propiedad.setProperty("mail.smtp.starttls.enable", "true");
         propiedad.setProperty("mail.smtp.port", "587");//puerto por el que nos vamos a conectar (el puerto que nos da gmail es el 587)
         propiedad.setProperty("mail.smpt.auth", "true");
         propiedad.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        
-
         
         Session sesion = Session.getDefaultInstance(propiedad);
         String correoEnvia = dojo.getEmailEnvio();
@@ -1376,7 +1460,7 @@ public class DojoGUI {
             parteTexto.setContent(txtEmailMessage.getText(), "text/html");
             BodyPart parteArchivo= new MimeBodyPart();
             parteArchivo.setDataHandler(new DataHandler(new FileDataSource(dojo.getPathReportes()+"\\"
-            											+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+"Recibo.pdf")));
+            											+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf")));
             parteArchivo.setFileName("Recibo "+fecha+".pdf");
             
             MimeMultipart multiPart= new MimeMultipart();
@@ -1392,21 +1476,21 @@ public class DojoGUI {
             
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Correo Enviado");
-    		dialog.setContentText("El recibo ha sido generado en la carpeta del estudiante y ha sido enviado satisfactoriamente");
+    		dialog.setContentText("El recibo ha sido generado en la carpeta de Recibos y ha sido enviado al correo");
     		dialog.show();
             
             
         } catch (AddressException ex) {
         	ex.printStackTrace();
     		Dialog<String> dialog = createDialog();
-    		dialog.setTitle("Ha ocurrido un error con los correos electrónicos");
-    		dialog.setContentText("El correo no ha podido ser enviado");
+    		dialog.setTitle("Error, el correo no ha podido ser enviado");
+    		dialog.setContentText("Revise los correos, puede que esten digitados incorrectamente");
     		dialog.show();
         } catch (MessagingException ex) {
         	ex.printStackTrace();
     		Dialog<String> dialog = createDialog();
-    		dialog.setTitle("Ha ocurrido un error con el mensaje del correo");
-    		dialog.setContentText("El correo no ha podido ser enviado, revise el mensaje del correo");
+    		dialog.setTitle("Error, correo no ha podido ser enviado");
+    		dialog.setContentText("verifique la existencia del recibo adjunto en la carpeta Recibos o el correo de origen");
     		dialog.show();
         }
         
@@ -1423,6 +1507,7 @@ public class DojoGUI {
     	dojo.setEmailEnvio(txtUpdateDojoEmailEnvio.getText());
     	dojo.setPathStudentFiles(txtUpdateDojoPathStudents.getText());
     	dojo.setPathReportes(txtUpdateDojoPathRecibos.getText());
+    	dojo.setSAVE_PATH_FILE_EXCEL(txtRutaArchivoExcel.getText());
     	
     	if(!txtUpdateDojoEmailClave.getText().equals("")) {
     		dojo.setClaveEmail(txtUpdateDojoEmailClave.getText());
@@ -1440,6 +1525,44 @@ public class DojoGUI {
     		dialog.setContentText("Los datos del dojo no se pudieron serializar");
     		dialog.show();
 		}
+    }
+    
+    @FXML
+    public void exportStudentsData(ActionEvent event) throws FileNotFoundException {
+    	try {
+    		exportEmployeesData(dojo.getSAVE_PATH_FILE_EXCEL()+"\\Lista Estudiantes.csv", ";");
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Datos Estudiantes exportados");
+    		dialog.setContentText("Se ha generado el archivo excel con la lista de estudiantes");
+    		dialog.show();
+    	}catch(Exception e) {
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Error, algo salio mal al exportar datos");
+    		dialog.setContentText("No se ha podido generar el archivo de excel con los datos de los alumnos");
+    		dialog.show();
+    	}
+    }
+    
+    public void exportEmployeesData(String fileName, String sep) throws FileNotFoundException {
+
+    	PrintWriter pw= new PrintWriter(fileName);
+
+    	pw.println("Nombre"+sep+"Tipo Id"+sep+"Identificacion"+sep+"Fecha de Nacimiento"+sep+"Lugar de nacimiento"+
+    			sep+"Salud"+sep+"RH"+sep+"Sexo"+sep+"Ocupacion"+sep+"Nombre Padre"+sep+"Telefono Padre"+sep+"Email Padre"+
+    			sep+"Nombre Madre"+sep+"Telefono Madre"+sep+"Email Madre"+sep+"Direccion"+sep+"Barrio"+sep+"Fecha Ingreso"+sep+"Mensualidad"+
+    			sep+"Plan Pago Entreno"+sep+"Dias de Entreno"+sep+"Horario"+sep+"Observaciones"+sep+"Autorizacion");
+
+    	for(int i=0;i<dojo.getStudents().size();i++) {
+    		Student student= dojo.getStudents().get(i);
+
+    		pw.println(student.getName()+sep+student.getIdType()+sep+student.getId()+sep+student.getBornDate()+sep+student.getBornPlace()
+    		+sep+student.getEps()+sep+student.getRH()+sep+student.getSex()+sep+student.getOcupation()+sep+student.getFatherName()+
+    		sep+student.getFatherPhone()+sep+student.getFatherEmail()+sep+student.getMotherName()+sep+student.getMotherPhone()+sep+student.getMotherEmail()+
+    		sep+student.getAdress()+sep+student.getNeighborhood()+sep+student.getRegisterDate()+sep+student.getValueMensualidad()+
+    				sep+student.getPlanPagoEntreno()+sep+student.getTrainDays().toString()+sep+student.getScheduleDays().toString()+
+    				sep+student.getObservations()+sep+student.isAuthorization());		 
+    	}
+    	pw.close();
     }
 }
 

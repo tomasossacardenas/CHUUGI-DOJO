@@ -25,9 +25,9 @@
                         <MenuItem mnemonicParsing="false" onAction="#openDeleteStudent" text="Eliminar Alumno" />
                      </items>
                   </Menu>
-                  <Menu mnemonicParsing="false" text="Importar Datos">
+                  <Menu mnemonicParsing="false" text="Exportar Datos">
                      <items>
-                        <MenuItem mnemonicParsing="false" text="Importar Datos Alumnos" />
+                        <MenuItem mnemonicParsing="false" onAction="#exportStudentsData" text="Generar Excel" />
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Dojo">

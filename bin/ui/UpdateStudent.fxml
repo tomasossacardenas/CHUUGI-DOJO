@@ -67,12 +67,12 @@
       <CheckBox fx:id="updateTwoToThree" layoutX="406.0" layoutY="397.0" mnemonicParsing="false" text="2:00-3:00" />
       <TextArea fx:id="txtUpdateObservations" layoutX="211.0" layoutY="418.0" prefHeight="38.0" prefWidth="362.0" />
       <Label layoutX="18.0" layoutY="505.0" prefHeight="72.0" prefWidth="103.0" text="LOS ARCHIVOS AÑADIDOS SON:" wrapText="true" />
-      <Button layoutX="436.0" layoutY="529.0" mnemonicParsing="false" onAction="#openUpdateFileChooserFiles" text="Buscar Archivo" />
-      <Button layoutX="437.0" layoutY="558.0" mnemonicParsing="false" onAction="#updateAddFileToStudent" text="Añadir archivo" />
+      <Button layoutX="429.0" layoutY="519.0" mnemonicParsing="false" onAction="#openUpdateFileChooserFiles" text="Buscar Archivo" />
+      <Button layoutX="429.0" layoutY="552.0" mnemonicParsing="false" onAction="#updateAddFileToStudent" text="Añadir archivo" />
       <TextArea fx:id="txtUpdateStudentAddedFiles" layoutX="133.0" layoutY="498.0" prefHeight="88.0" prefWidth="268.0" />
-      <Label fx:id="LabelUpdateRutaArchivos" layoutX="451.0" layoutY="508.0" text="Ruta Archivo" />
-      <Button layoutX="148.0" layoutY="595.0" mnemonicParsing="false" onAction="#updateStudent" text="Actualizar Informacion" />
-      <Button layoutX="303.0" layoutY="596.0" mnemonicParsing="false" onAction="#openGenerateRecibo" text="Generar Recibo" />
+      <Label fx:id="LabelUpdateRutaArchivos" layoutX="442.0" layoutY="496.0" text="Ruta Archivo" />
+      <Button layoutX="179.0" layoutY="597.0" mnemonicParsing="false" onAction="#updateStudent" text="Actualizar Informacion" />
+      <Button layoutX="31.0" layoutY="597.0" mnemonicParsing="false" onAction="#openGenerateRecibo" text="Generar Recibo" />
       <Button layoutX="351.0" layoutY="57.0" mnemonicParsing="false" onAction="#openUpdateFileChooserPicture" text="Buscar Foto" />
       <Label fx:id="LabelUpdateRutaFoto" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="38.0" prefHeight="17.0" prefWidth="130.0" text="Ruta de la foto" />
       <CheckBox fx:id="updateSabado" layoutX="370.0" layoutY="370.0" mnemonicParsing="false" text="S" />
@@ -86,5 +86,7 @@
       <CheckBox fx:id="updateNo" layoutX="431.0" layoutY="469.0" mnemonicParsing="false" text="NO" />
       <CheckBox fx:id="updateTarjetaIdentidad" layoutX="342.0" layoutY="146.0" mnemonicParsing="false" text="TI" />
       <CheckBox fx:id="updateCedula" layoutX="382.0" layoutY="146.0" mnemonicParsing="false" text="CC" />
+      <Button layoutX="357.0" layoutY="597.0" mnemonicParsing="false" onAction="#createNewPdf" text="Crear Pdf" />
+      <TextField fx:id="txtDiferenciablePdf" layoutX="433.0" layoutY="597.0" prefHeight="25.0" prefWidth="159.0" promptText="Diferenciable del pdf" />
    </children>
 </Pane>

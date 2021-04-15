@@ -1,11 +1,7 @@
 package model;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -18,10 +14,10 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.ButtonBar.ButtonData;
 
 public class Dojo implements Serializable {
+	
 	private static final long serialVersionUID = 1;
-	public final static String SAVE_PATH_FILE_STUDENTS="data/students.ap2";
-	public final static String SAVE_PATH_FILE_USER="data/user.ap2";
 	//atributes
+	private String save_path_file_excel;
 	private String adress;
 	private String nit;
 	private String ceo;
@@ -37,7 +33,7 @@ public class Dojo implements Serializable {
 	
 	
 
-	public Dojo(String adress, String nit, String ceo, String email, String phone, String emailEnvio, String clave, String pathStudentFiles, String pathReportes) {
+	public Dojo(String adress, String nit, String ceo, String email, String phone, String emailEnvio, String clave, String pathStudentFiles, String pathReportes, String pathExcel) {
 		this.adress = adress;
 		this.nit = nit;
 		this.ceo = ceo;
@@ -46,11 +42,22 @@ public class Dojo implements Serializable {
 		this.emailEnvio=emailEnvio;
 		this.claveEmail=clave;
 		this.pathStudentFiles=pathStudentFiles;
+		this.save_path_file_excel=pathExcel;
 		this.pathReportes=pathReportes;
 		usuario= new User("ADMINISTRADOR", "123");
 		students= new ArrayList<>();
 	}
 	
+
+	public String getSAVE_PATH_FILE_EXCEL() {
+		return save_path_file_excel;
+	}
+
+
+	public void setSAVE_PATH_FILE_EXCEL(String sAVE_PATH_FILE_EXCEL) {
+		save_path_file_excel = sAVE_PATH_FILE_EXCEL;
+	}
+
 
 	public String getAdress() {
 		return adress;
@@ -170,7 +177,6 @@ public class Dojo implements Serializable {
 				fileCopy(filesPath.get(i), (directorio.getAbsolutePath()));
 			}
 			
-			saveStudentsData();
 			
      		Dialog<String> dialog = createDialog();
      		dialog.setTitle("Estudiante creado");
@@ -190,7 +196,6 @@ public class Dojo implements Serializable {
 		
 		if(student!=null) {
 			students.remove(student);
-			saveStudentsData();
 			Dialog<String> dialog = createDialog();
 			dialog.setTitle("El estudiante ha sido eliminado");
 			dialog.setContentText("El estudiante con la identificacion "+id+" ha sido eliminado del dojo.");
@@ -215,46 +220,6 @@ public class Dojo implements Serializable {
 		}
 		return student;
 	}
-	
-	 //Import students Data (serializacion)
-	 @SuppressWarnings("unchecked")
-	 public boolean loadStudentsData() throws IOException, ClassNotFoundException{
-		 File f = new File(SAVE_PATH_FILE_STUDENTS);
-		 boolean loaded = false;
-		 if(f.exists()){
-			 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-			 students = (List<Student>)ois.readObject();
-			 ois.close();
-			 loaded = true;
-		 }		 
-		 return loaded;	
-	 }
-
-	 //Export students Data (serializacion)
-	 public void saveStudentsData() throws IOException{
-		 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_STUDENTS));
-		 oos.writeObject(students);
-		 oos.close();
-	 }
-	 
-	 public boolean loadUserData() throws IOException, ClassNotFoundException{
-		 File f = new File(SAVE_PATH_FILE_USER);
-		 boolean loaded = false;
-		 if(f.exists()){
-			 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(f));
-			 usuario = (User)ois.readObject();
-			 ois.close();
-			 loaded = true;
-		 }		 
-		 return loaded;	
-	 }
-
-	 //Export students Data (serializacion)
-	 public void saveUserData() throws IOException{
-		 ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_PATH_FILE_USER));
-		 oos.writeObject(usuario);
-		 oos.close();
-	 }
 
 	public List<Student> getStudents() {
 		return students;
@@ -282,6 +247,16 @@ public class Dojo implements Serializable {
 
 	public void setPathReportes(String pathReportes) {
 		this.pathReportes = pathReportes;
+	}
+
+
+	public String getSave_path_file_excel() {
+		return save_path_file_excel;
+	}
+
+
+	public void setSave_path_file_excel(String save_path_file_excel) {
+		this.save_path_file_excel = save_path_file_excel;
 	}
 
 

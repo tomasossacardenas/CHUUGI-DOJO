@@ -30,12 +30,12 @@
                <children>
                   <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="37.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../restaurant-Management/src/icons/candado.png" />
+                        <Image url="@../icons/candado.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="37.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../restaurant-Management/src/icons/llave.png" />
+                        <Image url="@../icons/llave.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="txtLoginUsername" layoutX="94.0" layoutY="150.0" promptText="Nombre de Usuario" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="ADMINISTRADOR" />

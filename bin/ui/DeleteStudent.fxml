@@ -29,7 +29,7 @@
                <children>
                   <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="33.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../restaurant-Management/src/icons/llave.png" />
+                        <Image url="@../../../../OneDrive/Escritorio/PROYECTO%20EJECUTABLE/icons/llave.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="txtDeleteStudentId" layoutX="93.0" layoutY="187.0" promptText="Identificación" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
