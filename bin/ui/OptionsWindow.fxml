@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane fx:id="OptionsWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="OptionsWindow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="578.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;">
+      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="689.0" style="-fx-background-color: black;">
          <children>
-            <MenuBar prefHeight="25.0" prefWidth="600.0" style="-fx-background-color: #E5251F;">
+            <MenuBar prefHeight="25.0" prefWidth="685.0" style="-fx-background-color: #E5251F;">
                <menus>
                   <Menu mnemonicParsing="false" text="Visualizar">
                      <items>
@@ -42,9 +42,9 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <Pane fx:id="PaneOptionsWindow" prefHeight="377.0" prefWidth="600.0" style="-fx-background-color: white;">
+            <Pane fx:id="PaneOptionsWindow" prefHeight="429.0" prefWidth="644.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView fitHeight="374.0" fitWidth="600.0" layoutX="113.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="374.0" fitWidth="600.0" layoutX="103.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/chuugi%20logo.jpg" />
                      </image>

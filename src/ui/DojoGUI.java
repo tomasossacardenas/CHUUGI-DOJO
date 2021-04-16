@@ -370,8 +370,6 @@ public class DojoGUI {
     private TextField txtUpdateDojoPathRecibos;
     @FXML
     private TextField txtRutaArchivoExcel;
-    @FXML
-    private TextField txtRutaGuardarDatos;
     
 
 
@@ -481,8 +479,8 @@ public class DojoGUI {
 		login.setController(this);
 		Parent rootLogin = login.load();
 		OptionsWindow.getChildren().setAll(rootLogin);
-		txtLoginUsername.getScene().getWindow().setWidth(610);
-		txtLoginUsername.getScene().getWindow().setHeight(425);
+		txtLoginUsername.getScene().getWindow().setWidth(666);
+		txtLoginUsername.getScene().getWindow().setHeight(488);
     }
     
     @FXML
@@ -502,7 +500,7 @@ public class DojoGUI {
 		txtUpdateDojoPathRecibos.setText(dojo.getPathReportes());
 		txtRutaArchivoExcel.setText(dojo.getSAVE_PATH_FILE_EXCEL());
 		
-		txtUpdateDojoAdress.getScene().getWindow().setWidth(610);
+		txtUpdateDojoAdress.getScene().getWindow().setWidth(700);
 		txtUpdateDojoAdress.getScene().getWindow().setHeight(530);
     }
     
@@ -524,8 +522,8 @@ public class DojoGUI {
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
 		
-		txtDeleteStudentId.getScene().getWindow().setWidth(610);
-		txtDeleteStudentId.getScene().getWindow().setHeight(450);
+		txtDeleteStudentId.getScene().getWindow().setWidth(666);
+		txtDeleteStudentId.getScene().getWindow().setHeight(435);
 		
     }
     @FXML
@@ -535,9 +533,8 @@ public class DojoGUI {
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
 		
-		tableViewStudentsList.getScene().getWindow().setWidth(600);
-		tableViewStudentsList.getScene().getWindow().setHeight(425);
-		
+		tableViewStudentsList.getScene().getWindow().setWidth(700);
+		tableViewStudentsList.getScene().getWindow().setHeight(520);
 		initializeStudentTableView();
     }
     
@@ -547,8 +544,8 @@ public class DojoGUI {
 		fxml.setController(this);
 		Parent root= fxml.load();
 		PaneUpdateStudent.getChildren().setAll(root);
-		txtEmailMadre.getScene().getWindow().setHeight(500);
-		txtEmailMadre.getScene().getWindow().setWidth(610);
+		txtEmailMadre.getScene().getWindow().setWidth(677);
+		txtEmailMadre.getScene().getWindow().setHeight(529);
 		
 		
     	Student student=dojo.findStudent(txtUpdateStudentId.getText());

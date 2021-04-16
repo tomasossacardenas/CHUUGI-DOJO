@@ -30,7 +30,7 @@
       <Label layoutX="37.0" layoutY="278.0" prefHeight="17.0" prefWidth="72.0" text="DIRECCION:" />
       <Label layoutX="317.0" layoutY="278.0" prefHeight="17.0" prefWidth="55.0" text="BARRIO:" />
       <Label layoutX="18.0" layoutY="316.0" prefHeight="17.0" prefWidth="131.0" text="VALOR MENSUALIDAD:" />
-      <ImageView fitHeight="119.0" fitWidth="137.0" layoutX="84.0" layoutY="426.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="457.0" fitWidth="518.0" layoutX="84.0" layoutY="88.0" opacity="0.17" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../icons/escudo.png" />
          </image>
@@ -81,7 +81,7 @@
       <TextField fx:id="txtUpdateStudentRH" editable="false" layoutX="273.0" layoutY="166.0" prefHeight="25.0" prefWidth="75.0" />
       <Label layoutX="379.0" layoutY="171.0" prefHeight="17.0" prefWidth="37.0" text="SEXO:" />
       <TextField fx:id="txtUpdateStudentSex" editable="false" layoutX="421.0" layoutY="165.0" prefHeight="25.0" prefWidth="119.0" />
-      <Label layoutX="19.0" layoutY="440.0" prefHeight="91.0" prefWidth="395.0" text="AUTORIZA LA REALIZACION DE FOTOGRAFIAS Y VIDEOS DE LAS ACTIVIDADES DEL DOJO ASI COMO SU PUBLICACION EN REDES SOCIALES" wrapText="true" />
+      <Label layoutX="19.0" layoutY="440.0" prefHeight="91.0" prefWidth="518.0" text="AUTORIZA LA REALIZACION DE FOTOGRAFIAS Y VIDEOS DE LAS ACTIVIDADES DEL DOJO ASI COMO SU PUBLICACION EN REDES SOCIALES" wrapText="true" />
       <CheckBox fx:id="updateSi" layoutX="382.0" layoutY="469.0" mnemonicParsing="false" text="SI" />
       <CheckBox fx:id="updateNo" layoutX="431.0" layoutY="469.0" mnemonicParsing="false" text="NO" />
       <CheckBox fx:id="updateTarjetaIdentidad" layoutX="342.0" layoutY="146.0" mnemonicParsing="false" text="TI" />

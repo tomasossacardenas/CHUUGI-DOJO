@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="PaneStudentsList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="377.0" prefWidth="592.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="PaneStudentsList" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="456.0" prefWidth="685.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tableViewStudentsList" layoutY="78.0" prefHeight="253.0" prefWidth="592.0">
+      <TableView fx:id="tableViewStudentsList" layoutY="78.0" prefHeight="378.0" prefWidth="685.0">
          <columns>
-            <TableColumn fx:id="columnName" prefWidth="73.33334350585938" text="Nombre" />
-            <TableColumn fx:id="columnId" minWidth="0.0" prefWidth="100.66668701171875" text="Identificación" />
-            <TableColumn fx:id="columnMensualidad" minWidth="0.0" prefWidth="97.3333740234375" text="Mensualidad" />
-            <TableColumn fx:id="columnAuthorization" minWidth="0.0" prefWidth="101.0" text="Autorización" />
-            <TableColumn fx:id="columnBornDate" minWidth="0.0" prefWidth="109.66668701171875" text="Fecha Nacimiento" />
-            <TableColumn fx:id="columnRegisterDate" minWidth="0.0" prefWidth="115.33331298828125" text="Fecha Ingreso" />
+            <TableColumn fx:id="columnName" prefWidth="158.33334350585938" text="Nombre" />
+            <TableColumn fx:id="columnId" minWidth="0.0" prefWidth="118.66665649414062" text="Identificación" />
+            <TableColumn fx:id="columnMensualidad" minWidth="0.0" prefWidth="88.6666259765625" text="Mensualidad" />
+            <TableColumn fx:id="columnAuthorization" minWidth="0.0" prefWidth="81.0" text="Autorización" />
+            <TableColumn fx:id="columnBornDate" minWidth="0.0" prefWidth="119.3333740234375" text="Fecha Nacimiento" />
+            <TableColumn fx:id="columnRegisterDate" minWidth="0.0" prefWidth="122.6666259765625" text="Fecha Ingreso" />
          </columns>
       </TableView>
-      <Label layoutX="208.0" layoutY="14.0" text="Estudiantes" textFill="WHITE">
+      <Label layoutX="255.0" layoutY="14.0" text="Estudiantes" textFill="WHITE">
          <font>
             <Font name="System Italic" size="36.0" />
          </font>

@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPaneLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="mainPaneLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="651.0">
          <left>
             <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="302.0" fitWidth="293.0" layoutX="4.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="302.0" fitWidth="293.0" layoutX="4.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/chuugi%20logo.jpg" />
                      </image>
@@ -26,26 +26,35 @@
             </AnchorPane>
          </left>
          <right>
-            <AnchorPane prefHeight="400.0" prefWidth="302.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="453.0" prefWidth="362.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="37.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="60.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/candado.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="37.0" layoutY="219.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="36.0" layoutX="60.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/llave.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="txtLoginUsername" layoutX="94.0" layoutY="150.0" promptText="Nombre de Usuario" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="ADMINISTRADOR" />
-                  <Button layoutX="121.0" layoutY="317.0" mnemonicParsing="false" onAction="#buttonSignIn" text="Ingresar" />
-                  <Label layoutX="87.0" layoutY="52.0" text="Login" textFill="WHITE">
+                  <TextField fx:id="txtLoginUsername" layoutX="117.0" layoutY="163.0" promptText="Nombre de Usuario" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" text="ADMINISTRADOR">
                      <font>
-                        <Font name="System Bold" size="48.0" />
+                        <Font size="14.0" />
+                     </font></TextField>
+                  <Button layoutX="140.0" layoutY="333.0" mnemonicParsing="false" onAction="#buttonSignIn" text="Ingresar">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Button>
+                  <Label layoutX="102.0" layoutY="50.0" text="Login" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="56.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="txtLoginPassword" layoutX="94.0" layoutY="230.0" promptText="Contraseña" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;" />
+                  <PasswordField fx:id="txtLoginPassword" layoutX="117.0" layoutY="243.0" promptText="Contraseña" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 0px 0px 2px 0px;">
+                     <font>
+                        <Font size="14.0" />
+                     </font></PasswordField>
                </children>
             </AnchorPane>
          </right>
