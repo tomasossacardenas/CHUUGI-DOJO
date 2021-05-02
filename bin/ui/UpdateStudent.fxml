@@ -68,9 +68,7 @@
       <TextArea fx:id="txtUpdateObservations" layoutX="211.0" layoutY="418.0" prefHeight="38.0" prefWidth="362.0" />
       <Label layoutX="18.0" layoutY="505.0" prefHeight="72.0" prefWidth="103.0" text="LOS ARCHIVOS AÑADIDOS SON:" wrapText="true" />
       <Button layoutX="429.0" layoutY="519.0" mnemonicParsing="false" onAction="#openUpdateFileChooserFiles" text="Buscar Archivo" />
-      <Button layoutX="429.0" layoutY="552.0" mnemonicParsing="false" onAction="#updateAddFileToStudent" text="Añadir archivo" />
       <TextArea fx:id="txtUpdateStudentAddedFiles" layoutX="133.0" layoutY="498.0" prefHeight="88.0" prefWidth="268.0" />
-      <Label fx:id="LabelUpdateRutaArchivos" layoutX="442.0" layoutY="496.0" text="Ruta Archivo" />
       <Button layoutX="179.0" layoutY="597.0" mnemonicParsing="false" onAction="#updateStudent" text="Actualizar Informacion" />
       <Button layoutX="31.0" layoutY="597.0" mnemonicParsing="false" onAction="#openGenerateRecibo" text="Generar Recibo" />
       <Button layoutX="351.0" layoutY="57.0" mnemonicParsing="false" onAction="#openUpdateFileChooserPicture" text="Buscar Foto" />

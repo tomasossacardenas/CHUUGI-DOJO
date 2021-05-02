@@ -48,11 +48,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import model.Dojo;
 import model.Student;
-
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -68,8 +66,8 @@ import com.itextpdf.text.Rectangle;
 
 public class DojoGUI {
  //constants
-	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";
-	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data";
+	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";
+	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data";
 
  //Relations
 	Dojo dojo;
@@ -151,6 +149,15 @@ public class DojoGUI {
 
     @FXML
     private CheckBox cedula;
+
+    @FXML
+    private CheckBox masculino;
+
+    @FXML
+    private CheckBox femenino;
+
+    @FXML
+    private CheckBox otrosexo;
 
     @FXML
     private DatePicker txtStudentBornDate;
@@ -338,6 +345,7 @@ public class DojoGUI {
     @FXML
     private CheckBox updateCedula;
     
+    List<File> selectedFiles=new ArrayList<>();
     List<String> updateFilesOfStudent= new ArrayList<>();
     
 //updateDojo fxml
@@ -515,6 +523,7 @@ public class DojoGUI {
 		LabelRutaFoto.getScene().getWindow().setWidth(610);
 		LabelRutaFoto.getScene().getWindow().setHeight(700);
 		filesOfStudent.clear();
+		
     }
    
     @FXML
@@ -715,7 +724,7 @@ public class DojoGUI {
     void createStudent(ActionEvent event) throws BadElementException, MalformedURLException, IOException {
     	String name= txtStudentName.getText();
     	String rh=txtStudentRH.getText();
-    	String sex=txtStudentSex.getText();
+    	String sex=getSexType();
     	String bornDate;
     	String bornPlace= txtStudentBornPlace.getText();
     	String id= txtStudentId.getText();
@@ -738,8 +747,14 @@ public class DojoGUI {
     	String observations=txtStudentObservations.getText();
     	boolean authorization=getAuthorization();//por determinado esta en false
     	String filesDescription= txtStudentAddedFiles.getText();
-    	List<String> filesPath= filesOfStudent;
+    	List<String> filesPath= new ArrayList<>();
     	double valueMensualidad=0;
+    	
+    	if(!selectedFiles.isEmpty()) {
+    		for(int i=0;i<selectedFiles.size();i++) {
+        		filesPath.add(selectedFiles.get(i).getAbsolutePath());
+    		}
+    	}
     	
     	try {//Intente si se escogió una fecha
     		registerDate=txtStudentRegisterDate.getValue().toString();
@@ -764,19 +779,26 @@ public class DojoGUI {
     			if(!LabelRutaFoto.getText().equals("") && !LabelRutaFoto.getText().equals("Ruta de la foto")) {
     				if(!bornDate.isEmpty() && !registerDate.isEmpty()) {
     					if(!eps.equals("") && !rh.equals("") && !sex.equals("")) {
-    						dojo.createStudent(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps, 
-    								ocupation, fatherName, fatherPhone, fatherEmail, motherName, motherPhone, 
-    								motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
-    								trainDays, scheduleDays, observations, authorization,filesDescription, filesPath);
-    						saveDojoData();
+    						try {
+    							dojo.createStudent(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps, 
+    									ocupation, fatherName, fatherPhone, fatherEmail, motherName, motherPhone, 
+    									motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
+    									trainDays, scheduleDays, observations, authorization,filesDescription, filesPath);
+    							saveDojoData();
+    						}
+    						catch(Exception e) {
+    							Dialog<String> dialog = createDialog();
+    							dialog.setTitle("Ha ocurrido un error");
+    							dialog.setContentText("No ha sido posible crear el estudiante");
+    						}
     					     
-    						filesOfStudent.clear();
+    						selectedFiles= new ArrayList<>();
     					}
     					else {
             				Dialog<String> dialog = createDialog();
                 			dialog.setTitle("Error, la informacion de salud es necesaria");
                 			dialog.setContentText("Recuerde que la infromacion de eps, rh y sexo"
-                					+ "} son necesarias para crear el estudiante");
+                					+ " son necesarias para crear el estudiante");
                 			dialog.show();
     					}
     				}
@@ -853,7 +875,7 @@ public class DojoGUI {
     	try {
     	FileOutputStream archivo= new FileOutputStream(dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+"\\"+"constanciaMatricula"+".pdf");
     	
-    	Document document= new Document();  
+    	Document document= new Document(); 
     	
     	try {//
 			PdfWriter.getInstance(document, archivo);
@@ -879,6 +901,7 @@ public class DojoGUI {
     	com.itextpdf.text.Image fotoLogo=null;
     	com.itextpdf.text.Image fotoPerfil=null;
     	com.itextpdf.text.Image marcaAgua=null;
+    	
     	   
         try
         {
@@ -886,11 +909,11 @@ public class DojoGUI {
         	fotoPerfil.scaleToFit(100, 100);
         	fotoPerfil.setAlignment(Element.ALIGN_RIGHT);
         	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Element.ALIGN_LEFT);
         	
-        	marcaAgua = com.itextpdf.text.Image.getInstance("src/icons/waterMark.png");
+        	marcaAgua = com.itextpdf.text.Image.getInstance("icons/waterMark.png");
         	marcaAgua.scaleToFit(200, 200);
         	marcaAgua.setAlignment(Element.ALIGN_LEFT);
         	
@@ -919,51 +942,51 @@ public class DojoGUI {
         Student student=dojo.findStudent(studentId);
         
         PdfPTable tableConstancia = new PdfPTable(2);
-        tableConstancia.setWidthPercentage(70);
+        tableConstancia.setWidthPercentage(85);
         tableConstancia.addCell(getCellBorder("NOMBRE DEL ESTUDIANTE", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getName(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("FECHA DE NACIMIENTO", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getBornDate(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("FECHA DE NACIMIENTO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getBornDate(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("LUGAR DE NACIMIENTO", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getBornPlace(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("DOCUMENTO DE IDENTIDAD", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("DOCUMENTO DE IDENTIDAD", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("SALUD", Element.ALIGN_CENTER)).setMinimumHeight(40);
         tableConstancia.addCell(getCellBorder("Entidad: "+student.getEps()+"\n"+"RH: "+student.getRH()+"\n"+"Sexo: "+student.getSex()+"\n", Element.ALIGN_LEFT)).setMinimumHeight(40);;
-        tableConstancia.addCell(getCellBorder("OCUPACION", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getOcupation(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("OCUPACION", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getOcupation(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("NOMBRE DEL PADRE", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getFatherName(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("TELEFONO DEL PADRE", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getFatherPhone(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("TELEFONO DEL PADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getFatherPhone(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("EMAIL DEL PADRE", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getFatherEmail(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("NOMBRE DE LA MADRE", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getMotherName(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("NOMBRE DE LA MADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getMotherName(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("TELEFONO DE LA MADRE", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getMotherPhone(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("EMAIL DE LA MADRE", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getMotherEmail(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("EMAIL DE LA MADRE", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getMotherEmail(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("DIRECCION", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getAdress(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("BARRIO:", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getNeighborhood(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("BARRIO:", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getNeighborhood(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("FECHA DE INGRESO", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getRegisterDate(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("VALOR MENSUALIDAD", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getValueMensualidad()), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("VALOR MENSUALIDAD", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getValueMensualidad()), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("PLAN PAGO ENTRENO", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(student.getPlanPagoEntreno(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("DIAS DE ENTRENO", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getTrainDays()), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("DIAS DE ENTRENO", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getTrainDays()), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("HORARIOS DE ENTRENO", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(String.valueOf(student.getScheduleDays()), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("OBSERVACIONES", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getObservations(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("OBSERVACIONES", Element.ALIGN_CENTER));
+        tableConstancia.addCell(getCellBorder(student.getObservations(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("AUTORIZACION PARA EL USO DE SU IMAGEN EN PUBLICACIONES EN REDES SOCIALES:", Element.ALIGN_CENTER));
         tableConstancia.addCell(getCellBorder(String.valueOf(student.isAuthorization()), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("ARCHIVOS ADJUNTADOS", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-        tableConstancia.addCell(getCellBorder(student.getFilesDescription(), Element.ALIGN_LEFT)).setBackgroundColor(BaseColor.LIGHT_GRAY);
+        tableConstancia.addCell(getCellBorder("ARCHIVOS ADJUNTADOS", Element.ALIGN_CENTER)).setMinimumHeight(40);
+        tableConstancia.addCell(getCellBorder(student.getFilesDescription(), Element.ALIGN_LEFT));
         tableConstancia.addCell(getCellBorder("ACUDIENTE RESPONSABLE", Element.ALIGN_MIDDLE)).setMinimumHeight(50);
         tableConstancia.addCell(getCellBorder("NOMBRE:___________________\n"+"CEDULA:___________________\n "+"FIRMA:___________________", Element.ALIGN_LEFT)).setMinimumHeight(50);
         document.add(tableConstancia);
@@ -992,10 +1015,12 @@ public class DojoGUI {
     @FXML
     public void openFileChooserFiles(ActionEvent event) {
         FileChooser fc = new FileChooser();
-        File selectedFile= fc.showOpenDialog(null);
+        selectedFiles= fc.showOpenMultipleDialog(null);
         
-        if(selectedFile!=null) {
-        	LabelRutaArchivos.setText(selectedFile.getAbsolutePath());
+        if(!selectedFiles.isEmpty()) {
+        	for(int i=0;i<selectedFiles.size();i++) {
+        		txtStudentAddedFiles.setText(txtStudentAddedFiles.getText()+"\n"+selectedFiles.get(i).getName());
+        	}
         }
     }
     
@@ -1010,6 +1035,20 @@ public class DojoGUI {
     	}
 		return idType;
     	
+    }
+    
+    public String getSexType() {
+    	String sex="";
+    	if(masculino.isSelected()==true) {
+    		sex="MASCULINO";
+    	}
+    	else if(femenino.isSelected()==true) {
+    		sex="FEMENINO";
+    	}
+    	else {
+    		sex="OTRO";
+    	}
+    	return sex;
     }
     public String getPlanPago() {
     	String plan="";
@@ -1117,9 +1156,18 @@ public class DojoGUI {
   							updateCedula.setSelected(true);
   						}
   						
+  						if(student.getSex().equalsIgnoreCase("MASCULINO")) {
+  							txtUpdateStudentSex.setText("MASCULINO");
+  						}
+  						else if(student.getSex().equalsIgnoreCase("FEMENINO")){
+  							txtUpdateStudentSex.setText("FEMENINO");
+  						}
+  						else {
+  							txtUpdateStudentSex.setText("OTRO");
+  						}
+  						
   						txtUpdateStudentEPS.setText(student.getEps());
   						txtUpdateStudentRH.setText(student.getRH());
-  						txtUpdateStudentSex.setText(student.getSex());
   						txtUpdateStudentOcupation.setText(student.getOcupation());
   						txtUpdateStudentFatherName.setText(student.getFatherName());
   						txtUpdateStudentFatherPhone.setText(student.getFatherPhone());
@@ -1192,31 +1240,8 @@ public class DojoGUI {
   			return row;
   		});
   	}
-  	
-    @FXML
-    void updateAddFileToStudent(ActionEvent event) {
-    	if(!LabelUpdateRutaArchivos.getText().equals("")) {
-    		updateFilesOfStudent.add(LabelUpdateRutaArchivos.getText());
-    		
-    		Dialog<String> dialog = createDialog();
-    		dialog.setTitle("Archivo Añadido");
-    		dialog.setContentText("El archivo "+LabelUpdateRutaArchivos.getText()+" ha sido añadido a la lista de archivos del estudiante");
-    		dialog.show();
-    		
-    		LabelUpdateRutaArchivos.setText("");
-    	}
-    	else {
-    		Dialog<String> dialog = createDialog();
-    		dialog.setTitle("Error, archivo requerido");
-    		dialog.setContentText("Debe escoger algún archivo para añadirlo a los archivos del estudiante ");
-    		dialog.show();
-    	}
-    }
 
-    @FXML
-    void updateGeneratePDF(ActionEvent event) {
-
-    }
+  
 
     @FXML
     void updateProfilePcture(ActionEvent event) {
@@ -1252,13 +1277,13 @@ public class DojoGUI {
     		student.setEps(txtUpdateStudentEPS.getText());
     		student.setFatherPhone(txtUpdateStudentFatherPhone.getText());
     		student.setFatherEmail(txtUpdateStudentFatherEmail.getText());
-    		student.setFilesDescription(txtUpdateStudentAddedFiles.getText());
-
+   
     		List<String> existingFilesPath= student.getFilesPath();
-    		for (int i=0;i<updateFilesOfStudent.size();i++) {
-    			existingFilesPath.add(updateFilesOfStudent.get(i));
+    		for (int i=0;i<selectedFiles.size();i++) {
+    			existingFilesPath.add(selectedFiles.get(i).getAbsolutePath());
     		}
     		student.setFilesPath(existingFilesPath);
+    		student.setFilesDescription(txtUpdateStudentAddedFiles.getText());
     		student.setIdType(getUpdateIdType());
     		student.setMotherPhone(txtUpdateStudentMotherPhone.getText());
     		student.setMotherEmail(txtUpdateStudentMotherEmail.getText());
@@ -1274,16 +1299,18 @@ public class DojoGUI {
 
 			File directorio = new File(dojo.getPathStudentFiles()+"\\"+student.getName()+student.getId()); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
     		
-			for(int i=0;i<updateFilesOfStudent.size();i++) {
-				dojo.fileCopy(updateFilesOfStudent.get(i), (directorio.getAbsolutePath()));
+			for(int i=0;i<selectedFiles.size();i++) {
+				dojo.fileCopy(selectedFiles.get(i).getAbsolutePath(), (directorio.getAbsolutePath()));
 			}
+			
+			selectedFiles=new ArrayList<>();
 			
 			try {
 				saveDojoData();
 			} catch (IOException e) {
 	    		Dialog<String> dialog = createDialog();
-	    		dialog.setTitle("La información no se pudo serializar");
-	    		dialog.setContentText("Imposible serializar la nueva informacion del estudiante");
+	    		dialog.setTitle("La información no se pudo guardada");
+	    		dialog.setContentText("Imposible guardar la nueva informacion del estudiante");
 	    		dialog.show();
 			}
     		Dialog<String> dialog = createDialog();
@@ -1313,12 +1340,15 @@ public class DojoGUI {
     @FXML
     public void openUpdateFileChooserFiles(ActionEvent event) {
         FileChooser fc = new FileChooser();
-        File selectedFile= fc.showOpenDialog(null);
+        selectedFiles= fc.showOpenMultipleDialog(null);
         
-        if(selectedFile!=null) {
-        	LabelUpdateRutaArchivos.setText(selectedFile.getAbsolutePath());
+        if(!selectedFiles.isEmpty()) {
+        	for(int i=0;i<selectedFiles.size();i++) {
+        		txtUpdateStudentAddedFiles.setText(txtUpdateStudentAddedFiles.getText()+"\n"+selectedFiles.get(i).getName());
+        	}
         }
     }
+    
     public String getUpdateIdType() {
     	String idType="";
     	if(updateCedula.isSelected()==true) {
