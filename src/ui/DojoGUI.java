@@ -486,11 +486,11 @@ public class DojoGUI {
 //optionsWindow methods
     @FXML
     void openLoginScreen(ActionEvent event) throws IOException {
-		FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
+		FXMLLoader login = new FXMLLoader(getClass().getResource("Login2.fxml"));
 		login.setController(this);
 		Parent rootLogin = login.load();
 		OptionsWindow.getChildren().setAll(rootLogin);
-		txtLoginUsername.getScene().getWindow().setWidth(666);
+		txtLoginUsername.getScene().getWindow().setWidth(705);
 		txtLoginUsername.getScene().getWindow().setHeight(488);
     }
     

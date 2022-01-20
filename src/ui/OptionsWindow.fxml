@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
@@ -12,43 +13,46 @@
    <children>
       <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="455.0" prefWidth="689.0" style="-fx-background-color: black;">
          <children>
-            <MenuBar prefHeight="25.0" prefWidth="685.0" style="-fx-background-color: #E5251F;">
-               <menus>
-                  <Menu mnemonicParsing="false" text="Visualizar">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#openStudentsList" text="Ver Alumnos" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Alumnos">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#openCreateStudent" text="Añadir alumno" />
-                        <MenuItem mnemonicParsing="false" onAction="#openDeleteStudent" text="Eliminar Alumno" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Exportar Datos">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#exportStudentsData" text="Generar Excel" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Dojo">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#openUpdateDojo" text="Actualizar Datos Dojo" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Salir">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#openLoginScreen" text="Cerrar Sesión" />
-                     </items>
-                  </Menu>
-               </menus>
-            </MenuBar>
-            <Pane fx:id="PaneOptionsWindow" prefHeight="429.0" prefWidth="644.0" style="-fx-background-color: white;">
+            <Pane fx:id="PaneOptionsWindow" prefHeight="462.0" prefWidth="689.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView fitHeight="374.0" fitWidth="600.0" layoutX="103.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="374.0" fitWidth="600.0" layoutX="45.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/chuugi%20logo.jpg" />
                      </image>
                   </ImageView>
+                  <MenuBar prefHeight="34.0" prefWidth="689.0" style="-fx-background-color: #F41F1F; -fx-padding: 10;">
+                     <menus>
+                        <Menu text="Visualizar">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#openStudentsList" text="Ver Alumnos" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Alumnos">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#openCreateStudent" text="Añadir alumno" />
+                              <MenuItem mnemonicParsing="false" onAction="#openDeleteStudent" text="Eliminar Alumno" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Exportar Datos">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#exportStudentsData" text="Generar Excel" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Dojo">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#openUpdateDojo" text="Actualizar Datos Dojo" />
+                           </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Salir">
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#openLoginScreen" text="Cerrar Sesión" />
+                           </items>
+                        </Menu>
+                     </menus>
+                     <effect>
+                        <DropShadow height="0.0" radius="11.36" width="47.44" />
+                     </effect>
+                  </MenuBar>
                </children>
             </Pane>
          </children>
