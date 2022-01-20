@@ -66,8 +66,9 @@ import com.itextpdf.text.Rectangle;
 
 public class DojoGUI {
  //constants
-	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";
+	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";
 	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data";
+	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\OneDrive\\Escritorio\\App Chuugi Dojo\\Datos Chuugi Dojo";
 
  //Relations
 	Dojo dojo;
@@ -611,7 +612,7 @@ public class DojoGUI {
         try
         {
         	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Element.ALIGN_LEFT);
         	
@@ -909,11 +910,11 @@ public class DojoGUI {
         	fotoPerfil.scaleToFit(100, 100);
         	fotoPerfil.setAlignment(Element.ALIGN_RIGHT);
         	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Element.ALIGN_LEFT);
         	
-        	marcaAgua = com.itextpdf.text.Image.getInstance("icons/waterMark.png");
+        	marcaAgua = com.itextpdf.text.Image.getInstance("src/icons/waterMark.png");
         	marcaAgua.scaleToFit(200, 200);
         	marcaAgua.setAlignment(Element.ALIGN_LEFT);
         	
@@ -932,63 +933,61 @@ public class DojoGUI {
         	tableHeader.addCell(getCell(fotoPerfil, Element.ALIGN_RIGHT));
         	document.add(tableHeader);
         	
-        	marcaAgua.setAbsolutePosition(90f, 300f);
-        	marcaAgua.scaleToFit(450, 450);
+        	marcaAgua.setAbsolutePosition(80f, 220f);
+        	marcaAgua.scaleToFit(500, 500);
         	document.add(marcaAgua);
         }
         
-        document.add(new Paragraph("\n\n"));
+        //document.add(new Paragraph("\n\n"));
         
         Student student=dojo.findStudent(studentId);
         
-        PdfPTable tableConstancia = new PdfPTable(2);
+        float [] pointColumnWidths = {105F, 200F}; 
+        PdfPTable tableConstancia = new PdfPTable(pointColumnWidths);
         tableConstancia.setWidthPercentage(85);
-        tableConstancia.addCell(getCellBorder("NOMBRE DEL ESTUDIANTE", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getName(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("FECHA DE NACIMIENTO", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getBornDate(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("LUGAR DE NACIMIENTO", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getBornPlace(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("DOCUMENTO DE IDENTIDAD", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), Element.ALIGN_LEFT));
+        tableConstancia.addCell(getCellBorder("PRACTICANTE", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getName(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("FECHA DE NACIMIENTO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getBornDate(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("LUGAR DE NACIMIENTO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getBornPlace(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("DOCUMENTO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), Element.ALIGN_LEFT)).setIndent(5);;
         tableConstancia.addCell(getCellBorder("SALUD", Element.ALIGN_CENTER)).setMinimumHeight(40);
-        tableConstancia.addCell(getCellBorder("Entidad: "+student.getEps()+"\n"+"RH: "+student.getRH()+"\n"+"Sexo: "+student.getSex()+"\n", Element.ALIGN_LEFT)).setMinimumHeight(40);;
-        tableConstancia.addCell(getCellBorder("OCUPACION", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getOcupation(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("NOMBRE DEL PADRE", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getFatherName(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("TELEFONO DEL PADRE", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getFatherPhone(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("EMAIL DEL PADRE", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getFatherEmail(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("NOMBRE DE LA MADRE", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getMotherName(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("TELEFONO DE LA MADRE", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getMotherPhone(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("EMAIL DE LA MADRE", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getMotherEmail(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("DIRECCION", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getAdress(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("BARRIO:", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getNeighborhood(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("FECHA DE INGRESO", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getRegisterDate(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("VALOR MENSUALIDAD", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getValueMensualidad()), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("PLAN PAGO ENTRENO", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getPlanPagoEntreno(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("DIAS DE ENTRENO", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getTrainDays()), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("HORARIOS DE ENTRENO", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.getScheduleDays()), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("OBSERVACIONES", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(student.getObservations(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("AUTORIZACION PARA EL USO DE SU IMAGEN EN PUBLICACIONES EN REDES SOCIALES:", Element.ALIGN_CENTER));
-        tableConstancia.addCell(getCellBorder(String.valueOf(student.isAuthorization()), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("ARCHIVOS ADJUNTADOS", Element.ALIGN_CENTER)).setMinimumHeight(40);
-        tableConstancia.addCell(getCellBorder(student.getFilesDescription(), Element.ALIGN_LEFT));
-        tableConstancia.addCell(getCellBorder("ACUDIENTE RESPONSABLE", Element.ALIGN_MIDDLE)).setMinimumHeight(50);
-        tableConstancia.addCell(getCellBorder("NOMBRE:___________________\n"+"CEDULA:___________________\n "+"FIRMA:___________________", Element.ALIGN_LEFT)).setMinimumHeight(50);
+        tableConstancia.addCell(getCellBorder("ENTIDAD: "+student.getEps()+"\n"+"RH: "+student.getRH()+"\n"+"SEXO: "+student.getSex()+"\n", Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("OCUPACION", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getOcupation(), Element.ALIGN_LEFT)).setIndent(5);
+        
+        tableConstancia.addCell(getCellBorder("DATOS DEL PADRE", Element.ALIGN_CENTER)).setMinimumHeight(40);
+        tableConstancia.addCell(getCellBorder("NOMBRE: "+student.getFatherName()+"\n"+"TELEFONO: "+student.getFatherPhone()+"\n"+"EMAIL: "+student.getFatherEmail()+"\n", Element.ALIGN_LEFT)).setIndent(5);
+        
+        tableConstancia.addCell(getCellBorder("DATOS DE LA MADRE", Element.ALIGN_CENTER)).setMinimumHeight(40);
+        tableConstancia.addCell(getCellBorder("NOMBRE: "+student.getMotherName()+"\n"+"TELEFONO: "+student.getMotherPhone()+"\n"+"EMAIL: "+student.getMotherEmail()+"\n", Element.ALIGN_LEFT)).setIndent(5);
+        
+        tableConstancia.addCell(getCellBorder("DIRECCION", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getAdress(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("BARRIO:", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getNeighborhood(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("FECHA DE INGRESO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getRegisterDate(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("VALOR MENSUALIDAD", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getValueMensualidad()), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("PLAN PAGO ENTRENO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getPlanPagoEntreno(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("DIAS DE ENTRENO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getTrainDays()), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("HORARIOS DE ENTRENO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.getScheduleDays()), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("OBSERVACIONES", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(student.getObservations(), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("AUTORIZO USO DE IMAGEN Y PUBLICACION EN REDES", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        tableConstancia.addCell(getCellBorder(String.valueOf(student.isAuthorization()), Element.ALIGN_LEFT)).setIndent(5);
+        tableConstancia.addCell(getCellBorder("ARCHIVOS ADJUNTOS", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
+        PdfPCell cell= new PdfPCell(getCellBorder(student.getFilesDescription(), Element.ALIGN_LEFT));
+        cell.setIndent(5);cell.setExtraParagraphSpace(3);
+        tableConstancia.addCell(cell);
+        tableConstancia.addCell(getCellBorder("ACUDIENTE RESPONSABLE", Element.ALIGN_CENTER)).setMinimumHeight(60);
+        tableConstancia.addCell(getCellBorder("NOMBRE:___________________\n"+" CEDULA:___________________\n\n"+"    FIRMA:___________________", Element.ALIGN_LEFT)).setIndent(5);
         document.add(tableConstancia);
         	
 	}
