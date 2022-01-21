@@ -84,6 +84,11 @@
                         <Font size="14.0" />
                      </font></Label>
                   <TextField fx:id="txtConceptoRecibo" layoutX="186.0" layoutY="103.0" prefHeight="25.0" prefWidth="165.0" text="Pago Mensualidad" />
+                  <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="351.0" layoutY="15.0" onMouseClicked="#homeGenerarRecibo" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Home.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </right>

@@ -2,3 +2,41 @@
  
   -fx-background-color: linear-gradient(to right bottom,#920303,#F41F1F);
 }
+
+#PaneDeleteStudent{
+ 
+  -fx-background-color: linear-gradient(to right bottom,#920303,#F41F1F);
+}
+
+#PaneStudentsList{
+ 
+  -fx-background-color: linear-gradient(to right bottom,#920303,#F41F1F);
+}
+
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-background-radius:30;
+}
+.table-row-cell: odd{
+    -fx-background-color: #EFEEEE;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+ 	
+}
+.table-row-cell: even{
+    -fx-background-color: #E1E1E1;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+}
+.table-row-cell: hover{
+    -fx-background-color: transparent;
+}
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+

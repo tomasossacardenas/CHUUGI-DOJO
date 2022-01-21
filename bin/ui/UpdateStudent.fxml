@@ -86,5 +86,10 @@
       <CheckBox fx:id="updateCedula" layoutX="382.0" layoutY="146.0" mnemonicParsing="false" text="CC" />
       <Button layoutX="357.0" layoutY="597.0" mnemonicParsing="false" onAction="#createNewPdf" text="Crear Pdf" />
       <TextField fx:id="txtDiferenciablePdf" layoutX="433.0" layoutY="597.0" prefHeight="25.0" prefWidth="159.0" promptText="Diferenciable del pdf" />
+      <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="573.0" layoutY="2.0" onMouseClicked="#homeUpdateStudent" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/Home.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

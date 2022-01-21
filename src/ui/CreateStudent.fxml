@@ -43,7 +43,7 @@
       <Label layoutX="65.0" layoutY="397.0" prefHeight="17.0" prefWidth="55.0" text="HORARIO:" />
       <Label layoutX="17.0" layoutY="429.0" prefHeight="17.0" prefWidth="193.0" text="OBSERVACIONES DEL ESTUDIANTE:" />
       <Label layoutX="10.0" layoutY="437.0" prefHeight="91.0" prefWidth="395.0" text="AUTORIZA LA REALIZACION DE FOTOGRAFIAS Y VIDEOS DE LAS ACTIVIDADES DEL DOJO ASI COMO SU PUBLICACION EN REDES SOCIALES" wrapText="true" />
-      <ImageView fx:id="profilePicture" fitHeight="108.0" fitWidth="123.0" layoutX="463.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="profilePicture" fitHeight="106.0" fitWidth="119.0" layoutX="432.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
       <TextField fx:id="txtStudentName" layoutX="177.0" layoutY="57.0" prefHeight="1.0" prefWidth="149.0" />
       <TextField fx:id="txtStudentBornPlace" layoutX="177.0" layoutY="111.0" prefHeight="25.0" prefWidth="149.0" />
       <TextField fx:id="txtStudentId" layoutX="177.0" layoutY="142.0" prefHeight="25.0" prefWidth="149.0" />
@@ -81,16 +81,21 @@
       <TextArea fx:id="txtStudentAddedFiles" layoutX="133.0" layoutY="498.0" prefHeight="88.0" prefWidth="268.0" />
       <Button layoutX="148.0" layoutY="595.0" mnemonicParsing="false" onAction="#createStudent" text="Crear Estudiante" />
       <Button layoutX="303.0" layoutY="596.0" mnemonicParsing="false" onAction="#generateCreatePDF" text="Generar PDF" />
-      <Button layoutX="351.0" layoutY="57.0" mnemonicParsing="false" onAction="#openFileChooserPicture" text="Buscar Foto" />
-      <Label fx:id="LabelRutaFoto" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="38.0" prefHeight="17.0" prefWidth="130.0" text="Ruta de la foto" />
+      <Button layoutX="335.0" layoutY="45.0" mnemonicParsing="false" onAction="#openFileChooserPicture" text="Buscar Foto" />
+      <Label fx:id="LabelRutaFoto" alignment="CENTER" contentDisplay="CENTER" layoutX="308.0" layoutY="27.0" prefHeight="17.0" prefWidth="130.0" text="Ruta de la foto" />
       <CheckBox fx:id="sabado" layoutX="370.0" layoutY="370.0" mnemonicParsing="false" text="S" />
-      <Button layoutX="350.0" layoutY="84.0" mnemonicParsing="false" onAction="#addProfilePicture" text="Añadir Foto" />
+      <Button layoutX="336.0" layoutY="80.0" mnemonicParsing="false" onAction="#addProfilePicture" text="Añadir Foto" />
       <Label layoutX="252.0" layoutY="169.0" prefHeight="17.0" prefWidth="45.0" text="RH:" />
       <TextField fx:id="txtStudentRH" layoutX="273.0" layoutY="166.0" prefHeight="25.0" prefWidth="75.0" />
       <Label layoutX="379.0" layoutY="171.0" prefHeight="17.0" prefWidth="37.0" text="SEXO:" />
-      <TextField fx:id="txtStudentSex" layoutX="454.0" layoutY="96.0" prefHeight="25.0" prefWidth="119.0" />
+      <TextField fx:id="txtStudentSex" layoutX="434.0" layoutY="120.0" prefHeight="25.0" prefWidth="119.0" />
       <CheckBox fx:id="masculino" layoutX="432.0" layoutY="171.0" mnemonicParsing="false" text="M" />
       <CheckBox fx:id="femenino" layoutX="483.0" layoutY="171.0" mnemonicParsing="false" text="F" />
       <CheckBox fx:id="otrosexo" layoutX="531.0" layoutY="171.0" mnemonicParsing="false" text="Otro" />
+      <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="560.0" layoutY="1.0" onMouseClicked="#homeCreateStudent" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/Home.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

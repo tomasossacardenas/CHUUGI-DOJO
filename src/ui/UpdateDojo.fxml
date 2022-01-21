@@ -86,6 +86,11 @@
                         <Font size="16.0" />
                      </font></Label>
                   <TextField fx:id="txtRutaArchivoExcel" layoutX="184.0" layoutY="345.0" />
+                  <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="390.0" layoutY="20.0" onMouseClicked="#homeUpdateDojo" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Home.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
          </right>

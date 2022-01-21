@@ -29,6 +29,8 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +47,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -66,9 +69,9 @@ import com.itextpdf.text.Rectangle;
 
 public class DojoGUI {
  //constants
-	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";
+	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";
 	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data";
-	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\OneDrive\\Escritorio\\App Chuugi Dojo\\Datos Chuugi Dojo";
+	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\OneDrive\\Escritorio\\App Chuugi Dojo\\Datos Chuugi Dojo";
 
  //Relations
 	Dojo dojo;
@@ -86,6 +89,63 @@ public class DojoGUI {
 
     @FXML
     private PasswordField txtLoginPassword;
+    
+    @FXML
+    public void homeCreateStudent(MouseEvent event) throws IOException {
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
+		optionsFxml.setController(this);
+		Parent opWindow = optionsFxml.load();
+		PaneCreateStudent.getChildren().setAll(opWindow);
+		PaneOptionsWindow.getScene().getWindow().setWidth(710);
+		PaneOptionsWindow.getScene().getWindow().setHeight(515);
+    }
+    @FXML
+    public void homeDeleteStudent(MouseEvent event) throws IOException {
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
+		optionsFxml.setController(this);
+		Parent opWindow = optionsFxml.load();
+		PaneDeleteStudent.getChildren().setAll(opWindow);
+		PaneOptionsWindow.getScene().getWindow().setWidth(710);
+		PaneOptionsWindow.getScene().getWindow().setHeight(515);
+    }
+    @FXML
+    public void homeGenerarRecibo(MouseEvent event) throws IOException {
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
+		optionsFxml.setController(this);
+		Parent opWindow = optionsFxml.load();
+		PaneGenerateRecibo.getChildren().setAll(opWindow);
+		PaneOptionsWindow.getScene().getWindow().setWidth(710);
+		PaneOptionsWindow.getScene().getWindow().setHeight(515);
+    }
+    @FXML
+    public void homeStudentsList(MouseEvent event) throws IOException {
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
+		optionsFxml.setController(this);
+		Parent opWindow = optionsFxml.load();
+		PaneStudentsList.getChildren().setAll(opWindow);
+		PaneOptionsWindow.getScene().getWindow().setWidth(710);
+		PaneOptionsWindow.getScene().getWindow().setHeight(515);
+    }
+    
+    @FXML
+    public void homeUpdateDojo(MouseEvent event) throws IOException {
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
+		optionsFxml.setController(this);
+		Parent opWindow = optionsFxml.load();
+		PaneUpdateDojo.getChildren().setAll(opWindow);
+		PaneOptionsWindow.getScene().getWindow().setWidth(710);
+		PaneOptionsWindow.getScene().getWindow().setHeight(515);
+    }
+    @FXML
+    public void homeUpdateStudent(MouseEvent event) throws IOException {
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
+		optionsFxml.setController(this);
+		Parent opWindow = optionsFxml.load();
+		PaneUpdateStudent.getChildren().setAll(opWindow);
+		PaneOptionsWindow.getScene().getWindow().setWidth(710);
+		PaneOptionsWindow.getScene().getWindow().setHeight(515);
+    }
+    
     
 // OptionsWindow fxml
 
@@ -489,9 +549,9 @@ public class DojoGUI {
 		FXMLLoader login = new FXMLLoader(getClass().getResource("Login2.fxml"));
 		login.setController(this);
 		Parent rootLogin = login.load();
-		OptionsWindow.getChildren().setAll(rootLogin);
+		PaneOptionsWindow.getChildren().setAll(rootLogin);
 		txtLoginUsername.getScene().getWindow().setWidth(705);
-		txtLoginUsername.getScene().getWindow().setHeight(488);
+		txtLoginUsername.getScene().getWindow().setHeight(460);
     }
     
     @FXML
@@ -512,7 +572,7 @@ public class DojoGUI {
 		txtRutaArchivoExcel.setText(dojo.getSAVE_PATH_FILE_EXCEL());
 		
 		txtUpdateDojoAdress.getScene().getWindow().setWidth(700);
-		txtUpdateDojoAdress.getScene().getWindow().setHeight(530);
+		txtUpdateDojoAdress.getScene().getWindow().setHeight(515);
     }
     
     @FXML
@@ -522,20 +582,20 @@ public class DojoGUI {
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
 		LabelRutaFoto.getScene().getWindow().setWidth(610);
-		LabelRutaFoto.getScene().getWindow().setHeight(700);
+		LabelRutaFoto.getScene().getWindow().setHeight(685);
 		filesOfStudent.clear();
 		
     }
    
     @FXML
     void openDeleteStudent(ActionEvent event) throws IOException {
-    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("DeleteStudent.fxml"));
+    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("DeleteStudent2.fxml"));
 		fxml.setController(this);
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
 		
-		txtDeleteStudentId.getScene().getWindow().setWidth(666);
-		txtDeleteStudentId.getScene().getWindow().setHeight(435);
+		txtDeleteStudentId.getScene().getWindow().setWidth(705);
+		txtDeleteStudentId.getScene().getWindow().setHeight(460);
 		
     }
     @FXML
@@ -545,7 +605,7 @@ public class DojoGUI {
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
 		
-		tableViewStudentsList.getScene().getWindow().setWidth(700);
+		tableViewStudentsList.getScene().getWindow().setWidth(800);
 		tableViewStudentsList.getScene().getWindow().setHeight(520);
 		initializeStudentTableView();
     }
@@ -581,12 +641,12 @@ public class DojoGUI {
     	if(!txtLoginUsername.getText().equals("") && !txtLoginPassword.getText().equals("")) {
 
     		if(txtLoginUsername.getText().equals(dojoUserUsername) && txtLoginPassword.getText().equals(dojoUserPassword)) {
-				FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("OptionsWindow.fxml"));
+				FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 				optionsFxml.setController(this);
 				Parent opWindow = optionsFxml.load();
 				mainPaneLogin.getChildren().setAll(opWindow);
-				OptionsWindow.getScene().getWindow().setWidth(615);
-				OptionsWindow.getScene().getWindow().setHeight(450);
+				PaneOptionsWindow.getScene().getWindow().setWidth(710);
+				PaneOptionsWindow.getScene().getWindow().setHeight(515);
     		}
     		
     		else {
@@ -612,7 +672,7 @@ public class DojoGUI {
         try
         {
         	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Element.ALIGN_LEFT);
         	
@@ -910,11 +970,11 @@ public class DojoGUI {
         	fotoPerfil.scaleToFit(100, 100);
         	fotoPerfil.setAlignment(Element.ALIGN_RIGHT);
         	
-        	fotoLogo = com.itextpdf.text.Image.getInstance("src/icons/CHUUGI JKA.jpg");
+        	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Element.ALIGN_LEFT);
         	
-        	marcaAgua = com.itextpdf.text.Image.getInstance("src/icons/waterMark.png");
+        	marcaAgua = com.itextpdf.text.Image.getInstance("icons/waterMark.png");
         	marcaAgua.scaleToFit(200, 200);
         	marcaAgua.setAlignment(Element.ALIGN_LEFT);
         	
@@ -1112,12 +1172,13 @@ public class DojoGUI {
     	return aut;
     }
 
-    
+ @FXML
+ private TextField filterField;
+
   //Method to initialize the values in Clients Tableview in user screen
   	public void initializeStudentTableView() {
-  		
-  		ObservableList<Student> studentsList = FXCollections.observableArrayList(dojo.getStudents());
-
+  		 ObservableList<Student> studentsList = FXCollections.observableArrayList(dojo.getStudents());
+  		 
   		columnName.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
   		columnId.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
   		columnMensualidad.setCellValueFactory(new PropertyValueFactory<Student, String>("valueMensualidad"));
@@ -1125,8 +1186,41 @@ public class DojoGUI {
   		columnBornDate.setCellValueFactory(new PropertyValueFactory<Student, String>("bornDate"));
   		columnRegisterDate.setCellValueFactory(new PropertyValueFactory<Student, String>("registerDate"));
 
-  		tableViewStudentsList.setItems(studentsList);
-
+  		//PARA EL TEXTFIELD DE BUSCAR ALUMNO POR NOMBRE	
+  		FilteredList<Student> filteredData= new FilteredList<>(studentsList, b -> true);
+  		
+  		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
+  			filteredData.setPredicate(student ->{
+  				//If filter text is empty, display all people.
+  				if(newValue==null || newValue.isEmpty()) {
+  					System.out.println("INICIALIZO");
+  					return true;
+  				}
+  				
+  				//Compare first name and last name of every person with filter text
+  				String lowerCaseFilter= newValue.toLowerCase();
+  				
+  				if(student.getName().toLowerCase().indexOf(lowerCaseFilter) !=-1) {
+  					System.out.println("MATCHES");
+  					return true;//filter matches first name
+  				}else {
+  					System.out.println("DOES NOT MATCH");
+  					return false;
+  				}
+  					
+  				
+  
+  			});
+  		});
+  		
+  		//Wrap the filtered list in a sortedList
+  		SortedList<Student> sortedData= new SortedList<>(filteredData);
+  		
+  		sortedData.comparatorProperty().bind(tableViewStudentsList.comparatorProperty());
+  		tableViewStudentsList.setItems(sortedData);
+  				
+  		
+  		//PARA CUANDO SE LE DE DOBLE CLICK A UN ESTUDIANTE DE LA LISTA
   		tableViewStudentsList.setRowFactory(tv -> {
   			TableRow<Student> row = new TableRow<>();
   			row.setOnMouseClicked(event -> {
