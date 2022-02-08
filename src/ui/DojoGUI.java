@@ -69,10 +69,12 @@ import com.itextpdf.text.Rectangle;
 
 public class DojoGUI {
  //constants
-	public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";
+	public final static String SAVE_DOJO_PATH_FILE="G:\\Mi unidad\\LEOC\\App Chuugi Dojo\\Datos ChuugiDojo";//nuevo compputador de luz
+	//public final static String SAVE_DOJO_PATH_FILE="G:\\Mi unidad\\LEOC\\App Chuugi Dojo\\Datos ChuugiDojo";//nuevo compputador de luz
+	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";// para la laptop de luz
 	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data";
 	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\OneDrive\\Escritorio\\App Chuugi Dojo\\Datos Chuugi Dojo";
-
+	
  //Relations
 	Dojo dojo;
 	
@@ -1532,26 +1534,55 @@ public class DojoGUI {
     	}
     }
     @FXML
-    public void createRecibo(ActionEvent event) throws FileNotFoundException {
-    	FileOutputStream archivo= new FileOutputStream(dojo.getPathReportes()+"\\"+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
-    	FileOutputStream archivoCarpetaEstudiante= new FileOutputStream(dojo.getPathStudentFiles()+"\\"+studentFactura.getName()+studentFactura.getId()+"\\"+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
+    public void createRecibo(ActionEvent event){
+    	FileOutputStream archivo = null;
+		try {
+			archivo = new FileOutputStream(dojo.getPathReportes()+"\\"+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+    		Dialog<String> dialog = createDialog();
+    		dialog.setTitle("Error con la ruta");
+    		dialog.setContentText("Ruta no encontrada "+dojo.getPathReportes()+"\\"+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
+    		dialog.show();
+		}
+    	FileOutputStream archivoCarpetaEstudiante = null;
+		try {
+			archivoCarpetaEstudiante = new FileOutputStream(dojo.getPathStudentFiles()+"\\"+studentFactura.getName()+studentFactura.getId()+"\\"+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+    		Dialog<String> dialog = createDialog();
+    		dialog.setResizable(true);
+    		dialog.setTitle("Error con la ruta");
+    		dialog.setContentText("Ruta no encontrada "+dojo.getPathStudentFiles()+"\\"+studentFactura.getName()+studentFactura.getId()+"\\"+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
+    		dialog.show();
+		}
     	
     	Document document= new Document();  
     	Document document2= new Document();  
     	
     	try {//
-			PdfWriter.getInstance(document, archivo);
-			document.open();
-			addMetaData(document, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
+    		if(archivo!=null & archivoCarpetaEstudiante!=null) {
+    			PdfWriter.getInstance(document, archivo);
+    			document.open();
+    			addMetaData(document, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
+    			
+    			PdfWriter.getInstance(document2, archivoCarpetaEstudiante);
+    			document2.open();
+    			addMetaData(document2, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
+    			
+        		Dialog<String> dialog = createDialog();
+        		dialog.setTitle("Recibo creado satisfactoriamente");
+        		dialog.setContentText("El recibo ha sido creado en la carpeta de Recibos y en la carpeta del estudiante");
+        		dialog.show();
+    		}else {
+        		Dialog<String> dialog = createDialog();
+        		dialog.setTitle("Error con los archivos");
+        		dialog.setContentText("Ocurrio algun error con las carpetas de recibos o de estudiantes y el pdf no pudo ser creado");
+        		dialog.show();
+    		}
 			
-			PdfWriter.getInstance(document2, archivoCarpetaEstudiante);
-			document2.open();
-			addMetaData(document2, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
-			
-    		Dialog<String> dialog = createDialog();
-    		dialog.setTitle("Recibo creado satisfactoriamente");
-    		dialog.setContentText("El recibo ha sido creado en la carpeta de Recibos y en la carpeta del estudiante");
-    		dialog.show();
 		} catch (DocumentException e) {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, ha ocurrido un error al crear el pdf del recibo");
@@ -1568,14 +1599,17 @@ public class DojoGUI {
     }
 
     @FXML
-    public void generateReciboEmail(ActionEvent event) throws FileNotFoundException {
+    public void generateReciboEmail(ActionEvent event) {
 
     	Properties propiedad = new Properties();
         propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");// a que servidor nos vamos a conectar, en este caso gmail
         propiedad.setProperty("mail.smtp.starttls.enable", "true");
         propiedad.setProperty("mail.smtp.port", "587");//puerto por el que nos vamos a conectar (el puerto que nos da gmail es el 587)
         propiedad.setProperty("mail.smpt.auth", "true");
-        propiedad.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        //propiedad.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+        propiedad.put("mail.smtp.ssl.trust", "*");
+        propiedad.put("mail.smtp.starttls.enable", "true");
+        propiedad.put("mail.smtp.ssl.protocols", "TLSv1.2");
         
         Session sesion = Session.getDefaultInstance(propiedad);
         String correoEnvia = dojo.getEmailEnvio();
@@ -1607,7 +1641,7 @@ public class DojoGUI {
             
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Correo Enviado");
-    		dialog.setContentText("El recibo ha sido generado en la carpeta de Recibos y ha sido enviado al correo");
+    		dialog.setContentText("El recibo ha sido enviado al correo "+receptor);
     		dialog.show();
             
             
@@ -1623,6 +1657,11 @@ public class DojoGUI {
     		dialog.setTitle("Error, correo no ha podido ser enviado");
     		dialog.setContentText("verifique la existencia del recibo adjunto en la carpeta Recibos o el correo de origen");
     		dialog.show();
+    		Dialog<String> dialog2 = createDialog();
+    		dialog2.setResizable(true);
+    		dialog2.setTitle("Error, correo no ha podido ser enviado");
+    		dialog2.setContentText(ex.toString());
+    		dialog2.show();
         }
         
     }
