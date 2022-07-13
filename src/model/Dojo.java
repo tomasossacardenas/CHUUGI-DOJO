@@ -1,5 +1,4 @@
 package model;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -9,12 +8,13 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.ButtonBar.ButtonData;
 
 public class Dojo implements Serializable {
-	
+
 	private static final long serialVersionUID = 1;
 	//atributes
 	private String save_path_file_excel;
@@ -30,8 +30,8 @@ public class Dojo implements Serializable {
 	//Relations
 	private User usuario;
 	private List<Student> students;
-	
-	
+
+
 
 	public Dojo(String adress, String nit, String ceo, String email, String phone, String emailEnvio, String clave, String pathStudentFiles, String pathReportes, String pathExcel) {
 		this.adress = adress;
@@ -47,7 +47,7 @@ public class Dojo implements Serializable {
 		usuario= new User("ADMINISTRADOR", "123");
 		students= new ArrayList<>();
 	}
-	
+
 
 	public String getSAVE_PATH_FILE_EXCEL() {
 		return save_path_file_excel;
@@ -122,43 +122,43 @@ public class Dojo implements Serializable {
 	public void setUsuario(User usuario) {
 		this.usuario = usuario;
 	}
-	
+
 	public Dialog<String> createDialog() {
-		Dialog<String> dialog = new Dialog<String>();
+		Dialog<String> dialog = new Dialog<>();
 		ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
 		dialog.getDialogPane().getButtonTypes().add(type);
 		return dialog;
 	}
-	
+
 	public void fileCopy(String sourceFile, String destinationFile) {
 		Path origenPath = FileSystems.getDefault().getPath(sourceFile);
         Path destinoPath = FileSystems.getDefault().getPath(destinationFile);
-        
+
         try {
         	Files.copy(origenPath, destinoPath.resolve(origenPath.getFileName()), StandardCopyOption.REPLACE_EXISTING);
         }catch(IOException e) {
-        	
+
         }
 
     }
-	
+
 	public void createStudent(String name,String rh, String sex,  String bornDate, String bornPlace, String id, String profilePicture, String idType,
 			String eps, String ocupation, String fatherName, String fatherPhone, String fatherEmail, String motherName,
 			String motherPhone, String motherEmail, String adress, String neighborhood, String registerDate,
 			double valueMensualidad, String planPagoEntreno, List<String> trainDays, List<String> scheduleDays,
 			String observations, boolean authorization,String filesDescription, List<String> filesPath) throws IOException {
-		
+
 		Student student= findStudent(id);
-		
-		
+
+
 		if(student==null) {
 			students.add(new Student(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps, ocupation, fatherName, fatherPhone, fatherEmail
-					, motherName, motherPhone, motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
+					, motherName, motherPhone, motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno,
 					trainDays, scheduleDays, observations, authorization,filesDescription,filesPath));
-			
+
 			File directorio = new File(getPathStudentFiles()+"\\"+name+id); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
 			directorio.mkdir();
-			
+
 			if (!directorio.exists()) {
 	            if (directorio.mkdirs()) {
 	            	Dialog<String> dialog = createDialog();
@@ -168,20 +168,20 @@ public class Dojo implements Serializable {
 	            } else {
 	            	Dialog<String> dialog = createDialog();
         			dialog.setTitle("Error, carpeta del estudiante no fue creada");
-        			dialog.setContentText("No ha sido posible crear la carpeta del estudiante porque puede que la ruta esté incorrecta o ya exista una carpeta con ese nombre, ruta Carpeta que falló: "+directorio);
+        			dialog.setContentText("No ha sido posible crear la carpeta del estudiante porque puede que la ruta estï¿½ incorrecta o ya exista una carpeta con ese nombre, ruta Carpeta que fallï¿½: "+directorio);
         			dialog.show();
 	            }
 	        }
-			
-			for(int i=0;i<filesPath.size();i++) {
-				fileCopy(filesPath.get(i), (directorio.getAbsolutePath()));
+
+			for (String element : filesPath) {
+				fileCopy(element, (directorio.getAbsolutePath()));
 			}
-			
-			
+
+
      		Dialog<String> dialog = createDialog();
      		dialog.setTitle("Estudiante creado");
      		dialog.setContentText("El estudiante ha sido creado satisfactoriamente");
-     		dialog.show(); 
+     		dialog.show();
 		}
 		else {
 			Dialog<String> dialog = createDialog();
@@ -190,10 +190,10 @@ public class Dojo implements Serializable {
 			dialog.show();
 		}
 	}
-	
+
 	public void deleteStudent(String id) throws IOException {
 		Student student= findStudent(id);
-		
+
 		if(student!=null) {
 			students.remove(student);
 			Dialog<String> dialog = createDialog();
@@ -212,7 +212,7 @@ public class Dojo implements Serializable {
 	public Student findStudent(String id) {
 		boolean exit=false;
 		Student student=null;
-		for(int i=0;i<students.size() && exit==false;i++) {
+		for(int i=0;i<students.size() && !exit;i++) {
 			if(students.get(i).getId().equals(id)) {
 				student=students.get(i);
 				exit=true;
@@ -260,5 +260,5 @@ public class Dojo implements Serializable {
 	}
 
 
-	
+
 }

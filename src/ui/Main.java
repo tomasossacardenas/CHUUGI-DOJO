@@ -2,7 +2,6 @@ package ui;
 
 import java.io.IOException;
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,17 +13,17 @@ import javafx.stage.Stage;
 import model.Dojo;
 
 public class Main extends Application {
-	
+
 	//Relations
 	Dojo dojo;
 	DojoGUI chuugiDojo;
-	
+
 	public Main() {
 		dojo = new Dojo("Calle 68 No. 4AN - 87 esquina Barrio Calima", "67007645-6.", "LUZ EDITH ORTIZ C", "info@chuugidojo.com", "(310 650 7454)-(313 559 2722).", "tomasossaefcsl@gmail.com", "Tomas123*", "C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data", "C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\Reportes", "C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo");
 		chuugiDojo=new DojoGUI(dojo );
 
 		try {
-			chuugiDojo.loadDojoData();	
+			chuugiDojo.loadDojoData();
 		}catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			Alert alert = new Alert(AlertType.INFORMATION);
@@ -33,7 +32,7 @@ public class Main extends Application {
 			alert.showAndWait();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -45,7 +44,7 @@ public class Main extends Application {
 		Parent root = fxmlLoader.load();
 		Scene scene = new Scene(root);
 		primaryStage.setScene(scene);
-		Image icon = new Image(getClass().getResource("/icons/escudo.png").toExternalForm(), false);  
+		Image icon = new Image(getClass().getResource("/icons/escudo.png").toExternalForm(), false);
 		primaryStage.getIcons().add(icon);
 		primaryStage.setTitle("Chuugi Dojo");
 		primaryStage.setResizable(false);

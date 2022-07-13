@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class Student implements Serializable {
-	//Constants	
+	//Constants
 	private static final long serialVersionUID = 1;
 	//Attributes
 	private String name;
@@ -34,14 +34,14 @@ public class Student implements Serializable {
 	private boolean authorization;
 	private String filesDescription;
 	private List<String> filesPath;
-	
+
 	//Constructor
 	public Student(String name,String rh, String sex, String bornDate, String bornPlace, String id, String profilePicture, String idType,
 			String eps, String ocupation, String fatherName, String fatherPhone, String fatherEmail, String motherName,
 			String motherPhone, String motherEmail, String adress, String neighborhood, String registerDate,
 			double valueMensualidad, String planPagoEntreno, List<String> trainDays, List<String> scheduleDays,
 			String observations, boolean authorization,String filesDescription, List<String> filesPath) {
-		
+
 		this.name = name;
 		this.RH=rh;
 		this.sex=sex;
@@ -70,7 +70,7 @@ public class Student implements Serializable {
 		this.filesDescription=filesDescription;
 		this.filesPath = filesPath;
 	}
-	
+
 	//Getters y Setters
 	public String getName() {
 		return name;
@@ -303,12 +303,12 @@ public class Student implements Serializable {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-	
-	
-	
-	
-	
-	
 
-	
+
+
+
+
+
+
+
 }

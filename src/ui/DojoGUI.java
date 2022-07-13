@@ -2,7 +2,6 @@ package ui;
 
 import java.io.File;
 import java.io.FileInputStream;
-import javafx.scene.image.Image;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,6 +14,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
+
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
@@ -27,6 +27,20 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -35,6 +49,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -46,26 +61,14 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import model.Dojo;
 import model.Student;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
 
 public class DojoGUI {
  //constants
@@ -74,10 +77,10 @@ public class DojoGUI {
 	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\USER\\Nextcloud\\L-Ortiz\\App Chuugi Dojo\\Datos ChuugiDojo";// para la laptop de luz
 	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\eclipse-workspace\\jfx-ChuugiDojo\\data";
 	//public final static String SAVE_DOJO_PATH_FILE="C:\\Users\\tomas\\OneDrive\\Escritorio\\App Chuugi Dojo\\Datos Chuugi Dojo";
-	
+
  //Relations
 	Dojo dojo;
-	
+
 	public DojoGUI(Dojo dojo) {
 		this.dojo=dojo;
 	}
@@ -91,7 +94,7 @@ public class DojoGUI {
 
     @FXML
     private PasswordField txtLoginPassword;
-    
+
     @FXML
     public void homeCreateStudent(MouseEvent event) throws IOException {
     	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
@@ -128,7 +131,7 @@ public class DojoGUI {
 		PaneOptionsWindow.getScene().getWindow().setWidth(710);
 		PaneOptionsWindow.getScene().getWindow().setHeight(515);
     }
-    
+
     @FXML
     public void homeUpdateDojo(MouseEvent event) throws IOException {
     	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
@@ -147,8 +150,8 @@ public class DojoGUI {
 		PaneOptionsWindow.getScene().getWindow().setWidth(710);
 		PaneOptionsWindow.getScene().getWindow().setHeight(515);
     }
-    
-    
+
+
 // OptionsWindow fxml
 
     @FXML
@@ -156,7 +159,7 @@ public class DojoGUI {
 
     @FXML
     private Pane PaneOptionsWindow;
-    
+
 //createStudent fxml
 
     @FXML
@@ -173,10 +176,10 @@ public class DojoGUI {
 
     @FXML
     private TextField txtStudentEPS;
-    
+
     @FXML
     private TextField txtStudentRH;
-    
+
     @FXML
     private TextField txtStudentSex;
 
@@ -251,7 +254,7 @@ public class DojoGUI {
 
     @FXML
     private CheckBox viernes;
-    
+
     @FXML
     private CheckBox sabado;
 
@@ -284,12 +287,12 @@ public class DojoGUI {
 
     @FXML
     private Label LabelRutaFoto;
-    
+
     @FXML
     private ImageView profilePicture;
-    
+
     private List<String>filesOfStudent= new ArrayList<>();
-   
+
 //UpdateStudent fxml
     @FXML
     private Pane PaneUpdateStudent;
@@ -338,7 +341,7 @@ public class DojoGUI {
 
     @FXML
     private TextField txtUpdateStudentMensualidad;
-    
+
     @FXML
     private TextField txtDiferenciablePdf;
 
@@ -374,7 +377,7 @@ public class DojoGUI {
 
     @FXML
     private CheckBox updateTwoToThree;
-    
+
     @FXML
     private CheckBox updateSi;
 
@@ -401,16 +404,16 @@ public class DojoGUI {
 
     @FXML
     private TextField txtUpdateStudentSex;
-    
+
     @FXML
     private CheckBox updateTarjetaIdentidad;
 
     @FXML
     private CheckBox updateCedula;
-    
+
     List<File> selectedFiles=new ArrayList<>();
     List<String> updateFilesOfStudent= new ArrayList<>();
-    
+
 //updateDojo fxml
     @FXML
     private Pane PaneUpdateDojo;
@@ -435,7 +438,7 @@ public class DojoGUI {
 
     @FXML
     private TextField txtUpdateDojoEmailClave;
-    
+
     @FXML
     private TextField txtUpdateDojoPathStudents;
 
@@ -443,7 +446,7 @@ public class DojoGUI {
     private TextField txtUpdateDojoPathRecibos;
     @FXML
     private TextField txtRutaArchivoExcel;
-    
+
 
 
 //generateReciboEmailfxml
@@ -465,25 +468,25 @@ public class DojoGUI {
 
     @FXML
     private TextField txtAcudienteName;
-    
+
     @FXML
     private TextField txtDiferenciableArchivo;
-    
+
     @FXML
     private TextField txtConceptoRecibo;
-    
+
     @FXML
     private Label reciboNombreEstudiante;
-    
+
     @FXML
     private Label LabelMessage;
-    
+
     private Student studentFactura;
-    
+
     Calendar calendar = new GregorianCalendar();
-    
+
     private String fecha=String.valueOf(calendar.get(Calendar.DATE))+"-"+String.valueOf(calendar.get(Calendar.MONTH)+1)+"-"+String.valueOf(calendar.get(Calendar.YEAR));
-    
+
 //deleteStudentfxml
     @FXML
     private Pane PaneDeleteStudent;
@@ -515,17 +518,17 @@ public class DojoGUI {
 
     @FXML
     private TableColumn<Student, String> columnRegisterDate;
-    
-    
-    
+
+
+
  // Method to create a dialog window
  	public Dialog<String> createDialog() {
- 		Dialog<String> dialog = new Dialog<String>();
+ 		Dialog<String> dialog = new Dialog<>();
  		ButtonType type = new ButtonType("Ok", ButtonData.OK_DONE);
  		dialog.getDialogPane().getButtonTypes().add(type);
  		return dialog;
  	}
- 	
+
  	public boolean loadDojoData() throws IOException, ClassNotFoundException{
  		File f = new File(SAVE_DOJO_PATH_FILE+"\\dojo.ap2");
  		boolean loaded = false;
@@ -534,8 +537,8 @@ public class DojoGUI {
  			dojo = (Dojo)ois.readObject();
  			ois.close();
  			loaded = true;
- 		}		 
- 		return loaded;	
+ 		}
+ 		return loaded;
  	}
  	public void saveDojoData() throws IOException{
  		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(SAVE_DOJO_PATH_FILE+"\\dojo.ap2"));
@@ -555,14 +558,14 @@ public class DojoGUI {
 		txtLoginUsername.getScene().getWindow().setWidth(705);
 		txtLoginUsername.getScene().getWindow().setHeight(460);
     }
-    
+
     @FXML
     void openUpdateDojo(ActionEvent event) throws IOException {
 		FXMLLoader login = new FXMLLoader(getClass().getResource("UpdateDojo.fxml"));
 		login.setController(this);
 		Parent rootLogin = login.load();
 		PaneOptionsWindow.getChildren().setAll(rootLogin);
-		
+
 		txtUpdateDojoAdress.setText(dojo.getAdress());
 		txtUpdateDojoCEO.setText(dojo.getCeo());
 		txtUpdateDojoNIT.setText(dojo.getNit());
@@ -572,11 +575,11 @@ public class DojoGUI {
 		txtUpdateDojoPathStudents.setText(dojo.getPathStudentFiles());
 		txtUpdateDojoPathRecibos.setText(dojo.getPathReportes());
 		txtRutaArchivoExcel.setText(dojo.getSAVE_PATH_FILE_EXCEL());
-		
+
 		txtUpdateDojoAdress.getScene().getWindow().setWidth(700);
 		txtUpdateDojoAdress.getScene().getWindow().setHeight(515);
     }
-    
+
     @FXML
     void openCreateStudent(ActionEvent event) throws IOException {
     	FXMLLoader fxml = new FXMLLoader(getClass().getResource("CreateStudent.fxml"));
@@ -586,19 +589,19 @@ public class DojoGUI {
 		LabelRutaFoto.getScene().getWindow().setWidth(610);
 		LabelRutaFoto.getScene().getWindow().setHeight(685);
 		filesOfStudent.clear();
-		
+
     }
-   
+
     @FXML
     void openDeleteStudent(ActionEvent event) throws IOException {
     	FXMLLoader fxml = new FXMLLoader(getClass().getResource("DeleteStudent2.fxml"));
 		fxml.setController(this);
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
-		
+
 		txtDeleteStudentId.getScene().getWindow().setWidth(705);
 		txtDeleteStudentId.getScene().getWindow().setHeight(460);
-		
+
     }
     @FXML
     void openStudentsList(ActionEvent event) throws IOException {
@@ -606,12 +609,12 @@ public class DojoGUI {
 		fxml.setController(this);
 		Parent root= fxml.load();
 		PaneOptionsWindow.getChildren().setAll(root);
-		
+
 		tableViewStudentsList.getScene().getWindow().setWidth(800);
 		tableViewStudentsList.getScene().getWindow().setHeight(520);
 		initializeStudentTableView();
     }
-    
+
     @FXML //This method will be used when button generateRecibo in updateStudent is clicked, The screen GenerateRecibo does the process to send email
     public void openGenerateRecibo(ActionEvent event) throws IOException {
     	FXMLLoader fxml = new FXMLLoader(getClass().getResource("GenerateRecibo.fxml"));
@@ -620,8 +623,8 @@ public class DojoGUI {
 		PaneUpdateStudent.getChildren().setAll(root);
 		txtEmailMadre.getScene().getWindow().setWidth(677);
 		txtEmailMadre.getScene().getWindow().setHeight(529);
-		
-		
+
+
     	Student student=dojo.findStudent(txtUpdateStudentId.getText());
     	txtEmailMadre.setText(student.getMotherEmail());
     	txtEmailPadre.setText(student.getFatherEmail());
@@ -630,7 +633,7 @@ public class DojoGUI {
     	reciboNombreEstudiante.setText(student.getName());
     	studentFactura=student;
     	txtEmailMessage.setText("Adjunto recibo de la fecha de "+fecha);
-    	
+
     }
 
 
@@ -650,11 +653,11 @@ public class DojoGUI {
 				PaneOptionsWindow.getScene().getWindow().setWidth(710);
 				PaneOptionsWindow.getScene().getWindow().setHeight(515);
     		}
-    		
+
     		else {
     			Dialog<String> dialog = createDialog();
     			dialog.setTitle("Error, datos incorrectos");
-    			dialog.setContentText("El nombre de usuario o contraseña son incorrectos");
+    			dialog.setContentText("El nombre de usuario o contraseï¿½a son incorrectos");
     			dialog.show();
     		}
     	}
@@ -666,49 +669,49 @@ public class DojoGUI {
     	}
 
     }
-    
+
 //Method to fill the pdf file of RECIBO
     public void addMetaData(Document document, Student student, String aNombreDe, String concepto) throws DocumentException {
     	com.itextpdf.text.Image fotoLogo=null;
-   
+
         try
         {
-        	
+
         	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Element.ALIGN_LEFT);
-        	
+
         }
         catch ( Exception e )
         {
         	e.printStackTrace();
         }
 
-        
+
         Paragraph p = new Paragraph(dojo.getAdress()+"\n"
         							+ "NIT: "+dojo.getNit()+"\n"
         							+ dojo.getCeo()+"\n"
         							+ dojo.getEmail()+"\n"
         							+ "CELULAR:"+dojo.getPhone()+"\n\n");
         p.setFont(FontFactory.getFont("Tahoma", 18));
-        
+
         PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
         table.addCell(getCell(p.getContent(), Element.ALIGN_LEFT));
         table.addCell(getCell(fotoLogo, Element.ALIGN_RIGHT));
         document.add(table);
-        
+
         document.add(new Paragraph("\n\n"));
-        
+
         Calendar calendar = new GregorianCalendar();
-        
+
         Paragraph parrafoPagoR = new Paragraph();
         parrafoPagoR.add(concepto+"\n"+
         				String.valueOf(calendar.get(Calendar.DATE))+"/"+String.valueOf(calendar.get(Calendar.MONTH)+1)+"/"+String.valueOf(calendar.get(Calendar.YEAR))+
         				"\n"+student.getName() +" "+student.getId()+
         				"\n"+"RECIBIDO DE "+aNombreDe);
         parrafoPagoR.setFont(FontFactory.getFont("Tahoma", 18));
-        
+
         PdfPTable tablePago = new PdfPTable(2);
         tablePago.setWidthPercentage(70);
         tablePago.addCell(getCell("CONCEPTO", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.RED);
@@ -717,13 +720,13 @@ public class DojoGUI {
         tablePago.addCell(getCell("$"+String.valueOf(student.getValueMensualidad()), Element.ALIGN_CENTER));
         tablePago.addCell(getCell("TOTAL", Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
         tablePago.addCell(getCell("$"+String.valueOf(student.getValueMensualidad()), Element.ALIGN_CENTER)).setBackgroundColor(BaseColor.LIGHT_GRAY);
-                
+
         document.add(tablePago);
-        
+
         document.add(new Paragraph("\n\n"));
-        
-        Paragraph parrafoAviso = new Paragraph("Los pagos se recibirán los cinco primeros días del mes según lo acordado"
-        		+ " en el Reglamento Interno, después del quinto día tendrá un sobrecosto del 10%");
+
+        Paragraph parrafoAviso = new Paragraph("Los pagos se recibirï¿½n los cinco primeros dï¿½as del mes segï¿½n lo acordado"
+        		+ " en el Reglamento Interno, despuï¿½s del quinto dï¿½a tendrï¿½ un sobrecosto del 10%");
         parrafoAviso.setFont(FontFactory.getFont(FontFactory.TIMES_ITALIC, 12));
         document.add(parrafoAviso);
     }
@@ -737,7 +740,7 @@ public class DojoGUI {
         cell.setMinimumHeight(18);
         return cell;
     }
-    
+
     public static PdfPCell getCell(com.itextpdf.text.Image img, int alignment) {//configuracion de la celda de la imagen (derecha)
         PdfPCell cell = new PdfPCell();
         cell.addElement(img);
@@ -746,8 +749,8 @@ public class DojoGUI {
         cell.setBorder(Rectangle.NO_BORDER);
         return cell;
     }
-    
-//createStudent methods  
+
+//createStudent methods
     @FXML
     void addProfilePicture(ActionEvent event) {
     	if(!LabelRutaFoto.getText().equals("")) {
@@ -758,7 +761,7 @@ public class DojoGUI {
     	else {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, no hay foto elegida");
-    		dialog.setContentText("Debe elegir una foto de su computador previamente en el boton buscar Foto y luego si añadirla");
+    		dialog.setContentText("Debe elegir una foto de su computador previamente en el boton buscar Foto y luego si aï¿½adirla");
     		dialog.show();
     	}
     }
@@ -767,18 +770,18 @@ public class DojoGUI {
     void addFileToStudent(ActionEvent event) {
     	if(!LabelRutaArchivos.getText().equals("")) {
     		filesOfStudent.add(LabelRutaArchivos.getText());
-    		
+
     		Dialog<String> dialog = createDialog();
-    		dialog.setTitle("Archivo Añadido");
-    		dialog.setContentText("El archivo "+LabelRutaArchivos.getText()+" ha sido añadido a la lista de archivos del estudiante");
+    		dialog.setTitle("Archivo Aï¿½adido");
+    		dialog.setContentText("El archivo "+LabelRutaArchivos.getText()+" ha sido aï¿½adido a la lista de archivos del estudiante");
     		dialog.show();
-    		
+
     		LabelRutaArchivos.setText("");
     	}
     	else {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, archivo requerido");
-    		dialog.setContentText("Debe escoger algún archivo para añadirlo a los archivos del estudiante ");
+    		dialog.setContentText("Debe escoger algï¿½n archivo para aï¿½adirlo a los archivos del estudiante ");
     		dialog.show();
     	}
     }
@@ -812,14 +815,14 @@ public class DojoGUI {
     	String filesDescription= txtStudentAddedFiles.getText();
     	List<String> filesPath= new ArrayList<>();
     	double valueMensualidad=0;
-    	
+
     	if(!selectedFiles.isEmpty()) {
     		for(int i=0;i<selectedFiles.size();i++) {
         		filesPath.add(selectedFiles.get(i).getAbsolutePath());
     		}
     	}
-    	
-    	try {//Intente si se escogió una fecha
+
+    	try {//Intente si se escogiï¿½ una fecha
     		registerDate=txtStudentRegisterDate.getValue().toString();
     	}catch(NullPointerException e) {
     		registerDate="";
@@ -830,7 +833,7 @@ public class DojoGUI {
     	}catch(Exception e) {
     		valueMensualidad=0;
     	}
-    	
+
     	try {//intente si se escogio una fecha de nacimiento
     		bornDate= txtStudentBornDate.getValue().toString();
     	}catch(NullPointerException e) {
@@ -843,9 +846,9 @@ public class DojoGUI {
     				if(!bornDate.isEmpty() && !registerDate.isEmpty()) {
     					if(!eps.equals("") && !rh.equals("") && !sex.equals("")) {
     						try {
-    							dojo.createStudent(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps, 
-    									ocupation, fatherName, fatherPhone, fatherEmail, motherName, motherPhone, 
-    									motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno, 
+    							dojo.createStudent(name,rh, sex, bornDate, bornPlace, id, profilePicture, idType, eps,
+    									ocupation, fatherName, fatherPhone, fatherEmail, motherName, motherPhone,
+    									motherEmail, adress, neighborhood, registerDate, valueMensualidad, planPagoEntreno,
     									trainDays, scheduleDays, observations, authorization,filesDescription, filesPath);
     							saveDojoData();
     						}
@@ -854,7 +857,7 @@ public class DojoGUI {
     							dialog.setTitle("Ha ocurrido un error");
     							dialog.setContentText("No ha sido posible crear el estudiante");
     						}
-    					     
+
     						selectedFiles= new ArrayList<>();
     					}
     					else {
@@ -881,7 +884,7 @@ public class DojoGUI {
     		}
     		else {
     			Dialog<String> dialog = createDialog();
-    			dialog.setTitle("Error, la identificación es necesaria");
+    			dialog.setTitle("Error, la identificaciï¿½n es necesaria");
     			dialog.setContentText("Recuerde que el campo de id es necesario para crear el estudiante");
     			dialog.show();
     		}
@@ -890,19 +893,19 @@ public class DojoGUI {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, valor mensualidad incorrecto");
     		dialog.setContentText("Recuerde que el valor de mensualidad debe ser un numero real (utilizar separador .)");
-    		dialog.show(); 
+    		dialog.show();
     	}
     }
-	
+
     @FXML //Method that creates the new pdf in the student
     public void createNewPdf(ActionEvent event){
-    	
+
     	try {
     		if(!txtDiferenciablePdf.getText().equals("")) {
     			FileOutputStream archivo= new FileOutputStream(dojo.getPathStudentFiles()+"\\"+txtUpdateStudentName.getText()+txtUpdateStudentId.getText()+"\\"
     					+"constancia "+txtDiferenciablePdf.getText()+".pdf");
 
-    			Document document= new Document();  
+    			Document document= new Document();
 
 
     			try {//
@@ -912,7 +915,7 @@ public class DojoGUI {
     				Dialog<String> dialog = createDialog();
     				dialog.setTitle("Pdf generado" );
     				dialog.setContentText("El pdf con la informacion del estudiante ha sido generado y guardado en la carpeta del estudiante");
-    				dialog.show(); 
+    				dialog.show();
     			} catch (DocumentException e) {
     				e.printStackTrace();
     			}
@@ -922,24 +925,24 @@ public class DojoGUI {
     			Dialog<String> dialog = createDialog();
     			dialog.setTitle("Error, diferenciable requerido" );
     			dialog.setContentText("Debe llenar el campo de texto del diferenciable del archivo");
-    			dialog.show(); 
+    			dialog.show();
     		}
     	}catch(FileNotFoundException e) {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, directorio no encontrado" );
-    		dialog.setContentText("No se ha encontrado el directorio "+dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+" para poder añadir el pdf");
-    		dialog.show(); 
+    		dialog.setContentText("No se ha encontrado el directorio "+dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+" para poder aï¿½adir el pdf");
+    		dialog.show();
     	}
     }
 
     @FXML //Method that creates the own directory of the student and the CONSTANCIAMATRICULA of the new Student
     public void generateCreatePDF(ActionEvent event){
-    	
+
     	try {
     	FileOutputStream archivo= new FileOutputStream(dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+"\\"+"constanciaMatricula"+".pdf");
-    	
-    	Document document= new Document(); 
-    	
+
+    	Document document= new Document();
+
     	try {//
 			PdfWriter.getInstance(document, archivo);
 			document.open();
@@ -947,7 +950,7 @@ public class DojoGUI {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Matricula generada" );
     		dialog.setContentText("La matricula del estudiante ha sido generada y guardada en la carpeta del estudiante");
-    		dialog.show(); 
+    		dialog.show();
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -955,8 +958,8 @@ public class DojoGUI {
     	}catch(FileNotFoundException e) {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, directorio no encontrado" );
-    		dialog.setContentText("No se ha encontrado el directorio "+dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+" para poder añadir la constancia de matricula");
-    		dialog.show(); 
+    		dialog.setContentText("No se ha encontrado el directorio "+dojo.getPathStudentFiles()+"\\"+txtStudentName.getText()+txtStudentId.getText()+" para poder aï¿½adir la constancia de matricula");
+    		dialog.show();
     	}
     }
 
@@ -964,47 +967,47 @@ public class DojoGUI {
     	com.itextpdf.text.Image fotoLogo=null;
     	com.itextpdf.text.Image fotoPerfil=null;
     	com.itextpdf.text.Image marcaAgua=null;
-    	
-    	   
+
+
         try
         {
         	fotoPerfil = com.itextpdf.text.Image.getInstance(imageRuta);
         	fotoPerfil.scaleToFit(100, 100);
         	fotoPerfil.setAlignment(Element.ALIGN_RIGHT);
-        	
+
         	fotoLogo = com.itextpdf.text.Image.getInstance("icons/CHUUGI JKA.jpg");
         	fotoLogo.scaleToFit(200, 200);
         	fotoLogo.setAlignment(Element.ALIGN_LEFT);
-        	
+
         	marcaAgua = com.itextpdf.text.Image.getInstance("icons/waterMark.png");
         	marcaAgua.scaleToFit(200, 200);
         	marcaAgua.setAlignment(Element.ALIGN_LEFT);
-        	
+
         }catch ( Exception e ){
         	e.printStackTrace();
         	Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error al generar encabezado del pdf de matricula" );
     		dialog.setContentText("No se pudo cargar la imagen del CHUUGI JKA o la foto de perfil del estudiante");
-    		dialog.show(); 
+    		dialog.show();
         }
-        
+
         if(fotoPerfil!=null && fotoLogo!=null) {
         	PdfPTable tableHeader = new PdfPTable(2);
         	tableHeader.setWidthPercentage(100);
         	tableHeader.addCell(getCell(fotoLogo, Element.ALIGN_LEFT));
         	tableHeader.addCell(getCell(fotoPerfil, Element.ALIGN_RIGHT));
         	document.add(tableHeader);
-        	
+
         	marcaAgua.setAbsolutePosition(80f, 220f);
         	marcaAgua.scaleToFit(500, 500);
         	document.add(marcaAgua);
         }
-        
+
         //document.add(new Paragraph("\n\n"));
-        
+
         Student student=dojo.findStudent(studentId);
-        
-        float [] pointColumnWidths = {105F, 200F}; 
+
+        float [] pointColumnWidths = {105F, 200F};
         PdfPTable tableConstancia = new PdfPTable(pointColumnWidths);
         tableConstancia.setWidthPercentage(85);
         tableConstancia.addCell(getCellBorder("PRACTICANTE", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
@@ -1014,18 +1017,18 @@ public class DojoGUI {
         tableConstancia.addCell(getCellBorder("LUGAR DE NACIMIENTO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
         tableConstancia.addCell(getCellBorder(student.getBornPlace(), Element.ALIGN_LEFT)).setIndent(5);
         tableConstancia.addCell(getCellBorder("DOCUMENTO", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
-        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), Element.ALIGN_LEFT)).setIndent(5);;
+        tableConstancia.addCell(getCellBorder(student.getIdType()+":"+student.getId(), Element.ALIGN_LEFT)).setIndent(5);
         tableConstancia.addCell(getCellBorder("SALUD", Element.ALIGN_CENTER)).setMinimumHeight(40);
         tableConstancia.addCell(getCellBorder("ENTIDAD: "+student.getEps()+"\n"+"RH: "+student.getRH()+"\n"+"SEXO: "+student.getSex()+"\n", Element.ALIGN_LEFT)).setIndent(5);
         tableConstancia.addCell(getCellBorder("OCUPACION", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
         tableConstancia.addCell(getCellBorder(student.getOcupation(), Element.ALIGN_LEFT)).setIndent(5);
-        
+
         tableConstancia.addCell(getCellBorder("DATOS DEL PADRE", Element.ALIGN_CENTER)).setMinimumHeight(40);
         tableConstancia.addCell(getCellBorder("NOMBRE: "+student.getFatherName()+"\n"+"TELEFONO: "+student.getFatherPhone()+"\n"+"EMAIL: "+student.getFatherEmail()+"\n", Element.ALIGN_LEFT)).setIndent(5);
-        
+
         tableConstancia.addCell(getCellBorder("DATOS DE LA MADRE", Element.ALIGN_CENTER)).setMinimumHeight(40);
         tableConstancia.addCell(getCellBorder("NOMBRE: "+student.getMotherName()+"\n"+"TELEFONO: "+student.getMotherPhone()+"\n"+"EMAIL: "+student.getMotherEmail()+"\n", Element.ALIGN_LEFT)).setIndent(5);
-        
+
         tableConstancia.addCell(getCellBorder("DIRECCION", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
         tableConstancia.addCell(getCellBorder(student.getAdress(), Element.ALIGN_LEFT)).setIndent(5);
         tableConstancia.addCell(getCellBorder("BARRIO:", Element.ALIGN_CENTER)).setExtraParagraphSpace(3);
@@ -1051,9 +1054,9 @@ public class DojoGUI {
         tableConstancia.addCell(getCellBorder("ACUDIENTE RESPONSABLE", Element.ALIGN_CENTER)).setMinimumHeight(60);
         tableConstancia.addCell(getCellBorder("NOMBRE:___________________\n"+" CEDULA:___________________\n\n"+"    FIRMA:___________________", Element.ALIGN_LEFT)).setIndent(5);
         document.add(tableConstancia);
-        	
+
 	}
-    
+
     public static PdfPCell getCellBorder(String text, int alignment) {//configuracion de la celda del texto (izquierda)
     	Phrase phrase= new Phrase(text);
         PdfPCell cell = new PdfPCell(phrase);
@@ -1067,43 +1070,43 @@ public class DojoGUI {
     public void openFileChooserPicture(ActionEvent event) {
         FileChooser fc = new FileChooser();
         File selectedFile= fc.showOpenDialog(null);
-        
+
         if(selectedFile!=null) {
         	LabelRutaFoto.setText(selectedFile.getAbsolutePath());
         }
     }
-    
+
     @FXML
     public void openFileChooserFiles(ActionEvent event) {
         FileChooser fc = new FileChooser();
         selectedFiles= fc.showOpenMultipleDialog(null);
-        
+
         if(!selectedFiles.isEmpty()) {
-        	for(int i=0;i<selectedFiles.size();i++) {
-        		txtStudentAddedFiles.setText(txtStudentAddedFiles.getText()+"\n"+selectedFiles.get(i).getName());
+        	for (File selectedFile : selectedFiles) {
+        		txtStudentAddedFiles.setText(txtStudentAddedFiles.getText()+"\n"+selectedFile.getName());
         	}
         }
     }
-    
-    
+
+
     public String getIdType() {
     	String idType="";
-    	if(cedula.isSelected()==true) {
+    	if(cedula.isSelected()) {
     		idType="CC";
     	}
-    	else if(tarjetaIdentidad.isSelected()==true) {
+    	else if(tarjetaIdentidad.isSelected()) {
     		idType="TI";
     	}
 		return idType;
-    	
+
     }
-    
+
     public String getSexType() {
     	String sex="";
-    	if(masculino.isSelected()==true) {
+    	if(masculino.isSelected()) {
     		sex="MASCULINO";
     	}
-    	else if(femenino.isSelected()==true) {
+    	else if(femenino.isSelected()) {
     		sex="FEMENINO";
     	}
     	else {
@@ -1113,62 +1116,62 @@ public class DojoGUI {
     }
     public String getPlanPago() {
     	String plan="";
-    	if(mensualidad.isSelected()==true) {
+    	if(mensualidad.isSelected()) {
     		plan="Mensualidad";
     	}
-    	else if(horaEntrenada.isSelected()==true){
+    	else if(horaEntrenada.isSelected()){
     		plan="Hora Entrenada";
     	}
-    	
+
     	return plan;
     }
     public List<String> getTrainDays(){
     	List<String> trainDays=new ArrayList<>();
-    	if(lunes.isSelected()==true) {
+    	if(lunes.isSelected()) {
     		trainDays.add("lunes");
     	}
-    	if(martes.isSelected()==true) {
+    	if(martes.isSelected()) {
     		trainDays.add("martes");
     	}
-    	if(miercoles.isSelected()==true) {
+    	if(miercoles.isSelected()) {
     		trainDays.add("miercoles");
     	}
-    	if(jueves.isSelected()==true) {
+    	if(jueves.isSelected()) {
     		trainDays.add("jueves");
     	}
-    	if(viernes.isSelected()==true) {
+    	if(viernes.isSelected()) {
     		trainDays.add("viernes");
     	}
-    	if(sabado.isSelected()==true) {
+    	if(sabado.isSelected()) {
     		trainDays.add("sabado");
     	}
-    	
+
     	return trainDays;
     }
     public List<String> getScheduleDays(){
     	List<String> trainDays=new ArrayList<>();
-    	
-    	if(twoToThree.isSelected()==true) {
+
+    	if(twoToThree.isSelected()) {
     		trainDays.add("2-3");
     	}
-    	if(fiveToSix.isSelected()==true) {
+    	if(fiveToSix.isSelected()) {
     		trainDays.add("5-6");
     	}
-    	if(sevenToEight.isSelected()==true) {
+    	if(sevenToEight.isSelected()) {
     		trainDays.add("7-8");
     	}
-    	if(sixToSeven.isSelected()==true) {
+    	if(sixToSeven.isSelected()) {
     		trainDays.add("6-7");
     	}
-    	
+
     	return trainDays;
     }
     public boolean getAuthorization() {
     	boolean aut=false;
-    	if(si.isSelected()==true) {
+    	if(si.isSelected()) {
     		aut=true;
     	}
-    	else if(no.isSelected()==true) {
+    	else if(no.isSelected()) {
     		aut=false;
     	}
     	return aut;
@@ -1180,7 +1183,7 @@ public class DojoGUI {
   //Method to initialize the values in Clients Tableview in user screen
   	public void initializeStudentTableView() {
   		 ObservableList<Student> studentsList = FXCollections.observableArrayList(dojo.getStudents());
-  		 
+
   		columnName.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
   		columnId.setCellValueFactory(new PropertyValueFactory<Student, String>("id"));
   		columnMensualidad.setCellValueFactory(new PropertyValueFactory<Student, String>("valueMensualidad"));
@@ -1188,9 +1191,9 @@ public class DojoGUI {
   		columnBornDate.setCellValueFactory(new PropertyValueFactory<Student, String>("bornDate"));
   		columnRegisterDate.setCellValueFactory(new PropertyValueFactory<Student, String>("registerDate"));
 
-  		//PARA EL TEXTFIELD DE BUSCAR ALUMNO POR NOMBRE	
+  		//PARA EL TEXTFIELD DE BUSCAR ALUMNO POR NOMBRE
   		FilteredList<Student> filteredData= new FilteredList<>(studentsList, b -> true);
-  		
+
   		filterField.textProperty().addListener((observable, oldValue, newValue) -> {
   			filteredData.setPredicate(student ->{
   				//If filter text is empty, display all people.
@@ -1198,10 +1201,10 @@ public class DojoGUI {
   					System.out.println("INICIALIZO");
   					return true;
   				}
-  				
+
   				//Compare first name and last name of every person with filter text
   				String lowerCaseFilter= newValue.toLowerCase();
-  				
+
   				if(student.getName().toLowerCase().indexOf(lowerCaseFilter) !=-1) {
   					System.out.println("MATCHES");
   					return true;//filter matches first name
@@ -1209,19 +1212,19 @@ public class DojoGUI {
   					System.out.println("DOES NOT MATCH");
   					return false;
   				}
-  					
-  				
-  
+
+
+
   			});
   		});
-  		
+
   		//Wrap the filtered list in a sortedList
   		SortedList<Student> sortedData= new SortedList<>(filteredData);
-  		
+
   		sortedData.comparatorProperty().bind(tableViewStudentsList.comparatorProperty());
   		tableViewStudentsList.setItems(sortedData);
-  				
-  		
+
+
   		//PARA CUANDO SE LE DE DOBLE CLICK A UN ESTUDIANTE DE LA LISTA
   		tableViewStudentsList.setRowFactory(tv -> {
   			TableRow<Student> row = new TableRow<>();
@@ -1235,7 +1238,7 @@ public class DojoGUI {
   						PaneStudentsList.getChildren().setAll(root);
   						txtUpdateStudentAdress.getScene().getWindow().setWidth(610);
   						txtUpdateStudentAdress.getScene().getWindow().setHeight(700);
-  						
+
   			    		File file = new File(student.getProfilePicture());
   			    		Image img = new Image(file.toURI().toString());
   						updateProfilePicture.setImage(img);
@@ -1243,14 +1246,14 @@ public class DojoGUI {
   						LabelUpdateRutaFoto.setText(student.getProfilePicture());
   						txtUpdateStudentBornPlace.setText(student.getBornPlace());
   						txtUpdateStudentId.setText(student.getId());
-  						
+
   						if(student.getIdType().equals("TI")) {
   							updateTarjetaIdentidad.setSelected(true);
   						}
   						else {
   							updateCedula.setSelected(true);
   						}
-  						
+
   						if(student.getSex().equalsIgnoreCase("MASCULINO")) {
   							txtUpdateStudentSex.setText("MASCULINO");
   						}
@@ -1260,7 +1263,7 @@ public class DojoGUI {
   						else {
   							txtUpdateStudentSex.setText("OTRO");
   						}
-  						
+
   						txtUpdateStudentEPS.setText(student.getEps());
   						txtUpdateStudentRH.setText(student.getRH());
   						txtUpdateStudentOcupation.setText(student.getOcupation());
@@ -1273,7 +1276,7 @@ public class DojoGUI {
   						txtUpdateStudentAdress.setText(student.getAdress());
   						txtUpdateStudentNeighborhood.setText(student.getNeighborhood());
   						txtUpdateStudentMensualidad.setText(String.valueOf(student.getValueMensualidad()));
-  						
+
   						if(student.getPlanPagoEntreno().equals("Mensualidad")) {
   							updateMensualidad.setSelected(true);
   						}
@@ -1281,44 +1284,44 @@ public class DojoGUI {
   							updateHoraEntrenada.setSelected(true);
   						}
   						List<String> trainDays= student.getTrainDays();
-  						for(int i=0;i<trainDays.size();i++) {
-  							if(trainDays.get(i).equals("lunes")) {
+  						for (String trainDay : trainDays) {
+  							if(trainDay.equals("lunes")) {
   								updateLunes.setSelected(true);
   							}
-  							else if(trainDays.get(i).equals("martes")) {
+  							else if(trainDay.equals("martes")) {
   								updateMartes.setSelected(true);
   							}
-  							else if(trainDays.get(i).equals("miercoles")) {
+  							else if(trainDay.equals("miercoles")) {
   								updateMiercoles.setSelected(true);
   							}
-  							else if(trainDays.get(i).equals("jueves")) {
+  							else if(trainDay.equals("jueves")) {
   								updateJueves.setSelected(true);
   							}
-  							else if(trainDays.get(i).equals("viernes")) {
+  							else if(trainDay.equals("viernes")) {
   								updateViernes.setSelected(true);
   							}
-  							else if(trainDays.get(i).equals("sabado")) {
+  							else if(trainDay.equals("sabado")) {
   								updateSabado.setSelected(true);
   							}
   						}
   						List<String> scheduleDays= student.getScheduleDays();
-  						for(int i=0;i<scheduleDays.size();i++) {
-  							if(scheduleDays.get(i).equals("2-3")) {
+  						for (String scheduleDay : scheduleDays) {
+  							if(scheduleDay.equals("2-3")) {
   								updateTwoToThree.setSelected(true);
   							}
-  							else if(scheduleDays.get(i).equals("5-6")) {
+  							else if(scheduleDay.equals("5-6")) {
   								updateFiveToSix.setSelected(true);
   							}
-  							else if(scheduleDays.get(i).equals("6-7")) {
+  							else if(scheduleDay.equals("6-7")) {
   								updateSixToSeven.setSelected(true);
   							}
-  							else if(scheduleDays.get(i).equals("7-8")) {
+  							else if(scheduleDay.equals("7-8")) {
   								updateSevenToEight.setSelected(true);
   							}
   						}
   						txtUpdateObservations.setText(student.getObservations());
-  						
-  						if(student.isAuthorization()==true) {
+
+  						if(student.isAuthorization()) {
   							updateSi.setSelected(true);
   						}
   						else {
@@ -1336,7 +1339,7 @@ public class DojoGUI {
   		});
   	}
 
-  
+
 
     @FXML
     void updateProfilePcture(ActionEvent event) {
@@ -1357,22 +1360,22 @@ public class DojoGUI {
     void updateStudent(ActionEvent event) {
     	Student student= dojo.findStudent(txtUpdateStudentId.getText());
     	boolean mensualidadCorrecta=false;
-    	
+
     	try {
         	student.setValueMensualidad(Double.parseDouble(txtUpdateStudentMensualidad.getText()));
         	mensualidadCorrecta=true;
-        	
+
     	}catch(Exception e) {
-    	
+
     	}
-    	
-    	if(mensualidadCorrecta==true) {
+
+    	if(mensualidadCorrecta) {
     		student.setAdress(txtUpdateStudentAdress.getText());
     		student.setAuthorization(getUpdateAuthorization());
     		student.setEps(txtUpdateStudentEPS.getText());
     		student.setFatherPhone(txtUpdateStudentFatherPhone.getText());
     		student.setFatherEmail(txtUpdateStudentFatherEmail.getText());
-   
+
     		List<String> existingFilesPath= student.getFilesPath();
     		for (int i=0;i<selectedFiles.size();i++) {
     			existingFilesPath.add(selectedFiles.get(i).getAbsolutePath());
@@ -1393,24 +1396,24 @@ public class DojoGUI {
     		student.setTrainDays(getUpdateTrainDays());
 
 			File directorio = new File(dojo.getPathStudentFiles()+"\\"+student.getName()+student.getId()); //ADENTRO IRIA DONDE SE QUIERE CREAR EL DIRECTORIO
-    		
-			for(int i=0;i<selectedFiles.size();i++) {
-				dojo.fileCopy(selectedFiles.get(i).getAbsolutePath(), (directorio.getAbsolutePath()));
+
+			for (File selectedFile : selectedFiles) {
+				dojo.fileCopy(selectedFile.getAbsolutePath(), (directorio.getAbsolutePath()));
 			}
-			
+
 			selectedFiles=new ArrayList<>();
-			
+
 			try {
 				saveDojoData();
 			} catch (IOException e) {
 	    		Dialog<String> dialog = createDialog();
-	    		dialog.setTitle("La información no se pudo guardada");
+	    		dialog.setTitle("La informaciï¿½n no se pudo guardada");
 	    		dialog.setContentText("Imposible guardar la nueva informacion del estudiante");
 	    		dialog.show();
 			}
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Informacion actualizada");
-    		dialog.setContentText("Se ha actualizado satisfactoriamente la información del estudiante");
+    		dialog.setContentText("Se ha actualizado satisfactoriamente la informaciï¿½n del estudiante");
     		dialog.show();
     	}
     	else {
@@ -1421,98 +1424,98 @@ public class DojoGUI {
     	}
 
     }
-    
+
     @FXML
     public void openUpdateFileChooserPicture(ActionEvent event) {
         FileChooser fc = new FileChooser();
         File selectedFile= fc.showOpenDialog(null);
-        
+
         if(selectedFile!=null) {
         	LabelUpdateRutaFoto.setText(selectedFile.getAbsolutePath());
         }
     }
-    
+
     @FXML
     public void openUpdateFileChooserFiles(ActionEvent event) {
         FileChooser fc = new FileChooser();
         selectedFiles= fc.showOpenMultipleDialog(null);
-        
+
         if(!selectedFiles.isEmpty()) {
-        	for(int i=0;i<selectedFiles.size();i++) {
-        		txtUpdateStudentAddedFiles.setText(txtUpdateStudentAddedFiles.getText()+"\n"+selectedFiles.get(i).getName());
+        	for (File selectedFile : selectedFiles) {
+        		txtUpdateStudentAddedFiles.setText(txtUpdateStudentAddedFiles.getText()+"\n"+selectedFile.getName());
         	}
         }
     }
-    
+
     public String getUpdateIdType() {
     	String idType="";
-    	if(updateCedula.isSelected()==true) {
+    	if(updateCedula.isSelected()) {
     		idType="CC";
     	}
-    	else if(updateTarjetaIdentidad.isSelected()==true) {
+    	else if(updateTarjetaIdentidad.isSelected()) {
     		idType="TI";
     	}
 		return idType;
-    	
+
     }
     public String getUpdatePlanPago() {
     	String plan="";
-    	if(updateMensualidad.isSelected()==true) {
+    	if(updateMensualidad.isSelected()) {
     		plan="Mensualidad";
     	}
-    	else if(updateHoraEntrenada.isSelected()==true){
+    	else if(updateHoraEntrenada.isSelected()){
     		plan="Hora Entrenada";
     	}
-    	
+
     	return plan;
     }
     public List<String> getUpdateTrainDays(){
     	List<String> trainDays=new ArrayList<>();
-    	if(updateLunes.isSelected()==true) {
+    	if(updateLunes.isSelected()) {
     		trainDays.add("lunes");
     	}
-    	if(updateMartes.isSelected()==true) {
+    	if(updateMartes.isSelected()) {
     		trainDays.add("martes");
     	}
-    	if(updateMiercoles.isSelected()==true) {
+    	if(updateMiercoles.isSelected()) {
     		trainDays.add("miercoles");
     	}
-    	if(updateJueves.isSelected()==true) {
+    	if(updateJueves.isSelected()) {
     		trainDays.add("jueves");
     	}
-    	if(updateViernes.isSelected()==true) {
+    	if(updateViernes.isSelected()) {
     		trainDays.add("viernes");
     	}
-    	if(updateSabado.isSelected()==true) {
+    	if(updateSabado.isSelected()) {
     		trainDays.add("sabado");
     	}
-    	
+
     	return trainDays;
     }
     public List<String> getUpdateScheduleDays(){
     	List<String> trainDays=new ArrayList<>();
-    	
-    	if(updateTwoToThree.isSelected()==true) {
+
+    	if(updateTwoToThree.isSelected()) {
     		trainDays.add("2-3");
     	}
-    	if(updateFiveToSix.isSelected()==true) {
+    	if(updateFiveToSix.isSelected()) {
     		trainDays.add("5-6");
     	}
-    	if(updateSevenToEight.isSelected()==true) {
+    	if(updateSevenToEight.isSelected()) {
     		trainDays.add("7-8");
     	}
-    	if(updateSixToSeven.isSelected()==true) {
+    	if(updateSixToSeven.isSelected()) {
     		trainDays.add("6-7");
     	}
-    	
+
     	return trainDays;
     }
     public boolean getUpdateAuthorization() {
     	boolean aut=false;
-    	if(updateSi.isSelected()==true) {
+    	if(updateSi.isSelected()) {
     		aut=true;
     	}
-    	else if(updateNo.isSelected()==true) {
+    	else if(updateNo.isSelected()) {
     		aut=false;
     	}
     	return aut;
@@ -1529,7 +1532,7 @@ public class DojoGUI {
     	else {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, campos incompletos");
-    		dialog.setContentText("Debe ingresar la identificación del estudiante a eliminar");
+    		dialog.setContentText("Debe ingresar la identificaciï¿½n del estudiante a eliminar");
     		dialog.show();
     	}
     }
@@ -1558,20 +1561,20 @@ public class DojoGUI {
     		dialog.setContentText("Ruta no encontrada "+dojo.getPathStudentFiles()+"\\"+studentFactura.getName()+studentFactura.getId()+"\\"+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf");
     		dialog.show();
 		}
-    	
-    	Document document= new Document();  
-    	Document document2= new Document();  
-    	
+
+    	Document document= new Document();
+    	Document document2= new Document();
+
     	try {//
     		if(archivo!=null & archivoCarpetaEstudiante!=null) {
     			PdfWriter.getInstance(document, archivo);
     			document.open();
     			addMetaData(document, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
-    			
+
     			PdfWriter.getInstance(document2, archivoCarpetaEstudiante);
     			document2.open();
     			addMetaData(document2, studentFactura, txtAcudienteName.getText(), txtConceptoRecibo.getText());
-    			
+
         		Dialog<String> dialog = createDialog();
         		dialog.setTitle("Recibo creado satisfactoriamente");
         		dialog.setContentText("El recibo ha sido creado en la carpeta de Recibos y en la carpeta del estudiante");
@@ -1582,7 +1585,7 @@ public class DojoGUI {
         		dialog.setContentText("Ocurrio algun error con las carpetas de recibos o de estudiantes y el pdf no pudo ser creado");
         		dialog.show();
     		}
-			
+
 		} catch (DocumentException e) {
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Error, ha ocurrido un error al crear el pdf del recibo");
@@ -1610,41 +1613,41 @@ public class DojoGUI {
         propiedad.put("mail.smtp.ssl.trust", "*");
         propiedad.put("mail.smtp.starttls.enable", "true");
         propiedad.put("mail.smtp.ssl.protocols", "TLSv1.2");
-        
+
         Session sesion = Session.getDefaultInstance(propiedad);
         String correoEnvia = dojo.getEmailEnvio();
         String contrasena = dojo.getClaveEmail();
         String receptor = txtEmailDestino.getText();
-        
+
         MimeMessage mail = new MimeMessage(sesion);
         try {
             mail.setFrom(new InternetAddress (correoEnvia));
             mail.addRecipient(Message.RecipientType.TO, new InternetAddress (receptor));
-            
+
             BodyPart parteTexto= new MimeBodyPart();
             parteTexto.setContent(txtEmailMessage.getText(), "text/html");
             BodyPart parteArchivo= new MimeBodyPart();
             parteArchivo.setDataHandler(new DataHandler(new FileDataSource(dojo.getPathReportes()+"\\"
             											+studentFactura.getName()+" "+studentFactura.getId()+" "+fecha+" "+txtDiferenciableArchivo.getText()+" "+"Recibo.pdf")));
             parteArchivo.setFileName("Recibo "+fecha+".pdf");
-            
+
             MimeMultipart multiPart= new MimeMultipart();
             multiPart.addBodyPart(parteTexto);
             multiPart.addBodyPart(parteArchivo);
-            
+
             mail.setContent(multiPart);
-            
+
             Transport transportar = sesion.getTransport("smtp");
             transportar.connect(correoEnvia,contrasena);
-            transportar.sendMessage(mail, mail.getRecipients(Message.RecipientType.TO));          
+            transportar.sendMessage(mail, mail.getRecipients(Message.RecipientType.TO));
             transportar.close();
-            
+
     		Dialog<String> dialog = createDialog();
     		dialog.setTitle("Correo Enviado");
     		dialog.setContentText("El recibo ha sido enviado al correo "+receptor);
     		dialog.show();
-            
-            
+
+
         } catch (AddressException ex) {
         	ex.printStackTrace();
     		Dialog<String> dialog = createDialog();
@@ -1663,9 +1666,9 @@ public class DojoGUI {
     		dialog2.setContentText(ex.toString());
     		dialog2.show();
         }
-        
+
     }
-    
+
 
     @FXML
     void updateDojo(ActionEvent event) {
@@ -1678,7 +1681,7 @@ public class DojoGUI {
     	dojo.setPathStudentFiles(txtUpdateDojoPathStudents.getText());
     	dojo.setPathReportes(txtUpdateDojoPathRecibos.getText());
     	dojo.setSAVE_PATH_FILE_EXCEL(txtRutaArchivoExcel.getText());
-    	
+
     	if(!txtUpdateDojoEmailClave.getText().equals("")) {
     		dojo.setClaveEmail(txtUpdateDojoEmailClave.getText());
     	}
@@ -1696,7 +1699,7 @@ public class DojoGUI {
     		dialog.show();
 		}
     }
-    
+
     @FXML
     public void exportStudentsData(ActionEvent event) throws FileNotFoundException {
     	try {
@@ -1712,7 +1715,7 @@ public class DojoGUI {
     		dialog.show();
     	}
     }
-    
+
     public void exportEmployeesData(String fileName, String sep) throws FileNotFoundException {
 
     	PrintWriter pw= new PrintWriter(fileName);
@@ -1722,15 +1725,13 @@ public class DojoGUI {
     			sep+"Nombre Madre"+sep+"Telefono Madre"+sep+"Email Madre"+sep+"Direccion"+sep+"Barrio"+sep+"Fecha Ingreso"+sep+"Mensualidad"+
     			sep+"Plan Pago Entreno"+sep+"Dias de Entreno"+sep+"Horario"+sep+"Observaciones"+sep+"Autorizacion");
 
-    	for(int i=0;i<dojo.getStudents().size();i++) {
-    		Student student= dojo.getStudents().get(i);
-
+    	for (Student student : dojo.getStudents()) {
     		pw.println(student.getName()+sep+student.getIdType()+sep+student.getId()+sep+student.getBornDate()+sep+student.getBornPlace()
     		+sep+student.getEps()+sep+student.getRH()+sep+student.getSex()+sep+student.getOcupation()+sep+student.getFatherName()+
     		sep+student.getFatherPhone()+sep+student.getFatherEmail()+sep+student.getMotherName()+sep+student.getMotherPhone()+sep+student.getMotherEmail()+
     		sep+student.getAdress()+sep+student.getNeighborhood()+sep+student.getRegisterDate()+sep+student.getValueMensualidad()+
     				sep+student.getPlanPagoEntreno()+sep+student.getTrainDays().toString()+sep+student.getScheduleDays().toString()+
-    				sep+student.getObservations()+sep+student.isAuthorization());		 
+    				sep+student.getObservations()+sep+student.isAuthorization());
     	}
     	pw.close();
     }
