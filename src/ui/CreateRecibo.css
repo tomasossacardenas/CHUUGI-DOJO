@@ -1,0 +1,62 @@
+.main{
+    -fx-background-color: white;
+    -fx-background-radius:20;
+}
+.AnchorPaneGR{
+    -fx-background-color: linear-gradient(to right bottom,#920303,#F41F1F);
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('"C:\Users\tomas\Desktop\Tomas\CHUUGI-DOJO\src\styles\Poppins-Regular.ttf"');
+}
+
+.textGR {
+    -fx-font-family: "Poppins";
+}
+.subtextGR{
+    -fx-font-family: "Poppins";
+    -fx-font-style:italic;
+}
+.smallBox{
+    -fx-background-color: #F5F5F1;
+    -fx-background-radius:10;
+}
+.buttonGR{
+    -fx-background-color: #F41F1F;
+    -fx-text-fill:white;
+    -fx-font-family: "Poppins" ;
+    -fx-font-size:14px;
+}
+
+.buttonGR:hover{
+    -fx-background-color: #920303;
+    -fx-text-fill:white;
+    -fx-font-family: "Poppins" ;
+}
+.buttonGR:pressed{
+    -fx-font-size:13.5px;
+
+}
+.Number{
+    -fx-font-family: "Poppins";
+    -fx-font-size:70px;
+    -fx-text-fill: #F41F1F;
+}
+.homeButton:pressed{
+    -fx-scale-x:0.9;
+    -fx-scale-y:0.9;
+}
+
+.MenuLabel{
+	-fx-font-family: "Poppins";
+	-fx-font-size:24px;
+}
+.MenuLabel:hover{
+	-fx-text-fill: #FFFFFF;
+}
+.MenuLabel:pressed{
+	-fx-text-fill: #FFFFFF;
+	-fx-font-size: 25px;
+}
+

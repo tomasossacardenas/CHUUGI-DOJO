@@ -9,7 +9,7 @@
 			<accessrule kind="accessible" pattern="javafx/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Program Files/Java/jdk1.8.0_202/jre/lib/ext/jfxrt.jar"/>
+	
 	<classpathentry kind="lib" path="driver-PDF/itext5-itextpdf-5.5.12.jar"/>
 	<classpathentry kind="lib" path="driver-PDF/mail.jar"/>
 	<classpathentry kind="lib" path="driver-PDF/activation-1.1.1.jar"/>
@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="C:/Users/tomas/Desktop/Tomas/CHUUGI-DOJO/javafx-sdk-18.0.1/lib/javafx.swing.jar"/>
 	<classpathentry kind="lib" path="C:/Users/tomas/Desktop/Tomas/CHUUGI-DOJO/javafx-sdk-18.0.1/lib/javafx.web.jar"/>
 	<classpathentry kind="lib" path="C:/Users/tomas/Desktop/Tomas/CHUUGI-DOJO/javafx-sdk-18.0.1/lib/javafx-swt.jar"/>
+	<classpathentry excluding="src/" kind="src" path=""/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

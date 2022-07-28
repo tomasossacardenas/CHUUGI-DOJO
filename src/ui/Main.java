@@ -1,5 +1,6 @@
 package ui;
 
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -47,7 +48,6 @@ public class Main extends Application {
 		Image icon = new Image(getClass().getResource("/icons/escudo.png").toExternalForm(), false);
 		primaryStage.getIcons().add(icon);
 		primaryStage.setTitle("Chuugi Dojo");
-		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 
