@@ -92,8 +92,8 @@ public class DojoGUI {
 	}
 
 //Login fxml
-    @FXML
-    private Pane mainPaneLogin;
+    //@FXML
+    //private Pane mainPaneLogin;
 
     @FXML
     private TextField txtLoginUsername;
@@ -102,53 +102,71 @@ public class DojoGUI {
     private PasswordField txtLoginPassword;
 
     @FXML
+    private BorderPane mainPaneLogin;
+
+
+    @FXML
     public void homeCreateStudent(MouseEvent event) throws IOException {
-    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu2.fxml"));
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 		optionsFxml.setController(this);
 		Parent opWindow = optionsFxml.load();
 		Stage stage= (Stage) PaneCreateStudent.getScene().getWindow();
 		stage.setScene(new Scene(opWindow));
+		MenuLabel.getScene().getWindow().setWidth(1000);
+		MenuLabel.getScene().getWindow().setHeight(700);
     }
     @FXML
     public void homeDeleteStudent(MouseEvent event) throws IOException {
-    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu2.fxml"));
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 		optionsFxml.setController(this);
 		Parent opWindow = optionsFxml.load();
 		Stage stage= (Stage) PaneDeleteStudent.getScene().getWindow();
 		stage.setScene(new Scene(opWindow));
+		MenuLabel.getScene().getWindow().setWidth(1000);
+		MenuLabel.getScene().getWindow().setHeight(700);
     }
+
+
     @FXML
     public void homeGenerarRecibo(MouseEvent event) throws IOException {
-    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu2.fxml"));
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 		optionsFxml.setController(this);
 		Parent opWindow = optionsFxml.load();
-		Stage stage= (Stage) PaneGenerateRecibo.getScene().getWindow();
+		Stage stage= (Stage) titleGenerateRecibo.getScene().getWindow();
 		stage.setScene(new Scene(opWindow));
+		MenuLabel.getScene().getWindow().setWidth(1000);
+		MenuLabel.getScene().getWindow().setHeight(700);
     }
     @FXML
     public void homeStudentsList(MouseEvent event) throws IOException {
-    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu2.fxml"));
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 		optionsFxml.setController(this);
 		Parent opWindow = optionsFxml.load();
 		Stage stage= (Stage) tableViewStudentsList.getScene().getWindow();
 		stage.setScene(new Scene(opWindow));
+		MenuLabel.getScene().getWindow().setWidth(1000);
+		MenuLabel.getScene().getWindow().setHeight(700);
     }
 
     @FXML
     public void homeUpdateDojo(MouseEvent event) throws IOException {
-    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu2.fxml"));
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 		optionsFxml.setController(this);
 		Parent opWindow = optionsFxml.load();
 		Stage stage= (Stage) PaneUpdateDojo.getScene().getWindow();
 		stage.setScene(new Scene(opWindow));
+		MenuLabel.getScene().getWindow().setWidth(1000);
+		MenuLabel.getScene().getWindow().setHeight(700);
     }
     @FXML
     public void homeUpdateStudent(MouseEvent event) throws IOException {
-    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu2.fxml"));
+    	FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 		optionsFxml.setController(this);
 		Parent opWindow = optionsFxml.load();
 		Stage stage= (Stage) PaneUpdateStudent.getScene().getWindow();
-		stage.setScene(new Scene(opWindow));;
+		stage.setScene(new Scene(opWindow));
+		MenuLabel.getScene().getWindow().setWidth(1000);
+		MenuLabel.getScene().getWindow().setHeight(700);
     }
 
 
@@ -419,7 +437,7 @@ public class DojoGUI {
 
 //updateDojo fxml
     @FXML
-    private Pane PaneUpdateDojo;
+    private AnchorPane PaneUpdateDojo;
 
     @FXML
     private TextField txtUpdateDojoAdress;
@@ -450,12 +468,15 @@ public class DojoGUI {
     @FXML
     private TextField txtRutaArchivoExcel;
 
-
+//Generar Recibo
 @FXML
     private AnchorPane PaneGenerateRecibo;
 
     @FXML
     private Label reciboNombreEstudiante;
+
+    @FXML
+    private Label titleGenerateRecibo;
 
     @FXML
     private TextField txtAcudienteName;
@@ -493,7 +514,7 @@ public class DojoGUI {
 
 //studentsList fxml
     @FXML
-    private Pane PaneStudentsList;
+    private AnchorPane PaneStudentsList;
 
     @FXML
     private TableView<Student> tableViewStudentsList;
@@ -548,7 +569,7 @@ public class DojoGUI {
 //optionsWindow methods
     @FXML
     void openLoginScreen(MouseEvent event) throws IOException {
-		FXMLLoader login = new FXMLLoader(getClass().getResource("Login2.fxml"));
+		FXMLLoader login = new FXMLLoader(getClass().getResource("Login.fxml"));
 		login.setController(this);
 		Parent rootLogin = login.load();
 		Stage stage= (Stage) MenuLabel.getScene().getWindow();
@@ -564,6 +585,8 @@ public class DojoGUI {
 		Parent rootLogin = login.load();
 		Stage stage= (Stage) MenuLabel.getScene().getWindow();
 		stage.setScene(new Scene(rootLogin));
+		txtUpdateDojoPhone.getScene().getWindow().setWidth(970);
+		txtUpdateDojoPhone.getScene().getWindow().setHeight(700);
 
 		txtUpdateDojoAdress.setText(dojo.getAdress());
 		txtUpdateDojoCEO.setText(dojo.getCeo());
@@ -574,9 +597,6 @@ public class DojoGUI {
 		txtUpdateDojoPathStudents.setText(dojo.getPathStudentFiles());
 		txtUpdateDojoPathRecibos.setText(dojo.getPathReportes());
 		txtRutaArchivoExcel.setText(dojo.getSAVE_PATH_FILE_EXCEL());
-
-		txtUpdateDojoAdress.getScene().getWindow().setWidth(700);
-		txtUpdateDojoAdress.getScene().getWindow().setHeight(515);
     }
 
     @FXML
@@ -587,7 +607,7 @@ public class DojoGUI {
 		Stage stage= (Stage) MenuLabel.getScene().getWindow();
 		stage.setScene(new Scene(root));
 		LabelRutaFoto.getScene().getWindow().setWidth(610);
-		LabelRutaFoto.getScene().getWindow().setHeight(685);
+		LabelRutaFoto.getScene().getWindow().setHeight(680);
 		filesOfStudent.clear();
 
     }
@@ -600,29 +620,28 @@ public class DojoGUI {
 		Stage stage= (Stage) MenuLabel.getScene().getWindow();
 		stage.setScene(new Scene(root));
 
-		txtDeleteStudentId.getScene().getWindow().setWidth(705);
-		txtDeleteStudentId.getScene().getWindow().setHeight(460);
+		txtDeleteStudentId.getScene().getWindow().setWidth(900);
+		txtDeleteStudentId.getScene().getWindow().setHeight(631);
 
     }
     @FXML
     private Label MenuLabel;
-    
+
     @FXML
     void openStudentsList(MouseEvent event) throws IOException {
-    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("StudentsList.fxml"));
+    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("ListStudents.fxml"));
 		fxml.setController(this);
 		Parent root= fxml.load();
 		Stage stage= (Stage) MenuLabel.getScene().getWindow();
 		stage.setScene(new Scene(root));
-
-		tableViewStudentsList.getScene().getWindow().setWidth(800);
-		tableViewStudentsList.getScene().getWindow().setHeight(520);
+		tableViewStudentsList.getScene().getWindow().setWidth(1200);
+		tableViewStudentsList.getScene().getWindow().setHeight(800);
 		initializeStudentTableView();
     }
 
     @FXML //This method will be used when button generateRecibo in updateStudent is clicked, The screen GenerateRecibo does the process to send email
     public void openGenerateRecibo(ActionEvent event) throws IOException {
-    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("CreateReciboResponsive.fxml"));
+    	FXMLLoader fxml = new FXMLLoader(getClass().getResource("GenerarRecibo.fxml"));
 		fxml.setController(this);
 		Parent root= fxml.load();
 		Stage stage= (Stage) PaneUpdateStudent.getScene().getWindow();
@@ -636,6 +655,8 @@ public class DojoGUI {
     	txtEmailPadre.setText(student.getFatherEmail());
     	txtAcudienteName.setText(student.getMotherName());
     	txtEmailDestino.setText(student.getMotherEmail());
+    	reciboNombreEstudiante.setText(student.getName());
+
 
     	studentFactura=student;
     	txtEmailMessage.setText("Adjunto recibo de la fecha de "+fecha);
@@ -652,12 +673,13 @@ public class DojoGUI {
     	if(!txtLoginUsername.getText().equals("") && !txtLoginPassword.getText().equals("")) {
 
     		if(txtLoginUsername.getText().equals(dojoUserUsername) && txtLoginPassword.getText().equals(dojoUserPassword)) {
-				FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu2.fxml"));
+				FXMLLoader optionsFxml = new FXMLLoader(getClass().getResource("Menu.fxml"));
 				optionsFxml.setController(this);
 				Parent opWindow = optionsFxml.load();
 				Stage stage= (Stage) mainPaneLogin.getScene().getWindow();
 				stage.setScene(new Scene(opWindow));
-
+				MenuLabel.getScene().getWindow().setWidth(1000);
+				MenuLabel.getScene().getWindow().setHeight(700);
 
     		}
 
@@ -676,6 +698,8 @@ public class DojoGUI {
     	}
 
     }
+
+
 
 //Method to fill the pdf file of RECIBO
     public void addMetaData(Document document, Student student, String aNombreDe, String concepto) throws DocumentException {
@@ -1205,7 +1229,6 @@ public class DojoGUI {
   			filteredData.setPredicate(student ->{
   				//If filter text is empty, display all people.
   				if(newValue==null || newValue.isEmpty()) {
-  					System.out.println("INICIALIZO");
   					return true;
   				}
 
@@ -1213,10 +1236,8 @@ public class DojoGUI {
   				String lowerCaseFilter= newValue.toLowerCase();
 
   				if(student.getName().toLowerCase().indexOf(lowerCaseFilter) !=-1) {
-  					System.out.println("MATCHES");
   					return true;//filter matches first name
   				}else {
-  					System.out.println("DOES NOT MATCH");
   					return false;
   				}
 
@@ -1244,7 +1265,7 @@ public class DojoGUI {
   						Parent root = updateStudentFxml.load();
   						PaneStudentsList.getChildren().setAll(root);
   						txtUpdateStudentAdress.getScene().getWindow().setWidth(610);
-  						txtUpdateStudentAdress.getScene().getWindow().setHeight(700);
+  						txtUpdateStudentAdress.getScene().getWindow().setHeight(680);
 
   			    		File file = new File(student.getProfilePicture());
   			    		Image img = new Image(file.toURI().toString());
@@ -1688,6 +1709,7 @@ public class DojoGUI {
     	dojo.setSAVE_PATH_FILE_EXCEL(txtRutaArchivoExcel.getText());
 
     	if(!txtUpdateDojoEmailClave.getText().equals("")) {//SI EL TEXTFIELD DE CONTRASENA TIENE ALGO
+    		System.out.println("El textfield contrasena tiene algo");
     		 Transport transport;
     		 try {// EN ESTE TRY SE HACE LA VALIDACION DEL CORREO ELECTRONICO Y CONSTRASENA
     			 Properties propiedad = new Properties();
@@ -1728,6 +1750,12 @@ public class DojoGUI {
     	       		dialog.show();
     		 }
 
+    	}
+    	else { //Si el campo de la contrasena no tiene nada, es decir la contraena no se quiere cambiar
+			 Dialog<String> dialog = createDialog();
+			 dialog.setTitle("Datos del dojo actualizados");
+			 dialog.setContentText("Los datos del dojo han sido actualizados satisfactoriamente");
+			 dialog.show();
     	}
 
     }

@@ -1,0 +1,39 @@
+.MainPane{
+   -fx-background-color: linear-gradient(to right bottom,#920303,#F41F1F);
+}
+
+.smallPane{
+   -fx-background-color: white;
+   -fx-background-radius:20;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('"C:\Users\tomas\Desktop\Tomas\CHUUGI-DOJO\src\styles\Poppins-Regular.ttf"');
+}
+
+.normalText {
+    -fx-font-family: "Poppins";
+	-fx-font-size:40px;
+}
+
+.textFieldStyle{
+	 -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -2 3 -2;
+}
+.buttonLogIn{
+    -fx-background-color: #F41F1F;
+    -fx-text-fill:white;
+    -fx-font-family: "Poppins" ;
+    -fx-font-size:15px;
+	-fx-background-radius:8;
+}
+
+.buttonLogIn:hover{
+    -fx-background-color: #920303;
+    -fx-text-fill:white;
+    -fx-font-family: "Poppins";
+}
+.buttonLogIn:pressed{
+    -fx-font-size:13.5px;
+}

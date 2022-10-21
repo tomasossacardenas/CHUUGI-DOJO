@@ -1,0 +1,20 @@
+
+
+.MenuLabel{
+	-fx-font-family: "Poppins";
+	-fx-font-size:24px;
+	-fx-text-fill: #483939;
+}
+@font-face {
+    font-family: 'Poppins';
+    src: url('"C:\Users\tomas\Desktop\Tomas\CHUUGI-DOJO\src\styles\Poppins-Regular.ttf"');
+}
+.MenuLabel:hover{
+	-fx-text-fill: black;
+	-fx-font-size: 28px;
+}
+.MenuLabel:pressed{
+	-fx-text-fill: grey;
+	-fx-font-size: 25px;
+}
+

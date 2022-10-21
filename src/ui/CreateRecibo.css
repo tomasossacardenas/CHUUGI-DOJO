@@ -1,18 +1,53 @@
 .main{
     -fx-background-color: white;
-    -fx-background-radius:20;
+    -fx-background-radius:10;
 }
 .AnchorPaneGR{
     -fx-background-color: linear-gradient(to right bottom,#920303,#F41F1F);
 }
-
+.labelLogan{
+	-fx-text-fill: #D72323;
+	-fx-font-family: "Poppins";
+	-fx-font-size:15px;
+	-fx-font-weight:bold;
+}
 @font-face {
     font-family: 'Poppins';
     src: url('"C:\Users\tomas\Desktop\Tomas\CHUUGI-DOJO\src\styles\Poppins-Regular.ttf"');
 }
 
+.glassAnchor{
+	-fx-background-color: white;
+	-fx-opacity:0.9;
+	-fx-border-style: solid;
+	-fx-border-color: rgba(255,255,255,0.18);
+	-fx-border-width: 1px;
+	
+}
+
+.generarLabel{
+	-fx-font-family: "Poppins" ;
+	-fx-font-size: 60px;
+	-fx-font-weight:100;
+	
+	
+}
+.reciboLabel{
+	-fx-font-family: "Poppins" ;
+    	-fx-font-size:80px;
+	-fx-font-weight:700;
+	-fx-text-fill:#D72323;
+}
+.anchorSVG{
+	-fx-background-image:url("file:/C:/Users/tomas/Downloads/clipart4335018.png");
+	-fx-background-size:contain;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+	-fx-background-size:100% 100%;
+}
 .textGR {
     -fx-font-family: "Poppins";
+	-fx-font-size:40px;
 }
 .subtextGR{
     -fx-font-family: "Poppins";
@@ -20,13 +55,17 @@
 }
 .smallBox{
     -fx-background-color: #F5F5F1;
-    -fx-background-radius:10;
+    -fx-background-radius:5;
 }
 .buttonGR{
     -fx-background-color: #F41F1F;
     -fx-text-fill:white;
     -fx-font-family: "Poppins" ;
     -fx-font-size:14px;
+}
+.textFieldStyle{
+	-fx-background-color: #a9a9a9 , white , white;
+	-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -2 3 -2;
 }
 
 .buttonGR:hover{
@@ -39,6 +78,11 @@
 
 }
 .Number{
+    -fx-font-family: "Poppins";
+    -fx-font-size:100px;
+    -fx-text-fill: #F41F1F;
+}
+.NumberCreateStudent{
     -fx-font-family: "Poppins";
     -fx-font-size:70px;
     -fx-text-fill: #F41F1F;
@@ -58,5 +102,15 @@
 .MenuLabel:pressed{
 	-fx-text-fill: #FFFFFF;
 	-fx-font-size: 25px;
+}
+.labelTextfieldsTitle{
+	-fx-font-family: "Poppins";
+    -fx-font-size:16px;
+    -fx-text-fill: black;
+}
+.labelTextfieldsTitleCreateStudent{
+	-fx-font-family: "Poppins";
+    -fx-font-size:12px;
+    -fx-text-fill: black;
 }
 

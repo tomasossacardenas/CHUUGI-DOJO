@@ -1,99 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="PaneUpdateDojo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="PaneUpdateDojo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="917.0" styleClass="AnchorPaneGR" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@CreateRecibo.css" />
+   </stylesheets>
    <children>
-      <BorderPane layoutX="6.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="685.0">
-         <left>
-            <AnchorPane prefHeight="400.0" prefWidth="127.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <AnchorPane layoutX="79.0" layoutY="82.0" prefHeight="526.0" prefWidth="760.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <ImageView fitHeight="325.0" fitWidth="255.0" layoutX="1.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/chuugi%20logo.jpg" />
-                     </image>
-                  </ImageView>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="79.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="23.0" onMouseClicked="#homeUpdateDojo" pickOnBounds="true" preserveRatio="true" styleClass="homeButton" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/homeButton.png" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="103.0" styleClass="labelLogan" text="ChuugiDojo">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </GridPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                           <children>
+                              <Label layoutX="38.0" layoutY="93.0" styleClass="generarLabel" text="Info" />
+                              <Label layoutX="72.0" layoutY="148.0" styleClass="reciboLabel" text="Dojo">
+                                 <padding>
+                                    <Insets left="10.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                              <ImageView fitHeight="152.0" fitWidth="212.0" layoutX="83.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/chuugi%20logo.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="406.0" styleClass="anchorSVG" GridPane.columnIndex="1">
+                     <children>
+                        <GridPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <AnchorPane prefHeight="231.0" prefWidth="381.0" styleClass="glassAnchor" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
+                                       <effect>
+                                          <GaussianBlur radius="0.0">
+                                             <input>
+                                                <DropShadow />
+                                             </input>
+                                          </GaussianBlur>
+                                       </effect>
+                                       <children>
+                                          <GridPane hgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="290.4" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="NEVER" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <AnchorPane prefHeight="103.0" prefWidth="273.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" layoutY="14.0" prefHeight="46.0" prefWidth="256.0" styleClass="textGR" text="Actualizar Info" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                                         <font>
+                                                            <Font name="Century Gothic" size="30.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <GridPane hgap="20.0" GridPane.rowIndex="1">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Direccion">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoAdress" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="Encargad@">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoCEO" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="E-mail para Recibos">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoEmailEnvio" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="Ruta Carpeta Recibos">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoPathRecibos" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="Ruta para datos en Excel">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtRutaArchivoExcel" styleClass="textFieldStyle" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="NIT">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoNIT" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="Telefono">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoPhone" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="Clave E-mail">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoEmailClave" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="Ruta Carpeta Estudiantes">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoPathStudents" styleClass="textFieldStyle" />
+                                                            <Label styleClass="labelTextfieldsTitle" text="E-mail de Contacto">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtUpdateDojoEmail" styleClass="textFieldStyle" />
+                                                         </children>
+                                                      </VBox>
+                                                      <Button mnemonicParsing="false" onAction="#updateDojo" styleClass="buttonGR" text="Actualizar" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                   </children>
+                                                   <GridPane.margin>
+                                                      <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                                                   </GridPane.margin>
+                                                </GridPane>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
                </children>
-            </AnchorPane>
-         </left>
-         <right>
-            <AnchorPane prefHeight="474.0" prefWidth="428.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
-               <children>
-                  <Button layoutX="136.0" layoutY="400.0" mnemonicParsing="false" onAction="#updateDojo" text="Actualizar Informacion">
-                     <font>
-                        <Font size="14.0" />
-                     </font></Button>
-                  <Label layoutX="131.0" layoutY="14.0" text="Actualizar Dojo " textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="27.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="91.0" layoutY="68.0" text="Direccion:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Label layoutX="136.0" layoutY="102.0" text="NIT:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Label layoutX="84.0" layoutY="127.0" text="Encargad@:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Label layoutX="112.0" layoutY="159.0" text="E-mail:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Label layoutX="103.0" layoutY="184.0" text="Telefono:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Label layoutX="61.0" layoutY="217.0" text="E-mail recibos:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Label layoutX="77.0" layoutY="248.0" text="Clave Email:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <TextField fx:id="txtUpdateDojoAdress" layoutX="184.0" layoutY="68.0" />
-                  <TextField fx:id="txtUpdateDojoNIT" layoutX="184.0" layoutY="98.0" />
-                  <TextField fx:id="txtUpdateDojoCEO" layoutX="184.0" layoutY="127.0" />
-                  <TextField fx:id="txtUpdateDojoEmail" layoutX="184.0" layoutY="157.0" />
-                  <TextField fx:id="txtUpdateDojoPhone" layoutX="184.0" layoutY="184.0" />
-                  <TextField fx:id="txtUpdateDojoEmailEnvio" layoutX="184.0" layoutY="217.0" />
-                  <TextField fx:id="txtUpdateDojoEmailClave" layoutX="184.0" layoutY="248.0" />
-                  <Label layoutX="52.0" layoutY="280.0" text="Ruta Estudiantes:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <Label layoutX="72.0" layoutY="311.0" text="Ruta Recibos:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <TextField fx:id="txtUpdateDojoPathStudents" layoutX="184.0" layoutY="280.0" />
-                  <TextField fx:id="txtUpdateDojoPathRecibos" layoutX="184.0" layoutY="311.0" />
-                  <Label layoutX="37.0" layoutY="345.0" text="Ruta Archivo Excel:" textFill="#fdfdfd">
-                     <font>
-                        <Font size="16.0" />
-                     </font></Label>
-                  <TextField fx:id="txtRutaArchivoExcel" layoutX="184.0" layoutY="345.0" />
-                  <ImageView fitHeight="26.0" fitWidth="37.0" layoutX="390.0" layoutY="20.0" onMouseClicked="#homeUpdateDojo" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/Home.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </right>
-      </BorderPane>
+            </GridPane>
+         </children>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" offsetX="5.0" offsetY="5.0" radius="17.25" width="50.0" />
+         </effect>
+      </AnchorPane>
    </children>
-</Pane>
+</AnchorPane>

@@ -1,0 +1,107 @@
+.mainPane{
+	
+	-fx-background-color: linear-gradient(to right bottom,#920303,#F41F1F);
+}
+
+.labelLogan{
+	-fx-text-fill: #D72323;
+	-fx-font-family: "Poppins";
+	-fx-font-size:15px;
+	-fx-font-weight:bold;
+}
+.table-view {
+    -fx-background-color: transparent;
+}
+.table-view .table-column{
+	-fx-alignment: CENTER;	
+}
+.table-view .table-column .label{
+	-fx-font-size:14px;	
+}
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+	-fx-font-family: "Poppins";
+	-fx-font-size:13px;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('"C:\Users\tomas\Desktop\Tomas\CHUUGI-DOJO\src\styles\Poppins-Regular.ttf"');
+}
+
+.table-view .column-header-background{
+	-fx-background-color:transparent;
+}
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell: hover {
+    -fx-background-color:  #ffffffc9;
+    -fx-text-background-color: #b90101;
+}
+.table-row-cell: odd{
+    -fx-background-color:  white;
+		-fx-opacity:0.2;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+
+}
+.table-row-cell: even{
+    -fx-background-color: white;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em;
+	-fx-opacity:0.4;
+}
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+.textFieldFilter{
+	-fx-text-fill: white;
+	-fx-background-color:#3e3636;
+}
+.homeButton:pressed{
+    -fx-scale-x:0.9;
+    -fx-scale-y:0.9;
+}
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+.table-view .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-color:  linear-gradient(to right bottom, rgba(65,0,0,1) 4%, rgba(244,31,31,1) 100%);
+}
+.table-view .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color:  transparent;
+}
+
+.listaLabel{
+	-fx-font-family: "Poppins" ;
+	-fx-font-size: 60px;
+	-fx-font-weight:100;
+		
+}
+.estudiantesLabel{
+	-fx-font-family: "Poppins" ;
+    	-fx-font-size:80px;
+	-fx-font-weight:700;
+	-fx-text-fill:#D72323;
+}
+.textFieldStyle{
+	-fx-background-color: transparent , transparent , white;
+	-fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -2 3 -2;
+}

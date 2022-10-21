@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="PaneGenerateRecibo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="917.0" styleClass="AnchorPaneGR" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+  <stylesheets>
+      <URL value="@CreateRecibo.css" />
+   </stylesheets>
+ <children>
+      <AnchorPane layoutX="79.0" layoutY="82.0" prefHeight="526.0" prefWidth="760.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="300.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <GridPane layoutX="79.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="23.0" onMouseClicked="#homeGenerarRecibo" pickOnBounds="true" preserveRatio="true" styleClass="homeButton" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                                 <image>
+                                    <Image url="@../icons/homeButton.png" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets right="10.0" />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Label contentDisplay="CENTER" prefHeight="20.0" prefWidth="103.0" styleClass="labelLogan" text="ChuugiDojo">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </GridPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                           <children>
+                              <Label layoutX="36.0" layoutY="92.0" styleClass="generarLabel" text="Generar" />
+                              <Label fx:id="titleGenerateRecibo" layoutX="33.0" layoutY="136.0" styleClass="reciboLabel" text="recibo">
+                                 <padding>
+                                    <Insets left="10.0" top="5.0" />
+                                 </padding>
+                              </Label>
+                              <ImageView fitHeight="152.0" fitWidth="212.0" layoutX="83.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/chuugi%20logo.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="reciboNombreEstudiante" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" layoutX="13.0" layoutY="260.0" prefHeight="74.0" prefWidth="274.0" styleClass="subtextGR" textOverrun="CENTER_ELLIPSIS">
+                                 <font>
+                                    <Font name="Bodoni MT Italic" size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="406.0" styleClass="anchorSVG" GridPane.columnIndex="1">
+                     <children>
+                        <GridPane style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                 <children>
+                                    <AnchorPane prefHeight="231.0" prefWidth="381.0" styleClass="glassAnchor" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
+                                       <effect>
+                                          <GaussianBlur radius="0.0">
+                                             <input>
+                                                <DropShadow />
+                                             </input>
+                                          </GaussianBlur>
+                                       </effect>
+                                       <children>
+                                          <GridPane hgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="153.199951171875" minWidth="10.0" prefWidth="44.8" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="290.4" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="103.0" prefWidth="75.0" styleClass="Number" text="1" textAlignment="CENTER" GridPane.rowSpan="2">
+                                                   <effect>
+                                                      <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                                   </effect>
+                                                </Label>
+                                                <AnchorPane prefHeight="103.0" prefWidth="273.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" layoutY="14.0" prefHeight="46.0" prefWidth="256.0" styleClass="textGR" text="Crear Recibo" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                                         <font>
+                                                            <Font name="Century Gothic" size="30.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <GridPane hgap="20.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Diferenciable">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtDiferenciableArchivo" prefHeight="12.0" prefWidth="144.0" styleClass="textFieldStyle" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Concepto">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtConceptoRecibo" styleClass="textFieldStyle" text="Pago Mensualidad" />
+                                                         </children>
+                                                      </VBox>
+                                                      <Button mnemonicParsing="false" onAction="#createRecibo" styleClass="buttonGR" text="Crear Recibo" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                                 <children>
+                                    <AnchorPane prefHeight="231.0" prefWidth="381.0" styleClass="glassAnchor" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="10.0">
+                                       <effect>
+                                          <GaussianBlur radius="0.0">
+                                             <input>
+                                                <DropShadow />
+                                             </input>
+                                          </GaussianBlur>
+                                       </effect>
+                                       <children>
+                                          <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="153.199951171875" minWidth="10.0" prefWidth="44.8" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" prefWidth="290.4" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="103.0" prefWidth="75.0" styleClass="Number" text="2" textAlignment="CENTER" GridPane.rowSpan="2">
+                                                   <effect>
+                                                      <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                                   </effect>
+                                                </Label>
+                                                <AnchorPane prefHeight="44.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS">
+                                                   <children>
+                                                      <Label alignment="CENTER" contentDisplay="CENTER" graphicTextGap="1.0" layoutY="14.0" prefHeight="46.0" prefWidth="256.0" styleClass="textGR" text="Enviar E-mail" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                                                         <font>
+                                                            <Font name="Century Gothic" size="30.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <GridPane hgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="8.0" prefWidth="90.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="90.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Email Padre">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtEmailPadre" prefHeight="12.0" prefWidth="144.0" styleClass="textFieldStyle" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Email Madre">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtEmailMadre" styleClass="textFieldStyle" />
+                                                         </children>
+                                                      </VBox>
+                                                      <Button mnemonicParsing="false" onAction="#generateReciboEmail" styleClass="buttonGR" text="Enviar" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Mensaje">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextArea fx:id="txtEmailMessage" prefHeight="8.0" prefWidth="154.0" styleClass="textFieldStyle" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Email Destino">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtEmailDestino" prefHeight="12.0" prefWidth="144.0" styleClass="textFieldStyle" />
+                                                         </children>
+                                                      </VBox>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <Label styleClass="labelTextfieldsTitle" text="Acudiente">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="txtAcudienteName" prefHeight="12.0" prefWidth="144.0" styleClass="textFieldStyle">
+                                                               <padding>
+                                                                  <Insets top="15.0" />
+                                                               </padding>
+                                                            </TextField>
+                                                         </children>
+                                                         <padding>
+                                                            <Insets top="5.0" />
+                                                         </padding>
+                                                      </VBox>
+                                                   </children>
+                                                   <GridPane.margin>
+                                                      <Insets right="5.0" />
+                                                   </GridPane.margin>
+                                                </GridPane>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </GridPane>
+         </children>
+         <effect>
+            <DropShadow blurType="GAUSSIAN" offsetX="5.0" offsetY="5.0" radius="17.25" width="50.0" />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>
